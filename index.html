@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0B63F6"
+  >
+
+  <meta
+    name="description"
+    content="SCHOOL BUCKS - Earn from surveys, offers and tasks."
+  >
+
+  <link
+    rel="manifest"
+    href="/manifest.json"
+  >
+
+  <link
+    rel="icon"
+    href="/icons/icon-192.png"
+  >
+
+  <title>SCHOOL BUCKS</title>
+
+  <link
+    rel="stylesheet"
+    href="/styles.css"
+  >
+</head>
+
+<body>
+
+  <!-- ======================================================
+       LOADING
+       ====================================================== -->
+
+  <div id="loadingScreen" class="loading-screen">
+
+    <div class="brand-logo">SB</div>
+
+    <div class="loading-title">
+      SCHOOL BUCKS
+    </div>
+
+    <div class="spinner"></div>
+
+  </div>
+
+
+  <!-- ======================================================
+       AUTH
+       ====================================================== -->
+
+  <main id="authScreen" class="auth-screen hidden">
+
+    <div class="auth-logo">
+      <div class="brand-logo large">SB</div>
+      <h1>SCHOOL BUCKS</h1>
+      <p>Turn your spare time into earnings.</p>
+    </div>
+
+
+    <div class="auth-card">
+
+      <div class="tabs">
+
+        <button
+          id="loginTab"
+          class="tab active"
+          onclick="showAuth('login')"
+        >
+          Login
+        </button>
+
+        <button
+          id="registerTab"
+          class="tab"
+          onclick="showAuth('register')"
+        >
+          Create account
+        </button>
+
+      </div>
+
+
+      <!-- LOGIN -->
+
+      <form
+        id="loginForm"
+        onsubmit="login(event)"
+      >
+
+        <label>Phone number</label>
+
+        <input
+          id="loginPhone"
+          type="tel"
+          placeholder="0771234567"
+          required
+        >
+
+
+        <label>Password</label>
+
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Your password"
+          required
+        >
+
+
+        <button
+          class="primary-button"
+          type="submit"
+        >
+          Login
+        </button>
+
+      </form>
+
+
+      <!-- REGISTER -->
+
+      <form
+        id="registerForm"
+        class="hidden"
+        onsubmit="register(event)"
+      >
+
+        <label>Full name</label>
+
+        <input
+          id="registerName"
+          type="text"
+          placeholder="Your name"
+          required
+        >
+
+
+        <label>Phone number</label>
+
+        <input
+          id="registerPhone"
+          type="tel"
+          placeholder="0771234567"
+          required
+        >
+
+        <small class="field-help">
+          One SCHOOL BUCKS account per phone number.
+        </small>
+
+
+        <label>Email</label>
+
+        <input
+          id="registerEmail"
+          type="email"
+          placeholder="Optional"
+        >
+
+
+        <label>Password</label>
+
+        <input
+          id="registerPassword"
+          type="password"
+          minlength="6"
+          placeholder="At least 6 characters"
+          required
+        >
+
+
+        <div
+          id="referralBox"
+          class="referral-detected hidden"
+        >
+          🎉 Referral link detected.
+
+          <strong id="referralDisplay"></strong>
+        </div>
+
+
+        <button
+          class="primary-button"
+          type="submit"
+        >
+          Create account
+        </button>
+
+      </form>
+
+    </div>
+
+  </main>
+
+
+  <!-- ======================================================
+       APP
+       ====================================================== -->
+
+  <main
+    id="appScreen"
+    class="app-screen hidden"
+  >
+
+    <header class="topbar">
+
+      <div class="mini-brand">
+        <span class="brand-logo small">SB</span>
+
+        <strong>
+          SCHOOL BUCKS
+        </strong>
+      </div>
+
+      <button
+        class="icon-button"
+        onclick="logout()"
+      >
+        ⇥
+      </button>
+
+    </header>
+
+
+    <!-- HOME -->
+
+    <section
+      id="homePage"
+      class="page"
+    >
+
+      <div class="greeting">
+
+        <span>Welcome back</span>
+
+        <h2 id="homeName">
+          Student
+        </h2>
+
+      </div>
+
+
+      <div class="balance-card">
+
+        <div class="balance-label">
+          Available balance
+        </div>
+
+        <div
+          id="balanceAmount"
+          class="balance"
+        >
+          $0.00
+        </div>
+
+        <button
+          class="withdraw-button"
+          onclick="openWithdraw()"
+        >
+          Withdraw
+        </button>
+
+      </div>
+
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+
+          <span>This week</span>
+
+          <strong id="weekAmount">
+            $0.00
+          </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>Lifetime</span>
+
+          <strong id="lifetimeAmount">
+            $0.00
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="section-heading">
+
+        <h3>
+          Earn money
+        </h3>
+
+        <button
+          onclick="showPage('earn')"
+        >
+          See all
+        </button>
+
+      </div>
+
+
+      <div class="earning-grid">
+
+        <button
+          class="earning-card"
+          onclick="showPage('earn')"
+        >
+
+          <div class="earning-icon">
+            📋
+          </div>
+
+          <strong>Surveys</strong>
+
+          <span>
+            Share your opinion
+          </span>
+
+        </button>
+
+
+        <button
+          class="earning-card"
+          onclick="showPage('earn')"
+        >
+
+          <div class="earning-icon">
+            🎁
+          </div>
+
+          <strong>Offers</strong>
+
+          <span>
+            Complete offers
+          </span>
+
+        </button>
+
+
+        <button
+          class="earning-card"
+          onclick="showPage('earn')"
+        >
+
+          <div class="earning-icon">
+            ⚡
+          </div>
+
+          <strong>Quick tasks</strong>
+
+          <span>
+            Small jobs
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div class="section-heading">
+
+        <h3>
+          Recent activity
+        </h3>
+
+        <button
+          onclick="showPage('wallet')"
+        >
+          View all
+        </button>
+
+      </div>
+
+
+      <div id="recentActivity">
+      </div>
+
+    </section>
+
+
+    <!-- WALLET -->
+
+    <section
+      id="walletPage"
+      class="page hidden"
+    >
+
+      <div class="page-heading">
+
+        <h2>Wallet</h2>
+
+        <p>
+          Your SCHOOL BUCKS balance
+        </p>
+
+      </div>
+
+
+      <div class="wallet-total">
+
+        <span>Available</span>
+
+        <strong id="walletBalance">
+          $0.00
+        </strong>
+
+        <button
+          class="primary-button"
+          onclick="openWithdraw()"
+        >
+          Withdraw
+        </button>
+
+      </div>
+
+
+      <div class="wallet-stats">
+
+        <div>
+          <span>Pending</span>
+          <strong id="pendingBalance">$0.00</strong>
+        </div>
+
+        <div>
+          <span>Earned</span>
+          <strong id="walletLifetime">$0.00</strong>
+        </div>
+
+        <div>
+          <span>Withdrawn</span>
+          <strong id="walletWithdrawn">$0.00</strong>
+        </div>
+
+      </div>
+
+
+      <h3 class="list-title">
+        Transactions
+      </h3>
+
+      <div id="transactions">
+      </div>
+
+    </section>
+
+
+    <!-- EARN -->
+
+    <section
+      id="earnPage"
+      class="page hidden"
+    >
+
+      <div class="page-heading">
+
+        <h2>Earn</h2>
+
+        <p>
+          Choose how you want to earn.
+        </p>
+
+      </div>
+
+
+      <div class="big-earn-card">
+
+        <div class="big-earn-icon">
+          📋
+        </div>
+
+        <div>
+
+          <h3>Surveys</h3>
+
+          <p>
+            Tell brands what you think
+            and earn rewards.
+          </p>
+
+        </div>
+
+        <span class="coming">
+          Coming soon
+        </span>
+
+      </div>
+
+
+      <div class="big-earn-card">
+
+        <div class="big-earn-icon">
+          🎁
+        </div>
+
+        <div>
+
+          <h3>Offerwalls</h3>
+
+          <p>
+            Complete offers and activities.
+          </p>
+
+        </div>
+
+        <span class="coming">
+          Coming soon
+        </span>
+
+      </div>
+
+
+      <div class="big-earn-card">
+
+        <div class="big-earn-icon">
+          ⚡
+        </div>
+
+        <div>
+
+          <h3>Quick tasks</h3>
+
+          <p>
+            Simple activities for rewards.
+          </p>
+
+        </div>
+
+        <span class="coming">
+          Coming soon
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- ME -->
+
+    <section
+      id="mePage"
+      class="page hidden"
+    >
+
+      <div class="profile-header">
+
+        <div
+          id="profileAvatar"
+          class="profile-avatar"
+        >
+          S
+        </div>
+
+        <h2 id="profileName">
+          Student
+        </h2>
+
+        <span id="profilePhone">
+        </span>
+
+      </div>
+
+
+      <div class="profile-card">
+
+        <div class="profile-row">
+
+          <span>Email</span>
+
+          <strong id="profileEmail">
+            -
+          </strong>
+
+        </div>
+
+
+        <div class="profile-row">
+
+          <span>Referral code</span>
+
+          <strong id="profileReferral">
+            -
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="referral-card">
+
+        <div class="referral-icon">
+          🎁
+        </div>
+
+        <h3>
+          Invite friends
+        </h3>
+
+        <p>
+          Share SCHOOL BUCKS with your
+          friends and earn referral rewards
+          when they qualify.
+        </p>
+
+
+        <div class="referral-link">
+
+          <input
+            id="referralLink"
+            readonly
+          >
+
+          <button
+            onclick="copyReferral()"
+          >
+            Copy
+          </button>
+
+        </div>
+
+
+        <button
+          class="share-button"
+          onclick="shareReferral()"
+        >
+          ↗ Share SCHOOL BUCKS
+        </button>
+
+      </div>
+
+
+      <button
+        class="logout-full"
+        onclick="logout()"
+      >
+        Logout
+      </button>
+
+    </section>
+
+
+    <!-- BOTTOM NAV -->
+
+    <nav class="bottom-nav">
+
+      <button
+        data-page="home"
+        class="nav-item active"
+        onclick="showPage('home')"
+      >
+        <span>⌂</span>
+        Home
+      </button>
+
+      <button
+        data-page="wallet"
+        class="nav-item"
+        onclick="showPage('wallet')"
+      >
+        <span>◉</span>
+        Wallet
+      </button>
+
+      <button
+        data-page="earn"
+        class="nav-item"
+        onclick="showPage('earn')"
+      >
+        <span>＋</span>
+        Earn
+      </button>
+
+      <button
+        data-page="me"
+        class="nav-item"
+        onclick="showPage('me')"
+      >
+        <span>●</span>
+        Me
+      </button>
+
+    </nav>
+
+  </main>
+
+
+  <!-- ======================================================
+       WITHDRAW MODAL
+       ====================================================== -->
+
+  <div
+    id="withdrawModal"
+    class="modal hidden"
+  >
+
+    <div class="modal-box">
+
+      <div class="modal-header">
+
+        <h2>
+          Withdraw
+        </h2>
+
+        <button
+          onclick="closeWithdraw()"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <label>
+        Amount
+      </label>
+
+      <input
+        id="withdrawAmount"
+        type="number"
+        min="2"
+        step="0.01"
+        placeholder="2.00"
+      >
+
+
+      <label>
+        Payment method
+      </label>
+
+      <select id="withdrawMethod">
+
+        <option value="ECOCASH">
+          EcoCash
+        </option>
+
+      </select>
+
+
+      <label>
+        EcoCash number
+      </label>
+
+      <input
+        id="withdrawNumber"
+        type="tel"
+        placeholder="0771234567"
+      >
+
+
+      <button
+        class="primary-button"
+        onclick="submitWithdrawal()"
+      >
+        Request withdrawal
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================
+       QUEUE MODAL
+       ====================================================== -->
+
+  <div
+    id="queueModal"
+    class="modal hidden"
+  >
+
+    <div class="modal-box queue-box">
+
+      <div class="queue-spinner">
+        <div class="spinner"></div>
+      </div>
+
+
+      <h2>
+        Please wait
+      </h2>
+
+      <p id="queueMessage">
+        Your request is being processed securely.
+      </p>
+
+
+      <div
+        id="queuePosition"
+        class="queue-position"
+      >
+        Processing...
+      </div>
+
+
+      <div class="progress-track">
+
+        <div
+          id="queueProgress"
+          class="progress-bar"
+          style="width: 10%"
+        >
+        </div>
+
+      </div>
+
+
+      <small>
+        Please don't close the app.
+      </small>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================
+       TOAST
+       ====================================================== -->
+
+  <div
+    id="toast"
+    class="toast"
+  ></div>
+
+
+  <script src="/app.js"></script>
+
+</body>
+</html>

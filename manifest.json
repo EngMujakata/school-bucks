@@ -1,0 +1,25 @@
+{
+  "name": "SCHOOL BUCKS",
+  "short_name": "SCHOOL BUCKS",
+  "description": "Earn from surveys, offers and tasks.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F6F8FC",
+  "theme_color": "#0B63F6",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

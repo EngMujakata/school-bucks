@@ -1,477 +1,437 @@
-/* ==========================================================
-   SCHOOL BUCKS FRONTEND
-   ========================================================== */
-
-const API_URL = '/api/backend';
-
-let currentUser = null;
-
-let referralCode = null;
+// ================================================================
+// SCHOOL BUCKS FRONTEND
+// GITHUB / VERCEL
+// ================================================================
 
 
-/* ==========================================================
-   START
-   ========================================================== */
+// ================================================================
+// CONFIGURATION
+// ================================================================
 
-document.addEventListener('DOMContentLoaded', function () {
+// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE.
 
-  detectReferral();
+const API_URL =
+  'https://script.google.com/macros/s/AKfycbyzqTjgUhd1ZjDPeu47pxiVLM5YVMsIduUvhAeElxjG9CYf5YVCvs-T7CRBkEBO_Tw/exec';
 
-  registerServiceWorker();
 
-  const saved =
-    localStorage.getItem('schoolbucks_user');
+// This is the public SCHOOL BUCKS URL.
+// Referral links ALWAYS use this URL.
 
-  setTimeout(function () {
+const APP_URL =
+  'https://schoolbucks.vercel.app/';
 
-    document
-      .getElementById('loadingScreen')
+
+// ================================================================
+// STATE
+// ================================================================
+
+let sessionToken =
+  localStorage.getItem(
+    'schoolbucks_token'
+  );
+
+let currentUser =
+  JSON.parse(
+    localStorage.getItem(
+      'schoolbucks_user'
+    ) || 'null'
+  );
+
+
+// ================================================================
+// DOM
+// ================================================================
+
+const $ = id =>
+  document.getElementById(id);
+
+
+// ================================================================
+// INITIALIZATION
+// ================================================================
+
+document.addEventListener(
+  'DOMContentLoaded',
+  initialize
+);
+
+
+async function initialize() {
+
+  captureReferral();
+
+  registerEvents();
+
+  setTimeout(function() {
+
+    $('loadingScreen')
       .classList.add('hidden');
 
 
-    if (saved) {
+    if (
+      sessionToken &&
+      currentUser
+    ) {
 
-      try {
+      showApp();
 
-        currentUser =
-          JSON.parse(saved);
-
-        showApp();
-
-      } catch (error) {
-
-        localStorage.removeItem(
-          'schoolbucks_user'
-        );
-
-        showAuthScreen();
-      }
+      loadDashboard();
 
     } else {
 
-      showAuthScreen();
+      showAuth();
+
     }
 
   }, 400);
 
-});
-
-
-/* ==========================================================
-   API
-   ========================================================== */
-
-async function api(action, data = {}) {
-
-  const response =
-    await fetch(API_URL, {
-
-      method: 'POST',
-
-      headers: {
-        'Content-Type': 'application/json'
-      },
-
-      body: JSON.stringify({
-        action: action,
-        ...data
-      })
-
-    });
-
-
-  if (!response.ok) {
-
-    throw new Error(
-      'Server request failed.'
-    );
-  }
-
-
-  const result =
-    await response.json();
-
-
-  if (!result.ok) {
-
-    throw new Error(
-      result.error ||
-      'Something went wrong.'
-    );
-  }
-
-
-  return result;
 }
 
 
-/* ==========================================================
-   REFERRALS
-   ========================================================== */
+// ================================================================
+// REFERRAL CAPTURE
+// ================================================================
 
-function detectReferral() {
+function captureReferral() {
 
   const params =
     new URLSearchParams(
       window.location.search
     );
 
-
-  referralCode =
+  const referral =
     params.get('ref');
 
 
-  if (referralCode) {
+  if (referral) {
 
-    referralCode =
-      referralCode
+    localStorage.setItem(
+      'schoolbucks_pending_referral',
+      referral
         .trim()
-        .toUpperCase();
+        .toUpperCase()
+    );
 
-
-    document
-      .getElementById('referralBox')
-      ?.classList
-      .remove('hidden');
-
-
-    const display =
-      document.getElementById(
-        'referralDisplay'
-      );
-
-
-    if (display) {
-
-      display.textContent =
-        referralCode;
-    }
-
-
-    /*
-     * Automatically open registration
-     * if somebody arrived through a referral link.
-     */
-
-    showAuth('register');
   }
+
+
+  const saved =
+    localStorage.getItem(
+      'schoolbucks_pending_referral'
+    );
+
+
+  if (
+    saved &&
+    $('registerReferral')
+  ) {
+
+    $('registerReferral').value =
+      saved;
+
+  }
+
 }
 
 
-async function loadReferralInfo() {
+// ================================================================
+// EVENTS
+// ================================================================
 
-  if (!currentUser) {
-    return;
-  }
+function registerEvents() {
+
+  $('loginForm')
+    .addEventListener(
+      'submit',
+      handleLogin
+    );
 
 
-  try {
+  $('registerForm')
+    .addEventListener(
+      'submit',
+      handleRegister
+    );
 
-    const result =
-      await api(
-        'referrals',
-        {
-          user_id:
-            currentUser.user_id
+
+  $('showRegister')
+    .addEventListener(
+      'click',
+      function() {
+
+        $('loginPanel')
+          .classList.add('hidden');
+
+        $('registerPanel')
+          .classList.remove('hidden');
+
+        captureReferral();
+
+      }
+    );
+
+
+  $('showLogin')
+    .addEventListener(
+      'click',
+      function() {
+
+        $('registerPanel')
+          .classList.add('hidden');
+
+        $('loginPanel')
+          .classList.remove('hidden');
+
+      }
+    );
+
+
+  $('logoutBtn')
+    .addEventListener(
+      'click',
+      logout
+    );
+
+
+  $('homeWithdrawBtn')
+    .addEventListener(
+      'click',
+      openWithdraw
+    );
+
+
+  $('walletWithdrawBtn')
+    .addEventListener(
+      'click',
+      openWithdraw
+    );
+
+
+  $('closeWithdraw')
+    .addEventListener(
+      'click',
+      closeWithdraw
+    );
+
+
+  $('withdrawForm')
+    .addEventListener(
+      'submit',
+      handleWithdrawal
+    );
+
+
+  $('shareBtn')
+    .addEventListener(
+      'click',
+      shareReferral
+    );
+
+
+  document
+    .querySelectorAll('.nav-item')
+    .forEach(function(button) {
+
+      button.addEventListener(
+        'click',
+        function() {
+
+          showPage(
+            button.dataset.page
+          );
+
         }
       );
 
-
-    document
-      .getElementById('profileReferral')
-      .textContent =
-      result.referral_code;
-
-
-    document
-      .getElementById('referralLink')
-      .value =
-      result.referral_link;
-
-
-  } catch (error) {
-
-    console.error(
-      'Referral error:',
-      error
-    );
-  }
-}
-
-
-function copyReferral() {
-
-  const input =
-    document.getElementById(
-      'referralLink'
-    );
-
-
-  if (!input.value) {
-    return;
-  }
-
-
-  navigator.clipboard
-    .writeText(input.value)
-    .then(function () {
-
-      showToast(
-        'Referral link copied.'
-      );
-
-    })
-    .catch(function () {
-
-      input.select();
-
-      document.execCommand(
-        'copy'
-      );
-
-      showToast(
-        'Referral link copied.'
-      );
     });
+
 }
 
 
-async function shareReferral() {
+// ================================================================
+// API
+// ================================================================
 
-  const link =
-    document.getElementById(
-      'referralLink'
-    ).value;
+async function api(
+  action,
+  data = {},
+  retry = 0
+) {
 
+  if (
+    API_URL.includes(
+      'PASTE_YOUR'
+    )
+  ) {
 
-  if (!link) {
-    return;
+    throw new Error(
+      'Apps Script API URL has not been configured.'
+    );
+
   }
 
 
-  const shareData = {
+  const payload = {
 
-    title:
-      'Join SCHOOL BUCKS',
+    action: action,
 
-    text:
-      'Join SCHOOL BUCKS and earn from surveys, offers and tasks.',
+    ...data
 
-    url:
-      link
   };
 
 
   if (
-    navigator.share
+    sessionToken &&
+    !payload.token
   ) {
 
-    try {
+    payload.token =
+      sessionToken;
 
-      await navigator.share(
-        shareData
-      );
-
-    } catch (error) {
-
-      /*
-       * User cancelled share.
-       */
-    }
-
-  } else {
-
-    await navigator.clipboard.writeText(
-      link
-    );
-
-    showToast(
-      'Referral link copied.'
-    );
   }
-}
-
-
-/* ==========================================================
-   AUTH
-   ========================================================== */
-
-function showAuthScreen() {
-
-  document
-    .getElementById('authScreen')
-    .classList
-    .remove('hidden');
-
-  document
-    .getElementById('appScreen')
-    .classList
-    .add('hidden');
-}
-
-
-function showAuth(type) {
-
-  const login =
-    document.getElementById(
-      'loginForm'
-    );
-
-  const register =
-    document.getElementById(
-      'registerForm'
-    );
-
-
-  const loginTab =
-    document.getElementById(
-      'loginTab'
-    );
-
-  const registerTab =
-    document.getElementById(
-      'registerTab'
-    );
-
-
-  if (type === 'login') {
-
-    login.classList.remove('hidden');
-
-    register.classList.add('hidden');
-
-    loginTab.classList.add('active');
-
-    registerTab.classList.remove('active');
-
-  } else {
-
-    login.classList.add('hidden');
-
-    register.classList.remove('hidden');
-
-    loginTab.classList.remove('active');
-
-    registerTab.classList.add('active');
-  }
-}
-
-
-async function register(event) {
-
-  event.preventDefault();
-
-
-  const name =
-    document.getElementById(
-      'registerName'
-    ).value.trim();
-
-
-  const phone =
-    document.getElementById(
-      'registerPhone'
-    ).value.trim();
-
-
-  const email =
-    document.getElementById(
-      'registerEmail'
-    ).value.trim();
-
-
-  const password =
-    document.getElementById(
-      'registerPassword'
-    ).value;
 
 
   try {
 
-    setLoading(true);
+    const body =
+      new URLSearchParams();
+
+    body.append(
+      'payload',
+      JSON.stringify(payload)
+    );
 
 
-    const result =
-      await api(
-        'register',
+    const response =
+      await fetch(
+        API_URL,
         {
-          name,
-          phone,
-          email,
-          password,
-          referral:
-            referralCode || ''
+          method: 'POST',
+
+          headers: {
+            'Content-Type':
+              'application/x-www-form-urlencoded;charset=UTF-8'
+          },
+
+          body: body.toString()
         }
       );
 
 
-    if (result.queued) {
+    if (!response.ok) {
 
-      setLoading(false);
-
-      await monitorJob(
-        result.job_id,
-        'Creating your account...'
+      throw new Error(
+        'Server returned HTTP ' +
+        response.status
       );
 
-      return;
     }
 
 
-    currentUser =
-      result.user;
+    const result =
+      await response.json();
 
 
-    localStorage.setItem(
-      'schoolbucks_user',
-      JSON.stringify(
-        currentUser
+    // Temporary lock/busy response.
+    // The frontend automatically retries.
+    if (
+      result.code === 'BUSY' &&
+      retry < 5
+    ) {
+
+      await delay(
+        1000 * Math.pow(2, retry)
+      );
+
+      return api(
+        action,
+        data,
+        retry + 1
+      );
+
+    }
+
+
+    if (
+      result.code === 'BUSY'
+    ) {
+
+      throw new Error(
+        'The system is currently busy. Please try again shortly.'
+      );
+
+    }
+
+
+    if (
+      result.error &&
+      (
+        result.error
+          .toLowerCase()
+          .includes('session')
       )
-    );
+    ) {
+
+      logout();
+
+    }
 
 
-    showToast(
-      'Account created successfully.'
-    );
-
-
-    showApp();
+    return result;
 
 
   } catch (error) {
 
-    showToast(
-      error.message
-    );
+    if (
+      retry < 3
+    ) {
 
-  } finally {
+      await delay(
+        1000 * Math.pow(2, retry)
+      );
 
-    setLoading(false);
+      return api(
+        action,
+        data,
+        retry + 1
+      );
+
+    }
+
+
+    throw error;
+
   }
+
 }
 
 
-async function login(event) {
+// ================================================================
+// LOGIN
+// ================================================================
+
+async function handleLogin(event) {
 
   event.preventDefault();
 
 
   const phone =
-    document.getElementById(
-      'loginPhone'
-    ).value.trim();
-
+    $('loginPhone')
+      .value
+      .trim();
 
   const password =
-    document.getElementById(
-      'loginPassword'
-    ).value;
+    $('loginPassword')
+      .value;
+
+
+  showProcessing(
+    'Signing you in...',
+    'Securely checking your account.'
+  );
 
 
   try {
-
-    setLoading(true);
-
 
     const result =
       await api(
@@ -483,212 +443,250 @@ async function login(event) {
       );
 
 
+    if (!result.success) {
+
+      throw new Error(
+        result.error
+      );
+
+    }
+
+
+    sessionToken =
+      result.token;
+
     currentUser =
       result.user;
 
 
-    localStorage.setItem(
-      'schoolbucks_user',
-      JSON.stringify(
-        currentUser
-      )
-    );
+    saveSession();
 
+
+    $('loginForm')
+      .reset();
+
+
+    hideProcessing();
 
     showApp();
+
+    await loadDashboard();
+
+    toast(
+      'Welcome back, ' +
+      currentUser.name.split(' ')[0] +
+      '!'
+    );
 
 
   } catch (error) {
 
-    showToast(
-      error.message
+    hideProcessing();
+
+    toast(
+      error.message ||
+      'Unable to log in.'
     );
 
-  } finally {
-
-    setLoading(false);
   }
+
 }
 
 
-function logout() {
+// ================================================================
+// REGISTER
+// ================================================================
 
-  localStorage.removeItem(
-    'schoolbucks_user'
+async function handleRegister(event) {
+
+  event.preventDefault();
+
+
+  const name =
+    $('registerName')
+      .value
+      .trim();
+
+  const phone =
+    $('registerPhone')
+      .value
+      .trim();
+
+  const email =
+    $('registerEmail')
+      .value
+      .trim();
+
+  const password =
+    $('registerPassword')
+      .value;
+
+  const referral =
+    $('registerReferral')
+      .value
+      .trim();
+
+
+  showProcessing(
+    'Creating your account...',
+    'Please wait while we securely create your account.'
   );
-
-  currentUser = null;
-
-  document
-    .getElementById('appScreen')
-    .classList
-    .add('hidden');
-
-  showAuthScreen();
-
-  showAuth('login');
-}
-
-
-/* ==========================================================
-   APP
-   ========================================================== */
-
-function showApp() {
-
-  document
-    .getElementById('authScreen')
-    .classList
-    .add('hidden');
-
-
-  document
-    .getElementById('appScreen')
-    .classList
-    .remove('hidden');
-
-
-  document
-    .getElementById('homeName')
-    .textContent =
-    currentUser.name;
-
-
-  document
-    .getElementById('profileName')
-    .textContent =
-    currentUser.name;
-
-
-  document
-    .getElementById('profilePhone')
-    .textContent =
-    currentUser.phone;
-
-
-  document
-    .getElementById('profileEmail')
-    .textContent =
-    currentUser.email ||
-    'Not provided';
-
-
-  const initial =
-    currentUser.name
-      ? currentUser.name
-        .charAt(0)
-        .toUpperCase()
-      : 'S';
-
-
-  document
-    .getElementById('profileAvatar')
-    .textContent =
-    initial;
-
-
-  showPage('home');
-
-  loadDashboard();
-
-  loadReferralInfo();
-}
-
-
-/* ==========================================================
-   NAVIGATION
-   ========================================================== */
-
-function showPage(page) {
-
-  const pages = [
-    'home',
-    'wallet',
-    'earn',
-    'me'
-  ];
-
-
-  pages.forEach(function(name) {
-
-    const element =
-      document.getElementById(
-        name + 'Page'
-      );
-
-
-    if (name === page) {
-
-      element.classList.remove(
-        'hidden'
-      );
-
-    } else {
-
-      element.classList.add(
-        'hidden'
-      );
-    }
-  });
-
-
-  document
-    .querySelectorAll('.nav-item')
-    .forEach(function(item) {
-
-      item.classList.remove(
-        'active'
-      );
-
-      if (
-        item.dataset.page ===
-        page
-      ) {
-
-        item.classList.add(
-          'active'
-        );
-      }
-    });
-
-
-  if (page === 'wallet') {
-    loadWallet();
-  }
-
-  if (page === 'home') {
-    loadDashboard();
-  }
-}
-
-
-/* ==========================================================
-   DASHBOARD
-   ========================================================== */
-
-async function loadDashboard() {
-
-  if (!currentUser) {
-    return;
-  }
 
 
   try {
 
     const result =
       await api(
-        'dashboard',
+        'register',
         {
-          user_id:
-            currentUser.user_id
+          name,
+          phone,
+          email,
+          password,
+          referral_code:
+            referral
         }
       );
 
 
+    if (!result.success) {
+
+      throw new Error(
+        result.error
+      );
+
+    }
+
+
+    sessionToken =
+      result.token;
+
+    currentUser =
+      result.user;
+
+
+    saveSession();
+
+
+    localStorage.removeItem(
+      'schoolbucks_pending_referral'
+    );
+
+
+    $('registerForm')
+      .reset();
+
+
+    hideProcessing();
+
+    showApp();
+
+    await loadDashboard();
+
+    toast(
+      'Welcome to SCHOOL BUCKS!'
+    );
+
+
+  } catch (error) {
+
+    hideProcessing();
+
+    toast(
+      error.message ||
+      'Unable to create account.'
+    );
+
+  }
+
+}
+
+
+// ================================================================
+// SESSION
+// ================================================================
+
+function saveSession() {
+
+  localStorage.setItem(
+    'schoolbucks_token',
+    sessionToken
+  );
+
+
+  localStorage.setItem(
+    'schoolbucks_user',
+    JSON.stringify(
+      currentUser
+    )
+  );
+
+}
+
+
+function logout() {
+
+  sessionToken = null;
+  currentUser = null;
+
+
+  localStorage.removeItem(
+    'schoolbucks_token'
+  );
+
+  localStorage.removeItem(
+    'schoolbucks_user'
+  );
+
+
+  showAuth();
+
+  toast(
+    'You have been logged out.'
+  );
+
+}
+
+
+// ================================================================
+// DASHBOARD
+// ================================================================
+
+async function loadDashboard() {
+
+  if (!sessionToken) return;
+
+
+  try {
+
+    const result =
+      await api(
+        'dashboard'
+      );
+
+
+    if (!result.success) {
+
+      throw new Error(
+        result.error
+      );
+
+    }
+
+
+    currentUser =
+      result.user;
+
+    saveSession();
+
+
+    updateUserUI(
+      result.user
+    );
+
     updateWalletUI(
       result.wallet
     );
-
 
     renderActivity(
       result.recent_activity
@@ -697,34 +695,37 @@ async function loadDashboard() {
 
   } catch (error) {
 
-    console.error(
-      error
+    toast(
+      error.message ||
+      'Unable to load dashboard.'
     );
+
   }
+
 }
 
 
-/* ==========================================================
-   WALLET
-   ========================================================== */
+// ================================================================
+// WALLET
+// ================================================================
 
 async function loadWallet() {
-
-  if (!currentUser) {
-    return;
-  }
-
 
   try {
 
     const result =
       await api(
-        'wallet',
-        {
-          user_id:
-            currentUser.user_id
-        }
+        'wallet'
       );
+
+
+    if (!result.success) {
+
+      throw new Error(
+        result.error
+      );
+
+    }
 
 
     updateWalletUI(
@@ -739,10 +740,58 @@ async function loadWallet() {
 
   } catch (error) {
 
-    showToast(
-      error.message
+    toast(
+      error.message ||
+      'Unable to load wallet.'
     );
+
   }
+
+}
+
+
+// ================================================================
+// UI
+// ================================================================
+
+function updateUserUI(user) {
+
+  if (!user) return;
+
+
+  $('welcomeName').textContent =
+    'Hello, ' +
+    (
+      user.name.split(' ')[0] ||
+      'Student'
+    );
+
+
+  $('profileName').textContent =
+    user.name;
+
+
+  $('profilePhone').textContent =
+    user.phone;
+
+
+  $('profileEmail').textContent =
+    user.email ||
+    'Not provided';
+
+
+  $('profileReferral').textContent =
+    user.referral_code;
+
+
+  $('profileInitial').textContent =
+    (
+      user.name
+        .charAt(0) ||
+      'S'
+    )
+      .toUpperCase();
+
 }
 
 
@@ -753,18 +802,15 @@ function updateWalletUI(wallet) {
       wallet.available || 0
     );
 
-
   const pending =
     Number(
       wallet.pending || 0
     );
 
-
-  const earned =
+  const lifetime =
     Number(
       wallet.lifetime_earned || 0
     );
-
 
   const withdrawn =
     Number(
@@ -772,518 +818,486 @@ function updateWalletUI(wallet) {
     );
 
 
-  document
-    .getElementById('balanceAmount')
-    .textContent =
+  $('homeBalance').textContent =
     money(available);
 
 
-  document
-    .getElementById('walletBalance')
-    .textContent =
-    money(available);
-
-
-  document
-    .getElementById('pendingBalance')
-    .textContent =
+  $('homePending').textContent =
     money(pending);
 
 
-  document
-    .getElementById('walletLifetime')
-    .textContent =
-    money(earned);
+  $('homeLifetime').textContent =
+    money(lifetime);
 
 
-  document
-    .getElementById('walletWithdrawn')
-    .textContent =
+  $('walletBalance').textContent =
+    money(available);
+
+
+  $('walletPending').textContent =
+    money(pending);
+
+
+  $('walletWithdrawn').textContent =
     money(withdrawn);
 
-
-  document
-    .getElementById('lifetimeAmount')
-    .textContent =
-    money(earned);
 }
 
 
-function money(value) {
+// ================================================================
+// ACTIVITY
+// ================================================================
 
-  return '$' +
-    Number(value || 0)
-      .toFixed(2);
-}
-
-
-/* ==========================================================
-   ACTIVITY
-   ========================================================== */
-
-function renderActivity(rows) {
+function renderActivity(items) {
 
   const container =
-    document.getElementById(
-      'recentActivity'
-    );
+    $('recentActivity');
 
 
   if (
-    !rows ||
-    !rows.length
+    !items ||
+    items.length === 0
   ) {
 
     container.innerHTML =
-      emptyState(
-        'No activity yet.'
-      );
+      emptyActivity();
 
     return;
+
   }
 
 
   container.innerHTML =
-    rows.slice(0, 5)
-      .map(transactionHTML)
+    items
+      .map(activityHTML)
       .join('');
+
 }
 
 
-function renderTransactions(rows) {
+function renderTransactions(items) {
 
   const container =
-    document.getElementById(
-      'transactions'
-    );
+    $('transactions');
 
 
   if (
-    !rows ||
-    !rows.length
+    !items ||
+    items.length === 0
   ) {
 
     container.innerHTML =
-      emptyState(
-        'No transactions yet.'
-      );
+      emptyActivity();
 
     return;
+
   }
 
 
   container.innerHTML =
-    rows.map(transactionHTML)
+    items
+      .map(activityHTML)
       .join('');
+
 }
 
 
-function transactionHTML(row) {
+function activityHTML(item) {
 
   const amount =
     Number(
-      row.student_amount || 0
+      item.student_amount || 0
     );
 
 
-  const isPositive =
-    row.type === 'EARNING';
+  const sign =
+    amount >= 0
+      ? '+'
+      : '';
 
 
   return `
-    <div class="transaction">
+    <div class="activity-item">
 
-      <div class="transaction-icon">
-        ${isPositive ? '↗' : '↘'}
-      </div>
-
-      <div class="transaction-main">
+      <div class="activity-main">
 
         <strong>
           ${escapeHTML(
-            row.description ||
-            row.type ||
+            item.description ||
+            item.type ||
             'Transaction'
           )}
         </strong>
 
         <span>
-          ${formatDate(row.timestamp)}
+          ${escapeHTML(
+            formatDate(
+              item.timestamp
+            )
+          )}
         </span>
 
       </div>
 
-      <strong class="${
-        isPositive
-          ? 'positive'
-          : 'negative'
-      }">
-
-        ${isPositive ? '+' : '-'}
-        ${money(Math.abs(amount))}
-
-      </strong>
+      <div class="activity-amount">
+        ${sign}${money(amount)}
+      </div>
 
     </div>
   `;
+
 }
 
 
-function emptyState(text) {
+function emptyActivity() {
 
   return `
     <div class="empty-state">
-      ${escapeHTML(text)}
+      No transactions yet.
     </div>
   `;
+
 }
 
 
-/* ==========================================================
-   WITHDRAWAL
-   ========================================================== */
+// ================================================================
+// REFERRAL SHARING
+// ================================================================
+
+async function shareReferral() {
+
+  showProcessing(
+    'Preparing your referral...',
+    'Creating your personal SCHOOL BUCKS link.'
+  );
+
+
+  try {
+
+    const result =
+      await api(
+        'share'
+      );
+
+
+    hideProcessing();
+
+
+    if (!result.success) {
+
+      throw new Error(
+        result.error
+      );
+
+    }
+
+
+    const link =
+      result.referral_link;
+
+
+    const shareData = {
+
+      title:
+        'Join SCHOOL BUCKS',
+
+      text:
+        result.message,
+
+      url:
+        link
+
+    };
+
+
+    if (
+      navigator.share
+    ) {
+
+      try {
+
+        await navigator.share(
+          shareData
+        );
+
+        return;
+
+      } catch (error) {
+
+        // User cancelled native share.
+        if (
+          error.name ===
+          'AbortError'
+        ) {
+
+          return;
+
+        }
+
+      }
+
+    }
+
+
+    await copyText(link);
+
+    toast(
+      'Referral link copied!'
+    );
+
+
+  } catch (error) {
+
+    hideProcessing();
+
+    toast(
+      error.message ||
+      'Unable to create referral link.'
+    );
+
+  }
+
+}
+
+
+// ================================================================
+// WITHDRAWAL
+// ================================================================
 
 function openWithdraw() {
 
-  document
-    .getElementById('withdrawModal')
-    .classList
-    .remove('hidden');
+  $('withdrawModal')
+    .classList.remove('hidden');
+
 }
 
 
 function closeWithdraw() {
 
-  document
-    .getElementById('withdrawModal')
-    .classList
-    .add('hidden');
+  $('withdrawModal')
+    .classList.add('hidden');
+
 }
 
 
-async function submitWithdrawal() {
+async function handleWithdrawal(event) {
+
+  event.preventDefault();
+
 
   const amount =
     Number(
-      document.getElementById(
-        'withdrawAmount'
-      ).value
+      $('withdrawAmount')
+        .value
     );
 
 
   const method =
-    document.getElementById(
-      'withdrawMethod'
-    ).value;
+    $('withdrawMethod')
+      .value;
 
 
   const number =
-    document.getElementById(
-      'withdrawNumber'
-    ).value.trim();
+    $('withdrawNumber')
+      .value
+      .trim();
 
 
-  if (
-    !amount ||
-    amount < 2
-  ) {
-
-    showToast(
-      'Minimum withdrawal is $2.'
-    );
-
-    return;
-  }
+  closeWithdraw();
 
 
-  if (!number) {
-
-    showToast(
-      'Enter your EcoCash number.'
-    );
-
-    return;
-  }
+  showProcessing(
+    'Submitting withdrawal...',
+    'Your request is being securely processed.'
+  );
 
 
   try {
-
-    closeWithdraw();
-
-    setLoading(true);
-
 
     const result =
       await api(
         'withdraw',
         {
-          user_id:
-            currentUser.user_id,
-
           amount,
-
           payment_method:
             method,
-
           payment_number:
             number
         }
       );
 
 
-    setLoading(false);
+    hideProcessing();
 
 
-    if (result.queued) {
+    if (!result.success) {
 
-      await monitorJob(
-        result.job_id,
-        'Processing withdrawal...'
+      throw new Error(
+        result.error
       );
 
-      return;
     }
 
 
-    showToast(
+    $('withdrawForm')
+      .reset();
+
+
+    toast(
       'Withdrawal request submitted.'
     );
 
 
-    loadDashboard();
+    await loadDashboard();
 
-    loadWallet();
+    await loadWallet();
 
 
   } catch (error) {
 
-    setLoading(false);
+    hideProcessing();
 
-    showToast(
-      error.message
+    toast(
+      error.message ||
+      'Unable to submit withdrawal.'
     );
+
   }
+
 }
 
 
-/* ==========================================================
-   QUEUE
-   ========================================================== */
+// ================================================================
+// NAVIGATION
+// ================================================================
 
-async function monitorJob(
-  jobId,
-  message
+function showPage(pageId) {
+
+  document
+    .querySelectorAll('.page')
+    .forEach(function(page) {
+
+      page.classList.add(
+        'hidden'
+      );
+
+    });
+
+
+  const page =
+    $(pageId);
+
+
+  if (page) {
+
+    page.classList.remove(
+      'hidden'
+    );
+
+  }
+
+
+  document
+    .querySelectorAll('.nav-item')
+    .forEach(function(button) {
+
+      button.classList.toggle(
+        'active',
+        button.dataset.page ===
+        pageId
+      );
+
+    });
+
+
+  if (
+    pageId ===
+    'walletPage'
+  ) {
+
+    loadWallet();
+
+  }
+
+}
+
+
+function showAuth() {
+
+  $('appScreen')
+    .classList.add('hidden');
+
+  $('authScreen')
+    .classList.remove('hidden');
+
+  $('loginPanel')
+    .classList.remove('hidden');
+
+  $('registerPanel')
+    .classList.add('hidden');
+
+}
+
+
+function showApp() {
+
+  $('authScreen')
+    .classList.add('hidden');
+
+  $('appScreen')
+    .classList.remove('hidden');
+
+  showPage(
+    'homePage'
+  );
+
+}
+
+
+// ================================================================
+// PROCESSING
+// ================================================================
+
+function showProcessing(
+  title,
+  text
 ) {
 
-  const modal =
-    document.getElementById(
-      'queueModal'
-    );
+  $('processingTitle')
+    .textContent =
+    title ||
+    'Please wait...';
 
 
-  const messageElement =
-    document.getElementById(
-      'queueMessage'
-    );
+  $('processingText')
+    .textContent =
+    text ||
+    'Your request is being securely processed.';
 
 
-  const positionElement =
-    document.getElementById(
-      'queuePosition'
-    );
-
-
-  const progressElement =
-    document.getElementById(
-      'queueProgress'
-    );
-
-
-  messageElement.textContent =
-    message;
-
-
-  modal.classList.remove(
-    'hidden'
-  );
-
-
-  let finished = false;
-
-
-  while (!finished) {
-
-    try {
-
-      const result =
-        await api(
-          'jobStatus',
-          {
-            job_id:
-              jobId
-          }
-        );
-
-
-      const job =
-        result.job;
-
-
-      if (
-        job.status ===
-        'QUEUED'
-      ) {
-
-        positionElement.textContent =
-          job.position > 0
-            ? 'Queue position: ' +
-              job.position
-            : 'Waiting...';
-
-
-        progressElement.style.width =
-          '10%';
-
-
-      } else if (
-        job.status ===
-        'PROCESSING'
-      ) {
-
-        positionElement.textContent =
-          'Processing securely...';
-
-
-        progressElement.style.width =
-          Math.max(
-            20,
-            Number(job.progress || 20)
-          ) + '%';
-
-
-      } else if (
-        job.status ===
-        'COMPLETED'
-      ) {
-
-        progressElement.style.width =
-          '100%';
-
-        positionElement.textContent =
-          'Complete ✓';
-
-
-        finished = true;
-
-
-        setTimeout(function () {
-
-          modal.classList.add(
-            'hidden'
-          );
-
-          showToast(
-            'Request completed.'
-          );
-
-          loadDashboard();
-
-          loadWallet();
-
-        }, 700);
-
-
-      } else if (
-        job.status ===
-        'FAILED'
-      ) {
-
-        finished = true;
-
-        modal.classList.add(
-          'hidden'
-        );
-
-        showToast(
-          job.error ||
-          'The request could not be completed.'
-        );
-      }
-
-
-    } catch (error) {
-
-      console.error(
-        error
-      );
-    }
-
-
-    if (!finished) {
-
-      await sleep(
-        2500
-      );
-    }
-  }
-}
-
-
-/* ==========================================================
-   UI HELPERS
-   ========================================================== */
-
-function setLoading(show) {
-
-  const screen =
-    document.getElementById(
-      'loadingScreen'
-    );
-
-
-  if (show) {
-
-    screen.classList.remove(
+  $('processingModal')
+    .classList.remove(
       'hidden'
     );
 
-  } else {
+}
 
-    screen.classList.add(
+
+function hideProcessing() {
+
+  $('processingModal')
+    .classList.add(
       'hidden'
     );
-  }
+
 }
 
 
-function showToast(message) {
+// ================================================================
+// HELPERS
+// ================================================================
 
-  const toast =
-    document.getElementById(
-      'toast'
-    );
-
-
-  toast.textContent =
-    message;
-
-
-  toast.classList.add(
-    'show'
-  );
-
-
-  setTimeout(function () {
-
-    toast.classList.remove(
-      'show'
-    );
-
-  }, 3000);
-}
-
-
-function sleep(ms) {
+function delay(ms) {
 
   return new Promise(
     resolve =>
@@ -1292,67 +1306,175 @@ function sleep(ms) {
         ms
       )
   );
+
+}
+
+
+function money(value) {
+
+  return '$' +
+    Number(value || 0)
+      .toFixed(2);
+
 }
 
 
 function formatDate(value) {
 
-  if (!value) {
-    return '';
+  if (!value) return '-';
+
+  const date =
+    new Date(value);
+
+  if (
+    isNaN(
+      date.getTime()
+    )
+  ) {
+
+    return String(value);
+
   }
 
+  return date.toLocaleString(
+    undefined,
+    {
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit'
+    }
+  );
 
-  try {
-
-    return new Date(value)
-      .toLocaleString();
-
-  } catch (error) {
-
-    return '';
-  }
 }
 
 
 function escapeHTML(value) {
 
-  return String(value || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+  return String(
+    value ?? ''
+  )
+    .replace(
+      /&/g,
+      '&amp;'
+    )
+    .replace(
+      /</g,
+      '&lt;'
+    )
+    .replace(
+      />/g,
+      '&gt;'
+    )
+    .replace(
+      /"/g,
+      '&quot;'
+    )
+    .replace(
+      /'/g,
+      '&#039;'
+    );
+
 }
 
 
-/* ==========================================================
-   SERVICE WORKER
-   ========================================================== */
-
-function registerServiceWorker() {
+async function copyText(text) {
 
   if (
-    'serviceWorker' in
-    navigator
+    navigator.clipboard
   ) {
 
-    window.addEventListener(
-      'load',
-      function () {
-
-        navigator.serviceWorker
-          .register(
-            '/service-worker.js'
-          )
-          .catch(function (error) {
-
-            console.error(
-              'Service worker failed:',
-              error
-            );
-          });
-
-      }
+    await navigator.clipboard.writeText(
+      text
     );
+
+    return;
+
   }
+
+
+  const textarea =
+    document.createElement(
+      'textarea'
+    );
+
+  textarea.value =
+    text;
+
+  document.body.appendChild(
+    textarea
+  );
+
+  textarea.select();
+
+  document.execCommand(
+    'copy'
+  );
+
+  textarea.remove();
+
+}
+
+
+function toast(message) {
+
+  const element =
+    $('toast');
+
+
+  element.textContent =
+    message;
+
+
+  element.classList.add(
+    'show'
+  );
+
+
+  clearTimeout(
+    toast.timer
+  );
+
+
+  toast.timer =
+    setTimeout(
+      function() {
+
+        element.classList.remove(
+          'show'
+        );
+
+      },
+      3000
+    );
+
+}
+
+
+// ================================================================
+// SERVICE WORKER
+// ================================================================
+
+if (
+  'serviceWorker' in navigator
+) {
+
+  window.addEventListener(
+    'load',
+    function() {
+
+      navigator.serviceWorker
+        .register('/sw.js')
+        .catch(function(error) {
+
+          console.log(
+            'Service worker registration failed:',
+            error
+          );
+
+        });
+
+    }
+  );
+
 }

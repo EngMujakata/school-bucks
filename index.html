@@ -3,70 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-  <title>SCHOOL BUCKS</title>
-
   <meta name="theme-color" content="#0B63F6">
-  <meta name="description" content="SCHOOL BUCKS — Earn from surveys, offers and tasks.">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="SCHOOL BUCKS">
 
+  <meta name="description" content="SCHOOL BUCKS - Earn from surveys, offers and tasks.">
+
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/icons/icon-192.png">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+  <title>SCHOOL BUCKS</title>
 
   <style>
+    /* ============================================================
+       SCHOOL BUCKS
+       All CSS is contained in this file.
+       No external CSS libraries.
+       ============================================================ */
+
     :root {
-      --blue:#0B63F6;
-      --blue-dark:#0645B8;
-      --blue-deep:#073A96;
-      --blue-light:#EAF2FF;
-      --blue-soft:#F3F7FF;
+      --blue: #0B63F6;
+      --blue-dark: #0645B8;
+      --blue-deep: #05358F;
+      --blue-light: #EAF2FF;
 
-      --green:#16A34A;
-      --green-light:#EAF8EF;
+      --green: #16A34A;
+      --green-light: #EAF8EF;
 
-      --orange:#F59E0B;
-      --orange-light:#FFF7E6;
+      --orange: #F59E0B;
+      --orange-light: #FFF7E6;
 
-      --red:#DC2626;
-      --red-light:#FEF2F2;
+      --red: #DC2626;
+      --red-light: #FEF2F2;
 
-      --purple:#7C3AED;
-      --purple-light:#F3EEFF;
+      --purple: #7C3AED;
+      --purple-light: #F3EEFF;
 
-      --text:#111827;
-      --text-soft:#667085;
-      --text-light:#98A2B3;
+      --text: #101828;
+      --text-soft: #667085;
+      --text-light: #98A2B3;
 
-      --bg:#F6F8FC;
-      --card:#FFFFFF;
-      --border:#E8ECF3;
+      --bg: #F6F8FC;
+      --card: #FFFFFF;
+      --border: #EAECF0;
 
-      --shadow-sm:0 2px 8px rgba(15,23,42,.05);
-      --shadow:0 8px 25px rgba(15,23,42,.08);
-      --shadow-blue:0 10px 28px rgba(11,99,246,.20);
+      --shadow-sm: 0 2px 8px rgba(16, 24, 40, .05);
+      --shadow: 0 8px 28px rgba(16, 24, 40, .08);
+      --shadow-lg: 0 20px 60px rgba(16, 24, 40, .18);
 
-      --radius:18px;
-      --bottom-nav:76px;
+      --radius: 18px;
+      --radius-sm: 13px;
+
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     * {
-      box-sizing:border-box;
-      -webkit-tap-highlight-color:transparent;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html {
-      background:var(--bg);
-      scroll-behavior:smooth;
+      min-height: 100%;
+      background: var(--bg);
+      scroll-behavior: smooth;
     }
 
     body {
-      margin:0;
-      min-width:320px;
-      background:var(--bg);
-      color:var(--text);
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(11,99,246,.08), transparent 28%),
+        var(--bg);
+      color: var(--text);
       font-family:
         Inter,
         -apple-system,
@@ -76,1164 +86,1227 @@
         Helvetica,
         Arial,
         sans-serif;
-      font-size:15px;
-      line-height:1.45;
-      -webkit-font-smoothing:antialiased;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
-    button,input {
-      font:inherit;
+    button,
+    input,
+    select {
+      font: inherit;
     }
 
     button {
-      border:0;
-      cursor:pointer;
-      -webkit-appearance:none;
+      border: 0;
+      cursor: pointer;
     }
 
-    input {
-      width:100%;
-      outline:none;
+    input,
+    select {
+      outline: none;
     }
 
     .hidden {
-      display:none !important;
-    }
-
-    /* ================= AUTH ================= */
-
-    #authScreen {
-      min-height:100vh;
-      min-height:100dvh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px 16px;
-      background:
-        radial-gradient(circle at 10% 0%,rgba(11,99,246,.14),transparent 32%),
-        radial-gradient(circle at 100% 100%,rgba(124,58,237,.10),transparent 30%),
-        var(--bg);
-    }
-
-    .auth-wrap {
-      width:100%;
-      max-width:430px;
-    }
-
-    .brand-center {
-      text-align:center;
-      margin-bottom:24px;
-    }
-
-    .brand-logo {
-      width:70px;
-      height:70px;
-      border-radius:22px;
-      margin:0 auto 13px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(145deg,var(--blue),var(--blue-dark));
-      color:#fff;
-      font-size:26px;
-      font-weight:900;
-      letter-spacing:-1.5px;
-      box-shadow:var(--shadow-blue);
-    }
-
-    .brand-name {
-      margin:0;
-      font-size:26px;
-      font-weight:900;
-      letter-spacing:-1px;
-    }
-
-    .brand-tagline {
-      margin:4px 0 0;
-      color:var(--text-soft);
-      font-size:13px;
-    }
-
-    .auth-card {
-      background:rgba(255,255,255,.97);
-      border-radius:26px;
-      padding:22px;
-      box-shadow:var(--shadow);
-      border:1px solid rgba(255,255,255,.9);
-    }
-
-    .auth-tabs {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      padding:4px;
-      background:#F1F4F9;
-      border-radius:13px;
-      margin-bottom:22px;
-    }
-
-    .auth-tab {
-      min-height:44px;
-      border-radius:10px;
-      background:transparent;
-      color:var(--text-soft);
-      font-weight:750;
-    }
-
-    .auth-tab.active {
-      background:#fff;
-      color:var(--blue);
-      box-shadow:var(--shadow-sm);
-    }
-
-    .auth-title {
-      margin:0 0 5px;
-      font-size:22px;
-      font-weight:850;
-    }
-
-    .auth-subtitle {
-      margin:0 0 20px;
-      color:var(--text-soft);
-      font-size:13px;
-    }
-
-    .field {
-      margin-bottom:14px;
-    }
-
-    .field-label {
-      display:block;
-      margin-bottom:7px;
-      color:#344054;
-      font-size:12px;
-      font-weight:750;
-    }
-
-    .input-wrap {
-      position:relative;
-    }
-
-    .input-icon {
-      position:absolute;
-      left:14px;
-      top:50%;
-      transform:translateY(-50%);
-      color:#98A2B3;
-      font-size:17px;
-      pointer-events:none;
-    }
-
-    .input {
-      height:51px;
-      padding:0 14px 0 43px;
-      border:1px solid var(--border);
-      border-radius:13px;
-      background:#FBFCFE;
-      color:var(--text);
-      transition:.18s ease;
-    }
-
-    .input:focus {
-      border-color:var(--blue);
-      background:#fff;
-      box-shadow:0 0 0 3px rgba(11,99,246,.10);
-    }
-
-    .primary-btn {
-      width:100%;
-      min-height:52px;
-      padding:12px 18px;
-      border-radius:14px;
-      background:linear-gradient(135deg,var(--blue),var(--blue-dark));
-      color:#fff;
-      font-weight:800;
-      box-shadow:0 8px 18px rgba(11,99,246,.18);
-    }
-
-    .primary-btn:disabled {
-      opacity:.6;
-    }
-
-    .secondary-btn {
-      width:100%;
-      min-height:50px;
-      padding:11px 18px;
-      border-radius:14px;
-      background:var(--blue-light);
-      color:var(--blue);
-      font-weight:800;
-    }
-
-    .auth-note {
-      margin:16px 0 0;
-      text-align:center;
-      color:var(--text-light);
-      font-size:11px;
-      line-height:1.5;
-    }
-
-    .ref-banner {
-      display:none;
-      margin-bottom:15px;
-      padding:11px 13px;
-      border-radius:12px;
-      background:var(--green-light);
-      color:#166534;
-      font-size:12px;
-      font-weight:700;
-    }
-
-    .ref-banner.show {
-      display:block;
-    }
-
-    /* ================= MAIN ================= */
-
-    .main-app {
-      min-height:100vh;
-      min-height:100dvh;
-      padding-bottom:calc(var(--bottom-nav) + env(safe-area-inset-bottom) + 16px);
-    }
-
-    .topbar {
-      position:sticky;
-      top:0;
-      z-index:30;
-      background:rgba(246,248,252,.93);
-      backdrop-filter:blur(15px);
-      -webkit-backdrop-filter:blur(15px);
-      border-bottom:1px solid rgba(232,236,243,.65);
-    }
-
-    .topbar-inner {
-      width:100%;
-      max-width:720px;
-      min-height:66px;
-      margin:auto;
-      padding:9px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .top-brand {
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-
-    .mini-logo {
-      width:38px;
-      height:38px;
-      border-radius:12px;
-      background:linear-gradient(145deg,var(--blue),var(--blue-dark));
-      color:white;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:900;
-      font-size:15px;
-      box-shadow:0 5px 13px rgba(11,99,246,.2);
-    }
-
-    .top-title {
-      font-weight:850;
-      font-size:16px;
-    }
-
-    .top-subtitle {
-      color:var(--text-light);
-      font-size:10px;
-    }
-
-    .icon-btn {
-      width:42px;
-      height:42px;
-      border-radius:13px;
-      background:#fff;
-      color:var(--text);
-      box-shadow:var(--shadow-sm);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:18px;
-    }
-
-    .content {
-      width:100%;
-      max-width:720px;
-      margin:auto;
-      padding:17px 16px 20px;
-    }
-
-    .screen {
-      display:none;
-    }
-
-    .screen.active {
-      display:block;
-      animation:screenIn .18s ease-out;
-    }
-
-    @keyframes screenIn {
-      from {
-        opacity:0;
-        transform:translateY(4px);
-      }
-      to {
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-
-    .greeting {
-      margin:3px 0 17px;
-    }
-
-    .greeting-small {
-      color:var(--text-soft);
-      font-size:12px;
-    }
-
-    .greeting-name {
-      margin:0;
-      font-size:23px;
-      line-height:1.15;
-      font-weight:900;
-      letter-spacing:-.6px;
-    }
-
-    /* ================= BALANCE ================= */
-
-    .balance-card {
-      position:relative;
-      overflow:hidden;
-      min-height:190px;
-      padding:21px;
-      border-radius:24px;
-      background:
-        radial-gradient(circle at 90% 15%,rgba(255,255,255,.20),transparent 28%),
-        linear-gradient(135deg,#0B63F6 0%,#0752CC 55%,#073A96 100%);
-      color:#fff;
-      box-shadow:var(--shadow-blue);
-      margin-bottom:15px;
-    }
-
-    .balance-card::after {
-      content:"";
-      position:absolute;
-      width:170px;
-      height:170px;
-      right:-65px;
-      bottom:-95px;
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,.13);
-      box-shadow:
-        0 0 0 22px rgba(255,255,255,.035),
-        0 0 0 44px rgba(255,255,255,.025);
-    }
-
-    .balance-label {
-      position:relative;
-      z-index:1;
-      font-size:12px;
-      opacity:.8;
-    }
-
-    .balance-amount {
-      position:relative;
-      z-index:1;
-      margin:4px 0 16px;
-      font-size:36px;
-      line-height:1;
-      font-weight:900;
-      letter-spacing:-1.2px;
-    }
-
-    .balance-bottom {
-      position:relative;
-      z-index:1;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-
-    .balance-stat {
-      min-width:0;
-    }
-
-    .balance-stat-label {
-      font-size:10px;
-      opacity:.68;
-    }
-
-    .balance-stat-value {
-      font-size:14px;
-      font-weight:800;
-    }
-
-    .withdraw-mini {
-      min-height:40px;
-      padding:0 14px;
-      border-radius:11px;
-      background:#fff;
-      color:var(--blue);
-      font-size:12px;
-      font-weight:850;
-    }
-
-    /* ================= STATS ================= */
-
-    .stats-grid {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:9px;
-      margin-bottom:20px;
-    }
-
-    .stat-card {
-      padding:13px 10px;
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:15px;
-      box-shadow:var(--shadow-sm);
-      min-width:0;
-    }
-
-    .stat-icon {
-      font-size:16px;
-      margin-bottom:6px;
-    }
-
-    .stat-label {
-      color:var(--text-light);
-      font-size:9px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .stat-value {
-      margin-top:1px;
-      font-size:14px;
-      font-weight:850;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    /* ================= SECTIONS ================= */
-
-    .section-head {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin:20px 0 10px;
-    }
-
-    .section-title {
-      margin:0;
-      font-size:17px;
-      font-weight:880;
-    }
-
-    .section-link {
-      color:var(--blue);
-      background:transparent;
-      font-size:12px;
-      font-weight:750;
-    }
-
-    /* ================= EARN ================= */
-
-    .earn-grid {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:11px;
-    }
-
-    .earn-card {
-      position:relative;
-      overflow:hidden;
-      min-height:128px;
-      padding:15px;
-      border:1px solid var(--border);
-      border-radius:18px;
-      background:#fff;
-      box-shadow:var(--shadow-sm);
-      text-align:left;
-    }
-
-    .earn-icon {
-      width:38px;
-      height:38px;
-      border-radius:12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:18px;
-      margin-bottom:11px;
-    }
-
-    .earn-icon.blue { background:var(--blue-light); }
-    .earn-icon.purple { background:var(--purple-light); }
-    .earn-icon.orange { background:var(--orange-light); }
-    .earn-icon.green { background:var(--green-light); }
-
-    .earn-title {
-      font-size:13px;
-      font-weight:850;
-    }
-
-    .earn-description {
-      color:var(--text-soft);
-      font-size:10px;
-      line-height:1.35;
-    }
-
-    .earn-arrow {
-      position:absolute;
-      right:12px;
-      top:14px;
-      color:var(--text-light);
-      font-size:15px;
-    }
-
-    /* ================= REFERRAL ================= */
-
-    .referral-card {
-      position:relative;
-      overflow:hidden;
-      padding:18px;
-      margin-top:16px;
-      border-radius:20px;
-      background:linear-gradient(135deg,#111827,#26344D);
-      color:#fff;
-      box-shadow:var(--shadow);
-    }
-
-    .referral-card::before {
-      content:"";
-      position:absolute;
-      width:130px;
-      height:130px;
-      border-radius:50%;
-      right:-50px;
-      top:-60px;
-      background:rgba(255,255,255,.06);
-    }
-
-    .referral-eyebrow {
-      position:relative;
-      font-size:10px;
-      opacity:.65;
-      text-transform:uppercase;
-      letter-spacing:.8px;
-      font-weight:800;
-    }
-
-    .referral-title {
-      position:relative;
-      margin:3px 0 5px;
-      font-size:18px;
-      font-weight:880;
-    }
-
-    .referral-text {
-      position:relative;
-      margin:0 0 14px;
-      color:rgba(255,255,255,.68);
-      font-size:11px;
-      max-width:270px;
-    }
-
-    .referral-code-row {
-      position:relative;
-      display:flex;
-      gap:8px;
-    }
-
-    .referral-code {
-      flex:1;
-      min-width:0;
-      min-height:43px;
-      display:flex;
-      align-items:center;
-      padding:0 12px;
-      border-radius:11px;
-      background:rgba(255,255,255,.09);
-      border:1px solid rgba(255,255,255,.10);
-      font-size:13px;
-      font-weight:850;
-      letter-spacing:.8px;
-    }
-
-    .share-btn {
-      min-width:80px;
-      min-height:43px;
-      border-radius:11px;
-      background:#fff;
-      color:#111827;
-      font-size:11px;
-      font-weight:850;
-    }
-
-    /* ================= ACTIVITY ================= */
-
-    .activity-card {
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:var(--shadow-sm);
-    }
-
-    .activity-item {
-      min-height:66px;
-      padding:10px 13px;
-      display:flex;
-      align-items:center;
-      gap:11px;
-      border-bottom:1px solid #F0F2F6;
-    }
-
-    .activity-item:last-child {
-      border-bottom:0;
-    }
-
-    .activity-icon {
-      width:37px;
-      height:37px;
-      flex:0 0 auto;
-      border-radius:11px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:var(--blue-light);
-    }
-
-    .activity-main {
-      flex:1;
-      min-width:0;
-    }
-
-    .activity-title {
-      font-size:12px;
-      font-weight:780;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .activity-date {
-      color:var(--text-light);
-      font-size:9px;
-      margin-top:2px;
-    }
-
-    .activity-amount {
-      font-size:12px;
-      font-weight:850;
-      white-space:nowrap;
-    }
-
-    .amount-positive {
-      color:var(--green);
-    }
-
-    .amount-pending {
-      color:var(--orange);
-    }
-
-    .empty-state {
-      padding:30px 15px;
-      text-align:center;
-      color:var(--text-light);
-      font-size:12px;
-    }
-
-    .empty-icon {
-      font-size:25px;
-      margin-bottom:6px;
-      opacity:.7;
-    }
-
-    /* ================= WALLET ================= */
-
-    .wallet-summary {
-      padding:20px;
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:21px;
-      box-shadow:var(--shadow-sm);
-    }
-
-    .wallet-main-label {
-      color:var(--text-soft);
-      font-size:11px;
-    }
-
-    .wallet-main-amount {
-      margin:3px 0 17px;
-      font-size:31px;
-      font-weight:900;
-      letter-spacing:-1px;
-    }
-
-    .wallet-stats {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:8px;
-    }
-
-    .wallet-stat {
-      padding:11px 9px;
-      border-radius:12px;
-      background:var(--bg);
-    }
-
-    .wallet-stat-label {
-      color:var(--text-light);
-      font-size:9px;
-    }
-
-    .wallet-stat-value {
-      margin-top:2px;
-      font-size:12px;
-      font-weight:850;
-    }
-
-    .withdraw-big-btn {
-      width:100%;
-      min-height:50px;
-      margin-top:14px;
-      border-radius:14px;
-      background:var(--blue-light);
-      color:var(--blue);
-      font-weight:850;
-    }
-
-    /* ================= EARN SCREEN ================= */
-
-    .earn-hero {
-      padding:19px;
-      border-radius:21px;
-      background:linear-gradient(135deg,#EAF2FF,#F7FAFF);
-      border:1px solid #DCE9FF;
-      margin-bottom:16px;
-    }
-
-    .earn-hero-title {
-      margin:0 0 4px;
-      font-size:20px;
-      font-weight:900;
-    }
-
-    .earn-hero-text {
-      margin:0;
-      color:var(--text-soft);
-      font-size:12px;
-    }
-
-    .offer-list {
-      display:grid;
-      gap:10px;
-    }
-
-    .offer-item {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:14px;
-      min-height:70px;
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:16px;
-      box-shadow:var(--shadow-sm);
-    }
-
-    .offer-icon {
-      width:42px;
-      height:42px;
-      flex:0 0 auto;
-      border-radius:13px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:var(--blue-light);
-      font-size:18px;
-    }
-
-    .offer-info {
-      flex:1;
-      min-width:0;
-    }
-
-    .offer-title {
-      font-size:13px;
-      font-weight:820;
-    }
-
-    .offer-description {
-      color:var(--text-light);
-      font-size:10px;
-      margin-top:2px;
-    }
-
-    .offer-button {
-      padding:9px 12px;
-      border-radius:10px;
-      background:var(--blue);
-      color:#fff;
-      font-size:10px;
-      font-weight:800;
-    }
-
-    /* ================= PROFILE ================= */
-
-    .profile-card {
-      padding:20px;
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:21px;
-      box-shadow:var(--shadow-sm);
-    }
-
-    .profile-header {
-      display:flex;
-      align-items:center;
-      gap:13px;
-      padding-bottom:17px;
-      margin-bottom:15px;
-      border-bottom:1px solid #EEF1F5;
-    }
-
-    .avatar {
-      width:55px;
-      height:55px;
-      border-radius:18px;
-      background:var(--blue-light);
-      color:var(--blue);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:20px;
-      font-weight:900;
-    }
-
-    .profile-name {
-      font-size:17px;
-      font-weight:850;
-    }
-
-    .profile-phone {
-      margin-top:2px;
-      color:var(--text-light);
-      font-size:11px;
-    }
-
-    .profile-row {
-      display:flex;
-      justify-content:space-between;
-      gap:15px;
-      padding:12px 0;
-      border-bottom:1px solid #F1F3F6;
-    }
-
-    .profile-row:last-child {
-      border-bottom:0;
-    }
-
-    .profile-label {
-      color:var(--text-light);
-      font-size:10px;
-    }
-
-    .profile-value {
-      max-width:65%;
-      text-align:right;
-      font-size:11px;
-      font-weight:750;
-      overflow-wrap:anywhere;
-    }
-
-    .logout-btn {
-      width:100%;
-      min-height:49px;
-      margin-top:13px;
-      border-radius:14px;
-      background:var(--red-light);
-      color:var(--red);
-      font-weight:800;
-    }
-
-    /* ================= NAV ================= */
-
-    .bottom-nav-wrap {
-      position:fixed;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:40;
-      padding:7px 12px calc(7px + env(safe-area-inset-bottom));
-      pointer-events:none;
-    }
-
-    .bottom-nav {
-      width:100%;
-      max-width:520px;
-      margin:auto;
-      min-height:62px;
-      padding:5px;
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      background:rgba(255,255,255,.96);
-      border:1px solid rgba(232,236,243,.95);
-      border-radius:19px;
-      box-shadow:0 -4px 25px rgba(15,23,42,.10);
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      pointer-events:auto;
-    }
-
-    .nav-btn {
-      min-height:52px;
-      border-radius:14px;
-      background:transparent;
-      color:var(--text-light);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:2px;
-      font-size:9px;
-      font-weight:750;
-    }
-
-    .nav-icon {
-      font-size:19px;
-      line-height:1;
-    }
-
-    .nav-btn.active {
-      color:var(--blue);
-      background:var(--blue-light);
-    }
-
-    /* ================= MODAL ================= */
-
-    .modal-backdrop {
-      position:fixed;
-      inset:0;
-      z-index:100;
-      display:flex;
-      align-items:flex-end;
-      justify-content:center;
-      background:rgba(15,23,42,.46);
-    }
-
-    .modal {
-      width:100%;
-      max-width:520px;
-      max-height:92vh;
-      max-height:92dvh;
-      overflow-y:auto;
-      padding:20px 18px calc(18px + env(safe-area-inset-bottom));
-      background:#fff;
-      border-radius:25px 25px 0 0;
-    }
-
-    .modal-handle {
-      width:42px;
-      height:4px;
-      border-radius:4px;
-      background:#DDE2EA;
-      margin:0 auto 18px;
-    }
-
-    .modal-title {
-      margin:0 0 4px;
-      font-size:20px;
-      font-weight:900;
-    }
-
-    .modal-text {
-      margin:0 0 17px;
-      color:var(--text-soft);
-      font-size:12px;
-    }
-
-    .modal-actions {
-      display:grid;
-      gap:9px;
-      margin-top:16px;
-    }
-
-    .cancel-btn {
-      width:100%;
-      min-height:48px;
-      border-radius:13px;
-      background:#F1F3F6;
-      color:#475467;
-      font-weight:750;
-    }
-
-    /* ================= PROCESSING ================= */
-
-    .processing-overlay {
-      position:fixed;
-      inset:0;
-      z-index:200;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:25px;
-      background:rgba(15,23,42,.58);
-      backdrop-filter:blur(5px);
-      -webkit-backdrop-filter:blur(5px);
-    }
-
-    .processing-box {
-      width:100%;
-      max-width:310px;
-      padding:25px 20px;
-      border-radius:21px;
-      background:#fff;
-      text-align:center;
-      box-shadow:var(--shadow);
-    }
-
-    .spinner {
-      width:40px;
-      height:40px;
-      margin:0 auto 14px;
-      border:3px solid #DCE8FF;
-      border-top-color:var(--blue);
-      border-radius:50%;
-      animation:spin .75s linear infinite;
+      display: none !important;
+    }
+
+    /* ============================================================
+       LOADING SCREEN
+       ============================================================ */
+
+    #bootScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #0645B8, #0B63F6);
+      color: white;
+      transition: opacity .3s ease, visibility .3s ease;
+    }
+
+    #bootScreen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .boot-inner {
+      text-align: center;
+      width: 90%;
+      max-width: 340px;
+    }
+
+    .boot-logo {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 20px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.25);
+      box-shadow: 0 18px 50px rgba(0,0,0,.18);
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .boot-title {
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -.8px;
+    }
+
+    .boot-sub {
+      margin-top: 7px;
+      opacity: .8;
+      font-size: 14px;
+    }
+
+    .boot-spinner {
+      width: 27px;
+      height: 27px;
+      margin: 25px auto 0;
+      border: 3px solid rgba(255,255,255,.25);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
     }
 
     @keyframes spin {
-      to { transform:rotate(360deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ============================================================
+       INSTALL OVERLAY
+       ============================================================ */
+
+    #installOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 14px;
+      background: rgba(3, 17, 43, .68);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .install-sheet {
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      border-radius: 28px;
+      padding: 22px 20px calc(20px + var(--safe-bottom));
+      box-shadow: var(--shadow-lg);
+      animation: sheetUp .35s ease;
+    }
+
+    @keyframes sheetUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .install-handle {
+      width: 42px;
+      height: 4px;
+      border-radius: 20px;
+      background: #D0D5DD;
+      margin: 0 auto 20px;
+    }
+
+    .install-icon {
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 15px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #0B63F6, #0645B8);
+      color: white;
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      box-shadow: 0 12px 30px rgba(11,99,246,.25);
+    }
+
+    .install-title {
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.15;
+      font-weight: 900;
+      letter-spacing: -.6px;
+      margin-bottom: 9px;
+    }
+
+    .install-text {
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.55;
+      max-width: 370px;
+      margin: 0 auto 19px;
+    }
+
+    .install-benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .install-benefit {
+      background: var(--bg);
+      border-radius: 13px;
+      padding: 11px 6px;
+      text-align: center;
+    }
+
+    .install-benefit-icon {
+      font-size: 19px;
+      margin-bottom: 4px;
+    }
+
+    .install-benefit span {
+      display: block;
+      font-size: 10px;
+      color: var(--text-soft);
+      font-weight: 700;
+    }
+
+    .install-main-btn {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: white;
+      font-weight: 800;
+      font-size: 15px;
+      box-shadow: 0 10px 25px rgba(11,99,246,.25);
+    }
+
+    .install-main-btn:active {
+      transform: scale(.98);
+    }
+
+    .install-secondary {
+      width: 100%;
+      min-height: 46px;
+      margin-top: 7px;
+      border-radius: 14px;
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .install-manual {
+      margin-top: 12px;
+      padding: 13px;
+      border-radius: 13px;
+      background: var(--blue-light);
+      color: #194A98;
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* ============================================================
+       AUTH
+       ============================================================ */
+
+    #authScreen {
+      min-height: 100vh;
+      padding: 28px 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .auth-wrap {
+      width: 100%;
+      max-width: 430px;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .brand-logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 14px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(145deg, var(--blue), var(--blue-dark));
+      box-shadow: 0 15px 35px rgba(11,99,246,.25);
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .brand p {
+      margin: 5px 0 0;
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    .auth-card {
+      background: white;
+      border: 1px solid rgba(234,236,240,.8);
+      border-radius: 24px;
+      padding: 21px;
+      box-shadow: var(--shadow);
+    }
+
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 4px;
+      border-radius: 13px;
+      background: var(--bg);
+      margin-bottom: 20px;
+    }
+
+    .auth-tab {
+      min-height: 42px;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text-soft);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .auth-tab.active {
+      background: white;
+      color: var(--blue);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -.4px;
+      margin-bottom: 5px;
+    }
+
+    .form-subtitle {
+      color: var(--text-soft);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .field {
+      margin-bottom: 13px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      color: #344054;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 14px;
+      border: 1px solid #D0D5DD;
+      border-radius: 13px;
+      background: white;
+      color: var(--text);
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    .input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(11,99,246,.09);
+    }
+
+    .primary-btn {
+      width: 100%;
+      min-height: 50px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: white;
+      font-size: 14px;
+      font-weight: 850;
+      box-shadow: 0 9px 23px rgba(11,99,246,.2);
+      margin-top: 5px;
+    }
+
+    .primary-btn:active {
+      transform: scale(.985);
+    }
+
+    .ref-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 11px 12px;
+      border-radius: 12px;
+      background: var(--green-light);
+      color: #166534;
+      margin-bottom: 14px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       APP
+       ============================================================ */
+
+    #appScreen {
+      min-height: 100vh;
+      padding-bottom: calc(80px + var(--safe-bottom));
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(246,248,252,.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(234,236,240,.75);
+    }
+
+    .topbar-inner {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 13px 17px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .top-brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .mini-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(145deg, var(--blue), var(--blue-dark));
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .top-brand-name {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -.3px;
+    }
+
+    .top-brand-sub {
+      font-size: 10px;
+      color: var(--text-soft);
+      margin-top: 1px;
+    }
+
+    .top-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 17px;
+    }
+
+    /* Balance */
+
+    .balance-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 23px;
+      padding: 22px;
+      color: white;
+      background:
+        radial-gradient(circle at 90% 5%, rgba(255,255,255,.18), transparent 30%),
+        linear-gradient(140deg, #0B63F6, #0645B8);
+      box-shadow: 0 16px 38px rgba(11,99,246,.22);
+    }
+
+    .balance-card::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      right: -60px;
+      bottom: -70px;
+      border: 1px solid rgba(255,255,255,.15);
+    }
+
+    .balance-label {
+      font-size: 12px;
+      opacity: .82;
+      font-weight: 700;
+    }
+
+    .balance-value {
+      margin-top: 4px;
+      font-size: 37px;
+      line-height: 1.1;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+    }
+
+    .balance-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 19px;
+    }
+
+    .balance-small {
+      font-size: 11px;
+      opacity: .8;
+    }
+
+    .balance-small strong {
+      display: block;
+      font-size: 14px;
+      color: white;
+      opacity: 1;
+      margin-top: 2px;
+    }
+
+    .withdraw-btn {
+      padding: 11px 16px;
+      border-radius: 12px;
+      background: white;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    /* Stats */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin-top: 10px;
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 13px 11px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-label {
+      color: var(--text-soft);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .stat-value {
+      margin-top: 4px;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -.3px;
+    }
+
+    /* Sections */
+
+    .section {
+      margin-top: 22px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 11px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -.35px;
+    }
+
+    .section-link {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* Earn cards */
+
+    .earn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .earn-card {
+      min-height: 137px;
+      padding: 15px;
+      border-radius: 17px;
+      border: 1px solid var(--border);
+      background: white;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .earn-icon {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      font-size: 18px;
+      margin-bottom: 11px;
+    }
+
+    .earn-icon.blue {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .earn-icon.green {
+      color: var(--green);
+      background: var(--green-light);
+    }
+
+    .earn-icon.orange {
+      color: var(--orange);
+      background: var(--orange-light);
+    }
+
+    .earn-icon.purple {
+      color: var(--purple);
+      background: var(--purple-light);
+    }
+
+    .earn-title {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .earn-text {
+      margin-top: 4px;
+      color: var(--text-soft);
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    .earn-arrow {
+      position: absolute;
+      right: 13px;
+      bottom: 13px;
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    /* Referral */
+
+    .referral-card {
+      position: relative;
+      overflow: hidden;
+      padding: 17px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #F0F6FF, #EAF2FF);
+      border: 1px solid #D8E6FF;
+    }
+
+    .referral-card h3 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .referral-card p {
+      margin: 5px 0 13px;
+      color: #4B6485;
+      font-size: 11px;
+      line-height: 1.45;
+      max-width: 330px;
+    }
+
+    .ref-code-row {
+      display: flex;
+      gap: 7px;
+    }
+
+    .ref-code {
+      flex: 1;
+      min-width: 0;
+      padding: 11px 12px;
+      border-radius: 11px;
+      background: white;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+      border: 1px solid #D8E6FF;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .share-btn {
+      padding: 0 15px;
+      min-height: 42px;
+      border-radius: 11px;
+      color: white;
+      background: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    /* Activity */
+
+    .activity-list {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .activity {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 13px;
+      border-bottom: 1px solid #F2F4F7;
+    }
+
+    .activity:last-child {
+      border-bottom: 0;
+    }
+
+    .activity-icon {
+      flex: 0 0 auto;
+      width: 37px;
+      height: 37px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: var(--green-light);
+      color: var(--green);
+      font-size: 15px;
+    }
+
+    .activity-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .activity-title {
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .activity-date {
+      margin-top: 3px;
+      color: var(--text-light);
+      font-size: 10px;
+    }
+
+    .activity-amount {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    /* Wallet */
+
+    .wallet-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .wallet-box {
+      padding: 17px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .wallet-box-label {
+      color: var(--text-soft);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .wallet-box-value {
+      margin-top: 5px;
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    /* Earn page */
+
+    .earn-hero {
+      padding: 21px;
+      border-radius: 22px;
+      color: white;
+      background: linear-gradient(145deg, #111827, #1F2937);
+      box-shadow: var(--shadow);
+    }
+
+    .earn-hero h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -.5px;
+    }
+
+    .earn-hero p {
+      margin: 7px 0 0;
+      color: rgba(255,255,255,.7);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .earn-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 7px 10px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.1);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22C55E;
+    }
+
+    .coming-card {
+      text-align: center;
+      padding: 28px 20px;
+      border-radius: 19px;
+      border: 1px dashed #D0D5DD;
+      background: white;
+      margin-top: 12px;
+    }
+
+    .coming-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 10px;
+      border-radius: 16px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 23px;
+    }
+
+    .coming-title {
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .coming-text {
+      margin-top: 5px;
+      color: var(--text-soft);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    /* Profile */
+
+    .profile-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 21px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .profile-head {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .profile-avatar {
+      width: 56px;
+      height: 56px;
+      flex: 0 0 auto;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(145deg, var(--blue), var(--blue-dark));
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .profile-name {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .profile-email {
+      margin-top: 3px;
+      color: var(--text-soft);
+      font-size: 11px;
+      word-break: break-word;
+    }
+
+    .profile-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #F2F4F7;
+    }
+
+    .profile-row:last-child {
+      border-bottom: 0;
+    }
+
+    .profile-label {
+      color: var(--text-soft);
+      font-size: 11px;
+    }
+
+    .profile-value {
+      text-align: right;
+      font-size: 12px;
+      font-weight: 800;
+      max-width: 60%;
+      overflow-wrap: anywhere;
+    }
+
+    .logout-btn {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 13px;
+      border-radius: 14px;
+      background: var(--red-light);
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    /* Bottom nav */
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 700px;
+      padding: 8px 10px calc(8px + var(--safe-bottom));
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .nav-btn {
+      min-height: 52px;
+      border-radius: 13px;
+      background: transparent;
+      color: #98A2B3;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .nav-icon {
+      display: block;
+      font-size: 19px;
+      line-height: 20px;
+      margin-bottom: 3px;
+    }
+
+    .nav-btn.active {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    /* ============================================================
+       MODALS
+       ============================================================ */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px;
+      background: rgba(3,17,43,.55);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 460px;
+      background: white;
+      border-radius: 24px;
+      padding: 21px;
+      box-shadow: var(--shadow-lg);
+      animation: sheetUp .25s ease;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .close-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--bg);
+      color: var(--text-soft);
+      font-size: 18px;
+    }
+
+    .modal-note {
+      padding: 11px;
+      border-radius: 12px;
+      background: var(--blue-light);
+      color: #174A98;
+      font-size: 11px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    /* Processing */
+
+    #processingOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+    }
+
+    .processing-card {
+      width: 100%;
+      max-width: 320px;
+      padding: 27px 22px;
+      text-align: center;
+      border-radius: 22px;
+      background: white;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .processing-spinner {
+      width: 43px;
+      height: 43px;
+      margin: 0 auto 17px;
+      border: 4px solid #DCE9FF;
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
     }
 
     .processing-title {
-      font-size:15px;
-      font-weight:850;
+      font-size: 15px;
+      font-weight: 900;
     }
 
     .processing-text {
-      margin-top:4px;
-      color:var(--text-soft);
-      font-size:11px;
+      margin-top: 5px;
+      color: var(--text-soft);
+      font-size: 11px;
+      line-height: 1.45;
     }
 
-    .processing-line {
-      height:4px;
-      overflow:hidden;
-      margin-top:15px;
-      border-radius:5px;
-      background:#EAF2FF;
+    .processing-bar {
+      height: 4px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #EAF2FF;
+      margin-top: 18px;
     }
 
-    .processing-line::after {
-      content:"";
-      display:block;
-      width:38%;
-      height:100%;
-      border-radius:5px;
-      background:var(--blue);
-      animation:processingMove 1.15s ease-in-out infinite;
+    .processing-bar::after {
+      content: "";
+      display: block;
+      width: 35%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--blue);
+      animation: progressMove 1.2s ease-in-out infinite;
     }
 
-    @keyframes processingMove {
-      0% { transform:translateX(-120%); }
-      100% { transform:translateX(310%); }
+    @keyframes progressMove {
+      0% { transform: translateX(-110%); }
+      100% { transform: translateX(320%); }
     }
 
-    /* ================= TOAST ================= */
+    /* Toast */
 
-    #toastContainer {
-      position:fixed;
-      left:15px;
-      right:15px;
-      bottom:calc(var(--bottom-nav) + env(safe-area-inset-bottom) + 12px);
-      z-index:300;
-      pointer-events:none;
-      display:flex;
-      justify-content:center;
+    #toast {
+      position: fixed;
+      z-index: 12000;
+      left: 50%;
+      bottom: calc(83px + var(--safe-bottom));
+      transform: translate(-50%, 20px);
+      width: max-content;
+      max-width: calc(100% - 30px);
+      padding: 11px 14px;
+      border-radius: 12px;
+      background: #101828;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      box-shadow: var(--shadow);
     }
 
-    .toast {
-      max-width:390px;
-      padding:11px 14px;
-      border-radius:12px;
-      background:#111827;
-      color:#fff;
-      box-shadow:var(--shadow);
-      font-size:12px;
-      font-weight:650;
+    #toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
     }
 
-    .toast.success {
-      background:#166534;
+    #toast.success {
+      background: #166534;
     }
 
-    .toast.error {
-      background:#991B1B;
+    #toast.error {
+      background: #991B1B;
     }
 
-    /* ================= SMALL PHONES ================= */
+    /* ============================================================
+       EMPTY / RESPONSIVE
+       ============================================================ */
 
-    @media(max-width:350px) {
-      .content {
-        padding-left:12px;
-        padding-right:12px;
+    .empty {
+      padding: 25px 15px;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 12px;
+    }
+
+    @media (min-width: 600px) {
+      #authScreen {
+        padding: 50px 20px;
       }
 
-      .balance-card {
-        padding:18px;
-      }
-
-      .balance-amount {
-        font-size:32px;
+      .page {
+        padding: 22px;
       }
 
       .earn-grid {
-        gap:8px;
+        grid-template-columns: repeat(4, 1fr);
       }
 
       .earn-card {
-        padding:12px;
-      }
-    }
-
-    /* ================= DESKTOP ================= */
-
-    @media(min-width:700px) {
-      .content {
-        padding-left:22px;
-        padding-right:22px;
-      }
-
-      .modal-backdrop {
-        align-items:center;
-        padding:20px;
+        min-height: 155px;
       }
 
       .modal {
-        border-radius:24px;
-        padding:24px;
+        align-items: center;
       }
     }
 
-    @media(prefers-reduced-motion:reduce) {
-      *,*::before,*::after {
-        animation-duration:.01ms !important;
-        animation-iteration-count:1 !important;
-        scroll-behavior:auto !important;
+    @media (max-width: 350px) {
+      .balance-value {
+        font-size: 32px;
+      }
+
+      .install-benefits {
+        gap: 5px;
+      }
+
+      .install-benefit {
+        padding-left: 3px;
+        padding-right: 3px;
+      }
+
+      .stats-grid {
+        gap: 6px;
+      }
+
+      .stat-card {
+        padding-left: 8px;
+        padding-right: 8px;
       }
     }
   </style>
@@ -1241,85 +1314,140 @@
 
 <body>
 
-<!-- ============================================================
-     AUTHENTICATION
-============================================================ -->
+  <!-- ==========================================================
+       BOOT SCREEN
+       ========================================================== -->
 
-<section id="authScreen">
-
-  <div class="auth-wrap">
-
-    <div class="brand-center">
-      <div class="brand-logo">SB</div>
-      <h1 class="brand-name">SCHOOL BUCKS</h1>
-      <p class="brand-tagline">Earn. Save. Grow.</p>
+  <div id="bootScreen">
+    <div class="boot-inner">
+      <div class="boot-logo">SB</div>
+      <div class="boot-title">SCHOOL BUCKS</div>
+      <div class="boot-sub">Earn. Save. Grow.</div>
+      <div class="boot-spinner"></div>
     </div>
+  </div>
 
-    <div class="auth-card">
 
-      <div class="auth-tabs">
+  <!-- ==========================================================
+       INSTALL APPLICATION OVERLAY
+       ========================================================== -->
 
-        <button
-          id="loginTab"
-          class="auth-tab active"
-          type="button">
-          Login
-        </button>
+  <div id="installOverlay" class="hidden">
+    <div class="install-sheet">
 
-        <button
-          id="registerTab"
-          class="auth-tab"
-          type="button">
-          Create Account
-        </button>
+      <div class="install-handle"></div>
+
+      <div class="install-icon">SB</div>
+
+      <div class="install-title">
+        Install SCHOOL BUCKS
+      </div>
+
+      <div class="install-text">
+        Install SCHOOL BUCKS on your phone for a faster,
+        smoother experience and easy access whenever you want
+        to earn.
+      </div>
+
+      <div class="install-benefits">
+
+        <div class="install-benefit">
+          <div class="install-benefit-icon">⚡</div>
+          <span>Fast Access</span>
+        </div>
+
+        <div class="install-benefit">
+          <div class="install-benefit-icon">📱</div>
+          <span>App Experience</span>
+        </div>
+
+        <div class="install-benefit">
+          <div class="install-benefit-icon">🔔</div>
+          <span>Stay Connected</span>
+        </div>
 
       </div>
 
-      <!-- LOGIN -->
+      <button
+        type="button"
+        id="installBtn"
+        class="install-main-btn">
+        Install SCHOOL BUCKS
+      </button>
 
-      <form id="loginForm">
+      <button
+        type="button"
+        id="installLaterBtn"
+        class="install-secondary">
+        Continue in browser
+      </button>
 
-        <h2 class="auth-title">
-          Welcome back 👋
-        </h2>
+      <div id="manualInstallText" class="install-manual hidden"></div>
 
-        <p class="auth-subtitle">
-          Log in to continue earning.
-        </p>
+    </div>
+  </div>
 
-        <div class="field">
 
-          <label class="field-label">
-            Phone number
-          </label>
+  <!-- ==========================================================
+       AUTH SCREEN
+       ========================================================== -->
 
-          <div class="input-wrap">
+  <main id="authScreen" class="hidden">
 
-            <span class="input-icon">📱</span>
+    <div class="auth-wrap">
 
+      <div class="brand">
+        <div class="brand-logo">SB</div>
+        <h1>SCHOOL BUCKS</h1>
+        <p>Earn from surveys, offers and tasks.</p>
+      </div>
+
+      <div class="auth-card">
+
+        <div class="auth-tabs">
+
+          <button
+            type="button"
+            id="loginTab"
+            class="auth-tab active">
+            Login
+          </button>
+
+          <button
+            type="button"
+            id="registerTab"
+            class="auth-tab">
+            Create Account
+          </button>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <form id="loginForm">
+
+          <div class="form-title">
+            Welcome back
+          </div>
+
+          <div class="form-subtitle">
+            Login to continue earning.
+          </div>
+
+          <div class="field">
+            <label>Phone number</label>
             <input
               id="loginPhone"
               class="input"
               type="tel"
-              inputmode="tel"
               autocomplete="tel"
               placeholder="Your phone number"
               required>
-
           </div>
 
-        </div>
-
-        <div class="field">
-
-          <label class="field-label">
-            Password
-          </label>
-
-          <div class="input-wrap">
-
-            <span class="input-icon">🔒</span>
-
+          <div class="field">
+            <label>Password</label>
             <input
               id="loginPassword"
               class="input"
@@ -1327,51 +1455,39 @@
               autocomplete="current-password"
               placeholder="Your password"
               required>
-
           </div>
 
-        </div>
+          <button
+            type="submit"
+            class="primary-btn">
+            Login to SCHOOL BUCKS
+          </button>
 
-        <button
-          id="loginBtn"
-          class="primary-btn"
-          type="submit">
-          Login
-        </button>
-
-      </form>
+        </form>
 
 
-      <!-- REGISTER -->
+        <!-- REGISTER -->
 
-      <form
-        id="registerForm"
-        class="hidden">
+        <form id="registerForm" class="hidden">
 
-        <h2 class="auth-title">
-          Create your account
-        </h2>
+          <div class="form-title">
+            Create your account
+          </div>
 
-        <p class="auth-subtitle">
-          Start earning from your phone.
-        </p>
+          <div class="form-subtitle">
+            Start your SCHOOL BUCKS journey.
+          </div>
 
-        <div
-          id="refBanner"
-          class="ref-banner">
-          🎁 Referral code applied
-        </div>
+          <div id="refNotice" class="ref-notice hidden">
+            <span>🎁</span>
+            <span>
+              You were referred to SCHOOL BUCKS.
+              Your referral code has been added automatically.
+            </span>
+          </div>
 
-        <div class="field">
-
-          <label class="field-label">
-            Full name
-          </label>
-
-          <div class="input-wrap">
-
-            <span class="input-icon">👤</span>
-
+          <div class="field">
+            <label>Full name</label>
             <input
               id="registerName"
               class="input"
@@ -1379,68 +1495,31 @@
               autocomplete="name"
               placeholder="Your full name"
               required>
-
           </div>
 
-        </div>
-
-        <div class="field">
-
-          <label class="field-label">
-            Phone number
-          </label>
-
-          <div class="input-wrap">
-
-            <span class="input-icon">📱</span>
-
+          <div class="field">
+            <label>Phone number</label>
             <input
               id="registerPhone"
               class="input"
               type="tel"
-              inputmode="tel"
               autocomplete="tel"
               placeholder="Your phone number"
               required>
-
           </div>
 
-        </div>
-
-        <div class="field">
-
-          <label class="field-label">
-            Email
-            <span style="color:#98A2B3;">
-              (optional)
-            </span>
-          </label>
-
-          <div class="input-wrap">
-
-            <span class="input-icon">✉️</span>
-
+          <div class="field">
+            <label>Email address</label>
             <input
               id="registerEmail"
               class="input"
               type="email"
               autocomplete="email"
-              placeholder="you@example.com">
-
+              placeholder="Optional email address">
           </div>
 
-        </div>
-
-        <div class="field">
-
-          <label class="field-label">
-            Password
-          </label>
-
-          <div class="input-wrap">
-
-            <span class="input-icon">🔒</span>
-
+          <div class="field">
+            <label>Password</label>
             <input
               id="registerPassword"
               class="input"
@@ -1449,473 +1528,401 @@
               minlength="6"
               placeholder="At least 6 characters"
               required>
-
           </div>
 
-        </div>
-
-        <div class="field">
-
-          <label class="field-label">
-            Referral code
-            <span style="color:#98A2B3;">
-              (optional)
-            </span>
-          </label>
-
-          <div class="input-wrap">
-
-            <span class="input-icon">🎁</span>
-
+          <div class="field">
+            <label>Referral code</label>
             <input
               id="registerReferral"
               class="input"
               type="text"
-              autocapitalize="characters"
-              placeholder="Referral code">
+              autocomplete="off"
+              placeholder="Referral code if you have one">
+          </div>
 
+          <button
+            type="submit"
+            class="primary-btn">
+            Create SCHOOL BUCKS Account
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- ==========================================================
+       APPLICATION
+       ========================================================== -->
+
+  <main id="appScreen" class="hidden">
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+      <div class="topbar-inner">
+
+        <div class="top-brand">
+
+          <div class="mini-logo">
+            SB
+          </div>
+
+          <div>
+            <div class="top-brand-name">
+              SCHOOL BUCKS
+            </div>
+
+            <div class="top-brand-sub">
+              Earn. Save. Grow.
+            </div>
           </div>
 
         </div>
 
-        <button
-          id="registerBtn"
-          class="primary-btn"
-          type="submit">
-          Create Account
-        </button>
-
-      </form>
-
-      <p class="auth-note">
-        By continuing, you agree to use SCHOOL BUCKS responsibly
-        and provide accurate account information.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ============================================================
-     MAIN APP
-============================================================ -->
-
-<section
-  id="mainApp"
-  class="main-app hidden">
-
-  <header class="topbar">
-
-    <div class="topbar-inner">
-
-      <div class="top-brand">
-
-        <div class="mini-logo">
+        <div id="topAvatar" class="top-avatar">
           SB
         </div>
 
-        <div>
-          <div class="top-title">
-            SCHOOL BUCKS
-          </div>
-
-          <div class="top-subtitle">
-            Student earning platform
-          </div>
-        </div>
-
       </div>
 
-      <button
-        id="refreshBtn"
-        class="icon-btn"
-        type="button">
-        ↻
-      </button>
-
-    </div>
-
-  </header>
+    </header>
 
 
-  <main class="content">
+    <!-- PAGE CONTENT -->
 
-    <!-- HOME -->
+    <div class="page">
 
-    <section
-      id="homeScreen"
-      class="screen active">
 
-      <div class="greeting">
+      <!-- ======================================================
+           HOME
+           ====================================================== -->
 
-        <div class="greeting-small">
-          Good day,
+      <section id="homePage" class="app-page">
+
+        <div class="balance-card">
+
+          <div class="balance-label">
+            Available balance
+          </div>
+
+          <div id="homeBalance" class="balance-value">
+            $0.00
+          </div>
+
+          <div class="balance-row">
+
+            <div class="balance-small">
+              Pending
+              <strong id="homePending">
+                $0.00
+              </strong>
+            </div>
+
+            <button
+              type="button"
+              id="homeWithdrawBtn"
+              class="withdraw-btn">
+              Withdraw
+            </button>
+
+          </div>
+
         </div>
 
-        <h1
-          id="homeName"
-          class="greeting-name">
-          Welcome
-        </h1>
 
-      </div>
+        <div class="stats-grid">
 
+          <div class="stat-card">
+            <div class="stat-label">
+              This week
+            </div>
+            <div id="weeklyValue" class="stat-value">
+              $0.00
+            </div>
+          </div>
 
-      <div class="balance-card">
+          <div class="stat-card">
+            <div class="stat-label">
+              Lifetime
+            </div>
+            <div id="lifetimeValue" class="stat-value">
+              $0.00
+            </div>
+          </div>
 
-        <div class="balance-label">
-          Available balance
+          <div class="stat-card">
+            <div class="stat-label">
+              Withdrawn
+            </div>
+            <div id="withdrawnValue" class="stat-value">
+              $0.00
+            </div>
+          </div>
+
         </div>
 
-        <div
-          id="homeBalance"
-          class="balance-amount">
-          $0.00
+
+        <!-- EARN -->
+
+        <div class="section">
+
+          <div class="section-head">
+
+            <div class="section-title">
+              Earn money
+            </div>
+
+            <button
+              type="button"
+              class="section-link"
+              data-page="earn">
+              View all
+            </button>
+
+          </div>
+
+
+          <div class="earn-grid">
+
+            <button
+              type="button"
+              class="earn-card"
+              data-page="earn">
+
+              <div class="earn-icon blue">
+                ◉
+              </div>
+
+              <div class="earn-title">
+                Surveys
+              </div>
+
+              <div class="earn-text">
+                Complete surveys and earn.
+              </div>
+
+              <div class="earn-arrow">
+                →
+              </div>
+
+            </button>
+
+
+            <button
+              type="button"
+              class="earn-card"
+              data-page="earn">
+
+              <div class="earn-icon green">
+                ✓
+              </div>
+
+              <div class="earn-title">
+                Offers
+              </div>
+
+              <div class="earn-text">
+                Discover available offers.
+              </div>
+
+              <div class="earn-arrow">
+                →
+              </div>
+
+            </button>
+
+
+            <button
+              type="button"
+              class="earn-card"
+              data-page="earn">
+
+              <div class="earn-icon orange">
+                ★
+              </div>
+
+              <div class="earn-title">
+                Tasks
+              </div>
+
+              <div class="earn-text">
+                Complete tasks for rewards.
+              </div>
+
+              <div class="earn-arrow">
+                →
+              </div>
+
+            </button>
+
+
+            <button
+              type="button"
+              class="earn-card"
+              data-page="earn">
+
+              <div class="earn-icon purple">
+                +
+              </div>
+
+              <div class="earn-title">
+                More
+              </div>
+
+              <div class="earn-text">
+                More earning opportunities.
+              </div>
+
+              <div class="earn-arrow">
+                →
+              </div>
+
+            </button>
+
+          </div>
+
         </div>
 
-        <div class="balance-bottom">
 
-          <div class="balance-stat">
+        <!-- REFERRAL -->
 
-            <div class="balance-stat-label">
-              Lifetime earned
+        <div class="section">
+
+          <div class="referral-card">
+
+            <h3>
+              Earn with referrals
+            </h3>
+
+            <p>
+              Share your SCHOOL BUCKS link with friends.
+              When qualifying activity is completed,
+              referral rewards can be credited.
+            </p>
+
+            <div class="ref-code-row">
+
+              <div
+                id="homeReferralCode"
+                class="ref-code">
+                —
+              </div>
+
+              <button
+                type="button"
+                id="homeShareBtn"
+                class="share-btn">
+                Share
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RECENT ACTIVITY -->
+
+        <div class="section">
+
+          <div class="section-head">
+
+            <div class="section-title">
+              Recent activity
+            </div>
+
+            <button
+              type="button"
+              class="section-link"
+              data-page="wallet">
+              Wallet
+            </button>
+
+          </div>
+
+          <div
+            id="recentActivity"
+            class="activity-list">
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ======================================================
+           WALLET
+           ====================================================== -->
+
+      <section id="walletPage" class="app-page hidden">
+
+        <div class="section-head">
+          <div class="section-title">
+            My Wallet
+          </div>
+        </div>
+
+
+        <div class="wallet-summary">
+
+          <div class="wallet-box">
+
+            <div class="wallet-box-label">
+              Available
             </div>
 
             <div
-              id="homeLifetime"
-              class="balance-stat-value">
+              id="walletAvailable"
+              class="wallet-box-value">
               $0.00
             </div>
 
           </div>
 
-          <button
-            id="homeWithdrawBtn"
-            class="withdraw-mini"
-            type="button">
-            Withdraw
-          </button>
+          <div class="wallet-box">
 
-        </div>
-
-      </div>
-
-
-      <div class="stats-grid">
-
-        <div class="stat-card">
-
-          <div class="stat-icon">
-            💰
-          </div>
-
-          <div class="stat-label">
-            Available
-          </div>
-
-          <div
-            id="statAvailable"
-            class="stat-value">
-            $0.00
-          </div>
-
-        </div>
-
-        <div class="stat-card">
-
-          <div class="stat-icon">
-            ⏳
-          </div>
-
-          <div class="stat-label">
-            Pending
-          </div>
-
-          <div
-            id="statPending"
-            class="stat-value">
-            $0.00
-          </div>
-
-        </div>
-
-        <div class="stat-card">
-
-          <div class="stat-icon">
-            📈
-          </div>
-
-          <div class="stat-label">
-            Withdrawn
-          </div>
-
-          <div
-            id="statWithdrawn"
-            class="stat-value">
-            $0.00
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="section-head">
-
-        <h2 class="section-title">
-          Earn money
-        </h2>
-
-        <button
-          id="goEarnBtn"
-          class="section-link"
-          type="button">
-          See all
-        </button>
-
-      </div>
-
-
-      <div class="earn-grid">
-
-        <button
-          class="earn-card"
-          type="button"
-          data-earn="surveys">
-
-          <div class="earn-icon blue">
-            📋
-          </div>
-
-          <div class="earn-title">
-            Surveys
-          </div>
-
-          <div class="earn-description">
-            Answer surveys and earn rewards.
-          </div>
-
-          <div class="earn-arrow">
-            ›
-          </div>
-
-        </button>
-
-
-        <button
-          class="earn-card"
-          type="button"
-          data-earn="offers">
-
-          <div class="earn-icon purple">
-            🎁
-          </div>
-
-          <div class="earn-title">
-            Offers
-          </div>
-
-          <div class="earn-description">
-            Complete partner offers.
-          </div>
-
-          <div class="earn-arrow">
-            ›
-          </div>
-
-        </button>
-
-
-        <button
-          class="earn-card"
-          type="button"
-          data-earn="tasks">
-
-          <div class="earn-icon orange">
-            ✅
-          </div>
-
-          <div class="earn-title">
-            Tasks
-          </div>
-
-          <div class="earn-description">
-            Complete available tasks.
-          </div>
-
-          <div class="earn-arrow">
-            ›
-          </div>
-
-        </button>
-
-
-        <button
-          class="earn-card"
-          type="button"
-          data-earn="referrals">
-
-          <div class="earn-icon green">
-            👥
-          </div>
-
-          <div class="earn-title">
-            Referrals
-          </div>
-
-          <div class="earn-description">
-            Invite friends and earn.
-          </div>
-
-          <div class="earn-arrow">
-            ›
-          </div>
-
-        </button>
-
-      </div>
-
-
-      <div class="referral-card">
-
-        <div class="referral-eyebrow">
-          Your referral
-        </div>
-
-        <div class="referral-title">
-          Earn together 🎉
-        </div>
-
-        <p class="referral-text">
-          Share your SCHOOL BUCKS link with friends
-          and track your referrals.
-        </p>
-
-        <div class="referral-code-row">
-
-          <div
-            id="homeReferralCode"
-            class="referral-code">
-            —
-          </div>
-
-          <button
-            id="homeShareBtn"
-            class="share-btn"
-            type="button">
-            Share
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="section-head">
-
-        <h2 class="section-title">
-          Recent activity
-        </h2>
-
-        <button
-          id="goWalletBtn"
-          class="section-link"
-          type="button">
-          Wallet
-        </button>
-
-      </div>
-
-
-      <div
-        id="homeActivity"
-        class="activity-card">
-
-        <div class="empty-state">
-          <div class="empty-icon">
-            💳
-          </div>
-          No activity yet.
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- WALLET -->
-
-    <section
-      id="walletScreen"
-      class="screen">
-
-      <div class="greeting">
-
-        <div class="greeting-small">
-          Your money
-        </div>
-
-        <h1 class="greeting-name">
-          Wallet
-        </h1>
-
-      </div>
-
-
-      <div class="wallet-summary">
-
-        <div class="wallet-main-label">
-          Available balance
-        </div>
-
-        <div
-          id="walletBalance"
-          class="wallet-main-amount">
-          $0.00
-        </div>
-
-        <div class="wallet-stats">
-
-          <div class="wallet-stat">
-
-            <div class="wallet-stat-label">
+            <div class="wallet-box-label">
               Pending
             </div>
 
             <div
               id="walletPending"
-              class="wallet-stat-value">
+              class="wallet-box-value">
               $0.00
             </div>
 
           </div>
 
-          <div class="wallet-stat">
+          <div class="wallet-box">
 
-            <div class="wallet-stat-label">
+            <div class="wallet-box-label">
               Lifetime earned
             </div>
 
             <div
               id="walletLifetime"
-              class="wallet-stat-value">
+              class="wallet-box-value">
               $0.00
             </div>
 
           </div>
 
-          <div class="wallet-stat">
+          <div class="wallet-box">
 
-            <div class="wallet-stat-label">
-              Withdrawn
+            <div class="wallet-box-label">
+              Lifetime withdrawn
             </div>
 
             <div
               id="walletWithdrawn"
-              class="wallet-stat-value">
+              class="wallet-box-value">
               $0.00
             </div>
 
@@ -1924,2671 +1931,2156 @@
         </div>
 
 
-        <button
-          id="walletWithdrawBtn"
-          class="withdraw-big-btn"
-          type="button">
-          💸 Withdraw to EcoCash
-        </button>
+        <div class="section">
 
-      </div>
-
-
-      <div class="section-head">
-
-        <h2 class="section-title">
-          Transactions
-        </h2>
-
-      </div>
-
-
-      <div
-        id="walletActivity"
-        class="activity-card">
-
-        <div class="empty-state">
-          <div class="empty-icon">
-            💳
-          </div>
-          No transactions yet.
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- EARN -->
-
-    <section
-      id="earnScreen"
-      class="screen">
-
-      <div class="greeting">
-
-        <div class="greeting-small">
-          Put your free time to work
-        </div>
-
-        <h1 class="greeting-name">
-          Earn
-        </h1>
-
-      </div>
-
-
-      <div class="earn-hero">
-
-        <h2 class="earn-hero-title">
-          More ways to earn 💸
-        </h2>
-
-        <p class="earn-hero-text">
-          Complete surveys, offers and tasks from
-          available earning partners.
-        </p>
-
-      </div>
-
-
-      <div class="offer-list">
-
-        <div class="offer-item">
-
-          <div class="offer-icon">
-            📋
-          </div>
-
-          <div class="offer-info">
-
-            <div class="offer-title">
-              Surveys
+          <div class="section-head">
+            <div class="section-title">
+              Transactions
             </div>
-
-            <div class="offer-description">
-              Paid questionnaires from survey providers.
-            </div>
-
           </div>
-
-          <button
-            class="offer-button"
-            type="button"
-            data-earn-action="surveys">
-            View
-          </button>
-
-        </div>
-
-
-        <div class="offer-item">
 
           <div
-            class="offer-icon"
-            style="background:#F3EEFF;">
-            🎁
+            id="walletTransactions"
+            class="activity-list">
           </div>
 
-          <div class="offer-info">
+        </div>
 
-            <div class="offer-title">
-              Offerwalls
-            </div>
+      </section>
 
-            <div class="offer-description">
-              Apps, games and partner offers.
-            </div>
 
+      <!-- ======================================================
+           EARN
+           ====================================================== -->
+
+      <section id="earnPage" class="app-page hidden">
+
+        <div class="earn-hero">
+
+          <h2>
+            Start earning
+          </h2>
+
+          <p>
+            Complete surveys, offers and tasks and earn
+            verified rewards directly into your SCHOOL BUCKS wallet.
+          </p>
+
+          <div class="earn-status">
+            <span class="status-dot"></span>
+            Earning platform
           </div>
-
-          <button
-            class="offer-button"
-            type="button"
-            data-earn-action="offers">
-            View
-          </button>
 
         </div>
 
 
-        <div class="offer-item">
+        <div class="coming-card">
 
-          <div
-            class="offer-icon"
-            style="background:#FFF7E6;">
-            ✅
+          <div class="coming-icon">
+            ⚡
           </div>
 
-          <div class="offer-info">
-
-            <div class="offer-title">
-              Tasks
-            </div>
-
-            <div class="offer-description">
-              Complete available tasks and activities.
-            </div>
-
+          <div class="coming-title">
+            Earning providers are being connected
           </div>
 
-          <button
-            class="offer-button"
-            type="button"
-            data-earn-action="tasks">
-            View
-          </button>
+          <div class="coming-text">
+            Live surveys, offers and tasks will appear here
+            once the earning providers are connected to SCHOOL BUCKS.
+          </div>
 
         </div>
 
 
-        <div class="offer-item">
+        <div class="section">
 
-          <div
-            class="offer-icon"
-            style="background:#EAF8EF;">
-            👥
+          <div class="section-title">
+            How earning works
           </div>
 
-          <div class="offer-info">
+          <div class="earn-grid" style="margin-top:11px">
 
-            <div class="offer-title">
-              Referrals
+            <div class="earn-card">
+
+              <div class="earn-icon blue">
+                1
+              </div>
+
+              <div class="earn-title">
+                Choose
+              </div>
+
+              <div class="earn-text">
+                Select an available earning opportunity.
+              </div>
+
             </div>
 
-            <div class="offer-description">
-              Invite friends using your referral link.
+
+            <div class="earn-card">
+
+              <div class="earn-icon green">
+                2
+              </div>
+
+              <div class="earn-title">
+                Complete
+              </div>
+
+              <div class="earn-text">
+                Complete the provider's requirements.
+              </div>
+
+            </div>
+
+
+            <div class="earn-card">
+
+              <div class="earn-icon orange">
+                3
+              </div>
+
+              <div class="earn-title">
+                Verify
+              </div>
+
+              <div class="earn-text">
+                Your reward is verified before crediting.
+              </div>
+
+            </div>
+
+
+            <div class="earn-card">
+
+              <div class="earn-icon purple">
+                4
+              </div>
+
+              <div class="earn-title">
+                Earn
+              </div>
+
+              <div class="earn-text">
+                Verified earnings enter your wallet.
+              </div>
+
             </div>
 
           </div>
-
-          <button
-            id="earnShareBtn"
-            class="offer-button"
-            type="button">
-            Share
-          </button>
 
         </div>
 
-      </div>
-
-    </section>
+      </section>
 
 
-    <!-- PROFILE -->
+      <!-- ======================================================
+           PROFILE
+           ====================================================== -->
 
-    <section
-      id="profileScreen"
-      class="screen">
+      <section id="profilePage" class="app-page hidden">
 
-      <div class="greeting">
-
-        <div class="greeting-small">
-          Your account
+        <div class="section-head">
+          <div class="section-title">
+            My Profile
+          </div>
         </div>
 
-        <h1 class="greeting-name">
-          Profile
-        </h1>
 
-      </div>
+        <div class="profile-card">
 
-
-      <div class="profile-card">
-
-        <div class="profile-header">
-
-          <div
-            id="profileAvatar"
-            class="avatar">
-            SB
-          </div>
-
-          <div>
+          <div class="profile-head">
 
             <div
-              id="profileName"
-              class="profile-name">
-              —
+              id="profileAvatar"
+              class="profile-avatar">
+              SB
+            </div>
+
+            <div>
+
+              <div
+                id="profileName"
+                class="profile-name">
+                —
+              </div>
+
+              <div
+                id="profileEmail"
+                class="profile-email">
+                —
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="profile-row">
+
+            <div class="profile-label">
+              Phone
             </div>
 
             <div
               id="profilePhone"
-              class="profile-phone">
+              class="profile-value">
               —
             </div>
 
           </div>
 
+
+          <div class="profile-row">
+
+            <div class="profile-label">
+              Referral code
+            </div>
+
+            <div
+              id="profileReferral"
+              class="profile-value">
+              —
+            </div>
+
+          </div>
+
+
+          <div class="profile-row">
+
+            <div class="profile-label">
+              Account status
+            </div>
+
+            <div
+              id="profileStatus"
+              class="profile-value">
+              Active
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            id="profileShareBtn"
+            class="primary-btn">
+            Share My Referral Link
+          </button>
+
+          <button
+            type="button"
+            id="logoutBtn"
+            class="logout-btn">
+            Logout
+          </button>
+
         </div>
 
-
-        <div class="profile-row">
-
-          <div class="profile-label">
-            Email
-          </div>
-
-          <div
-            id="profileEmail"
-            class="profile-value">
-            —
-          </div>
-
-        </div>
+      </section>
 
 
-        <div class="profile-row">
-
-          <div class="profile-label">
-            Referral code
-          </div>
-
-          <div
-            id="profileReferral"
-            class="profile-value">
-            —
-          </div>
-
-        </div>
+    </div>
 
 
-        <div class="profile-row">
+    <!-- ========================================================
+         BOTTOM NAV
+         ======================================================== -->
 
-          <div class="profile-label">
-            Account status
-          </div>
+    <nav class="bottom-nav">
 
-          <div
-            id="profileStatus"
-            class="profile-value">
-            Active
-          </div>
-
-        </div>
-
+      <div class="nav-inner">
 
         <button
-          id="profileShareBtn"
-          class="secondary-btn"
           type="button"
-          style="margin-top:14px;">
-          🔗 Share my referral link
+          class="nav-btn active"
+          data-page="home">
+
+          <span class="nav-icon">⌂</span>
+          Home
+
         </button>
 
 
         <button
-          id="logoutBtn"
-          class="logout-btn"
-          type="button">
-          Log out
+          type="button"
+          class="nav-btn"
+          data-page="wallet">
+
+          <span class="nav-icon">▣</span>
+          Wallet
+
+        </button>
+
+
+        <button
+          type="button"
+          class="nav-btn"
+          data-page="earn">
+
+          <span class="nav-icon">⚡</span>
+          Earn
+
+        </button>
+
+
+        <button
+          type="button"
+          class="nav-btn"
+          data-page="profile">
+
+          <span class="nav-icon">●</span>
+          Me
+
         </button>
 
       </div>
 
-    </section>
+    </nav>
 
   </main>
 
 
-  <!-- BOTTOM NAV -->
+  <!-- ==========================================================
+       WITHDRAWAL MODAL
+       ========================================================== -->
 
-  <div class="bottom-nav-wrap">
+  <div
+    id="withdrawModal"
+    class="modal hidden">
 
-    <nav class="bottom-nav">
+    <div class="modal-card">
 
-      <button
-        class="nav-btn active"
-        data-screen="homeScreen"
-        type="button">
+      <div class="modal-head">
 
-        <span class="nav-icon">
-          ⌂
-        </span>
+        <div class="modal-title">
+          Withdraw earnings
+        </div>
 
-        <span>
-          Home
-        </span>
-
-      </button>
-
-
-      <button
-        class="nav-btn"
-        data-screen="walletScreen"
-        type="button">
-
-        <span class="nav-icon">
-          ◉
-        </span>
-
-        <span>
-          Wallet
-        </span>
-
-      </button>
-
-
-      <button
-        class="nav-btn"
-        data-screen="earnScreen"
-        type="button">
-
-        <span class="nav-icon">
-          ⚡
-        </span>
-
-        <span>
-          Earn
-        </span>
-
-      </button>
-
-
-      <button
-        class="nav-btn"
-        data-screen="profileScreen"
-        type="button">
-
-        <span class="nav-icon">
-          ●
-        </span>
-
-        <span>
-          Me
-        </span>
-
-      </button>
-
-    </nav>
-
-  </div>
-
-</section>
-
-
-<!-- ============================================================
-     WITHDRAWAL
-============================================================ -->
-
-<div
-  id="withdrawModal"
-  class="modal-backdrop hidden">
-
-  <div class="modal">
-
-    <div class="modal-handle"></div>
-
-    <h2 class="modal-title">
-      Withdraw
-    </h2>
-
-    <p class="modal-text">
-      Withdraw your available balance to EcoCash.
-      Minimum withdrawal is $2.
-    </p>
-
-
-    <div class="field">
-
-      <label class="field-label">
-        Amount
-      </label>
-
-      <div class="input-wrap">
-
-        <span class="input-icon">
-          $
-        </span>
-
-        <input
-          id="withdrawAmount"
-          class="input"
-          type="number"
-          inputmode="decimal"
-          min="2"
-          step="0.01"
-          placeholder="2.00">
+        <button
+          type="button"
+          id="closeWithdraw"
+          class="close-btn">
+          ×
+        </button>
 
       </div>
 
-    </div>
-
-
-    <div class="field">
-
-      <label class="field-label">
-        EcoCash number
-      </label>
-
-      <div class="input-wrap">
-
-        <span class="input-icon">
-          📱
-        </span>
-
-        <input
-          id="withdrawPhone"
-          class="input"
-          type="tel"
-          inputmode="tel"
-          placeholder="EcoCash number">
-
+      <div class="modal-note">
+        Minimum withdrawal is $2.00.
+        Your requested amount will be reserved while the
+        withdrawal is being processed.
       </div>
 
-    </div>
+      <form id="withdrawForm">
+
+        <div class="field">
+
+          <label>
+            Amount (USD)
+          </label>
+
+          <input
+            id="withdrawAmount"
+            class="input"
+            type="number"
+            min="2"
+            step="0.01"
+            placeholder="2.00"
+            required>
+
+        </div>
 
 
-    <div class="modal-actions">
+        <div class="field">
 
-      <button
-        id="submitWithdrawBtn"
-        class="primary-btn"
-        type="button">
-        Request Withdrawal
-      </button>
+          <label>
+            EcoCash number
+          </label>
 
-      <button
-        id="closeWithdrawBtn"
-        class="cancel-btn"
-        type="button">
-        Cancel
-      </button>
+          <input
+            id="withdrawNumber"
+            class="input"
+            type="tel"
+            placeholder="Your EcoCash number"
+            required>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="primary-btn">
+          Request Withdrawal
+        </button>
+
+      </form>
 
     </div>
 
   </div>
 
-</div>
 
+  <!-- ==========================================================
+       PROCESSING OVERLAY
+       ========================================================== -->
 
-<!-- ============================================================
-     PROCESSING
-============================================================ -->
+  <div
+    id="processingOverlay"
+    class="hidden">
 
-<div
-  id="processingOverlay"
-  class="processing-overlay hidden">
+    <div class="processing-card">
 
-  <div class="processing-box">
+      <div class="processing-spinner"></div>
 
-    <div class="spinner"></div>
+      <div class="processing-title">
+        Please wait…
+      </div>
 
-    <div
-      id="processingTitle"
-      class="processing-title">
-      Please wait…
+      <div class="processing-text">
+        Your request is being securely processed.
+        Please don't close the app.
+      </div>
+
+      <div class="processing-bar"></div>
+
     </div>
-
-    <div
-      id="processingText"
-      class="processing-text">
-      Your request is being securely processed.
-    </div>
-
-    <div class="processing-line"></div>
 
   </div>
 
-</div>
+
+  <!-- ==========================================================
+       TOAST
+       ========================================================== -->
+
+  <div id="toast"></div>
 
 
-<!-- TOAST -->
+  <!-- ==========================================================
+       ALL JAVASCRIPT
+       ========================================================== -->
 
-<div id="toastContainer"></div>
+  <script>
 
+    /* ==========================================================
+       SCHOOL BUCKS CONFIGURATION
+       ========================================================== */
 
-<script>
-"use strict";
+    const API_URL =
+      'https://script.google.com/macros/s/AKfycbyzqTjgUhd1ZjDPeu47pxiVLM5YVMsIduUvhAeElxjG9CYf5YVCvs-T7CRBkEBO_Tw/exec';
 
-/* ================================================================
-   SCHOOL BUCKS CONFIGURATION
-
-   THIS IS YOUR REAL APPS SCRIPT WEB APP URL.
-   DO NOT CHANGE THIS UNLESS YOU DEPLOY A NEW APPS SCRIPT WEB APP.
-
-   Students should NEVER use this URL as their referral link.
-
-   Public application:
-   https://schoolbucks.vercel.app/
-================================================================ */
-
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbyzqTjgUhd1ZjDPeu47pxiVLM5YVMsIduUvhAeElxjG9CYf5YVCvs-T7CRBkEBO_Tw/exec";
-
-const PUBLIC_APP_URL =
-  "https://schoolbucks.vercel.app/";
+    const APP_URL =
+      'https://schoolbucks.vercel.app/';
 
 
-/* ================================================================
-   STORAGE
-================================================================ */
+    /* ==========================================================
+       APPLICATION STATE
+       ========================================================== */
 
-const STORAGE_TOKEN =
-  "schoolbucks_session_token";
-
-const STORAGE_REF =
-  "schoolbucks_referral";
-
-
-/* ================================================================
-   STATE
-================================================================ */
-
-const state = {
-  token:
-    localStorage.getItem(
-      STORAGE_TOKEN
-    ) || "",
-
-  user:null,
-  dashboard:null,
-  wallet:null,
-  referrals:null,
-  busy:false
-};
+    const state = {
+      token: localStorage.getItem('sb_token') || '',
+      user: null,
+      dashboard: null,
+      wallet: null,
+      referrals: null,
+      deferredInstallPrompt: null,
+      referralCode: ''
+    };
 
 
-/* ================================================================
-   DOM
-================================================================ */
+    /* ==========================================================
+       DOM HELPERS
+       ========================================================== */
 
-const $ = id =>
-  document.getElementById(id);
+    const $ = id => document.getElementById(id);
 
-function show(el) {
-  if (el) {
-    el.classList.remove("hidden");
-  }
-}
+    function show(el) {
+      if (el) el.classList.remove('hidden');
+    }
 
-function hide(el) {
-  if (el) {
-    el.classList.add("hidden");
-  }
-}
+    function hide(el) {
+      if (el) el.classList.add('hidden');
+    }
 
+    function money(value) {
+      const n = Number(value || 0);
 
-/* ================================================================
-   START
-================================================================ */
+      return '$' + n.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
 
-document.addEventListener(
-  "DOMContentLoaded",
-  init
-);
+    function escapeHTML(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
 
-
-async function init() {
-
-  captureReferral();
-
-  bindEvents();
-
-  /*
-   * If a previous version of the app stored an old/bad
-   * session token, the backend will reject it and the user
-   * will be returned to login.
-   */
-
-  if (state.token) {
-
-    await bootAuthenticatedApp();
-
-  } else {
-
-    showAuth();
-
-  }
-
-  registerServiceWorker();
-}
-
-
-/* ================================================================
-   REFERRAL
-================================================================ */
-
-function captureReferral() {
-
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
-
-  const ref =
-    params.get("ref");
-
-
-  if (ref) {
-
-    const clean =
-      ref
+    function initials(name) {
+      const parts = String(name || 'SB')
         .trim()
-        .toUpperCase();
+        .split(/\s+/)
+        .filter(Boolean);
+
+      if (!parts.length) return 'SB';
+
+      if (parts.length === 1) {
+        return parts[0].substring(0, 2).toUpperCase();
+      }
+
+      return (
+        parts[0].charAt(0) +
+        parts[parts.length - 1].charAt(0)
+      ).toUpperCase();
+    }
 
 
-    if (clean) {
+    /* ==========================================================
+       TOAST
+       ========================================================== */
 
-      localStorage.setItem(
-        STORAGE_REF,
-        clean
-      );
+    let toastTimer = null;
 
-      $("registerReferral")
-        .value = clean;
+    function toast(message, type = '') {
 
-      $("refBanner")
-        .classList.add("show");
+      const el = $('toast');
 
-      showRegister();
+      el.textContent = message;
+
+      el.className = '';
+
+      if (type) {
+        el.classList.add(type);
+      }
+
+      requestAnimationFrame(() => {
+        el.classList.add('show');
+      });
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(() => {
+        el.classList.remove('show');
+      }, 3500);
+    }
+
+
+    /* ==========================================================
+       PROCESSING
+       ========================================================== */
+
+    function processing(on) {
+
+      if (on) {
+        show($('processingOverlay'));
+        document.body.style.overflow = 'hidden';
+      } else {
+        hide($('processingOverlay'));
+        document.body.style.overflow = '';
+      }
 
     }
 
-  }
 
+    /* ==========================================================
+       API
+       ========================================================== */
 
-  const stored =
-    localStorage.getItem(
-      STORAGE_REF
-    );
+    async function api(action, data = {}, retries = 3) {
 
+      if (!API_URL) {
+        throw new Error('SCHOOL BUCKS backend URL is missing.');
+      }
 
-  if (
-    stored &&
-    $("registerReferral")
-  ) {
+      const payload = {
+        action,
+        ...data
+      };
 
-    $("registerReferral")
-      .value = stored;
+      if (state.token) {
+        payload.token = state.token;
+      }
 
-    $("refBanner")
-      .classList.add("show");
+      let lastError = null;
 
-  }
+      for (let attempt = 0; attempt < retries; attempt++) {
 
-}
+        try {
 
+          const response = await fetch(API_URL, {
+            method: 'POST',
+            redirect: 'follow',
+            headers: {
+              'Content-Type':
+                'application/x-www-form-urlencoded;charset=UTF-8'
+            },
+            body:
+              'payload=' +
+              encodeURIComponent(JSON.stringify(payload))
+          });
 
-/* ================================================================
-   EVENTS
-================================================================ */
+          const raw = await response.text();
 
-function bindEvents() {
+          let result;
 
-  $("loginTab")
-    .addEventListener(
-      "click",
-      showLogin
-    );
+          try {
+            result = JSON.parse(raw);
+          } catch (parseError) {
 
+            throw new Error(
+              'The SCHOOL BUCKS backend returned an unexpected response.'
+            );
 
-  $("registerTab")
-    .addEventListener(
-      "click",
-      showRegister
-    );
+          }
 
+          if (
+            result &&
+            (
+              result.ok === true ||
+              result.success === true
+            )
+          ) {
+            return result.data !== undefined
+              ? result.data
+              : result;
+          }
 
-  $("loginForm")
-    .addEventListener(
-      "submit",
-      handleLogin
-    );
+          const errorMessage =
+            result?.error ||
+            result?.message ||
+            'The request could not be completed.';
 
+          if (
+            String(errorMessage)
+              .toUpperCase()
+              .includes('BUSY')
+          ) {
 
-  $("registerForm")
-    .addEventListener(
-      "submit",
-      handleRegister
-    );
+            throw new Error('BUSY');
 
+          }
 
-  $("refreshBtn")
-    .addEventListener(
-      "click",
-      () => refreshData(true)
-    );
+          throw new Error(errorMessage);
 
+        } catch (error) {
 
-  $("homeWithdrawBtn")
-    .addEventListener(
-      "click",
-      openWithdraw
-    );
+          lastError = error;
 
+          if (
+            String(error.message || '')
+              .toUpperCase()
+              .includes('BUSY')
+            ||
+            String(error.message || '')
+              .toLowerCase()
+              .includes('network')
+          ) {
 
-  $("walletWithdrawBtn")
-    .addEventListener(
-      "click",
-      openWithdraw
-    );
+            await new Promise(resolve =>
+              setTimeout(resolve, 700 * Math.pow(2, attempt))
+            );
 
+            continue;
 
-  $("closeWithdrawBtn")
-    .addEventListener(
-      "click",
-      closeWithdraw
-    );
+          }
 
-
-  $("submitWithdrawBtn")
-    .addEventListener(
-      "click",
-      handleWithdrawal
-    );
-
-
-  $("goEarnBtn")
-    .addEventListener(
-      "click",
-      () =>
-        switchScreen(
-          "earnScreen"
-        )
-    );
-
-
-  $("goWalletBtn")
-    .addEventListener(
-      "click",
-      () =>
-        switchScreen(
-          "walletScreen"
-        )
-    );
-
-
-  $("homeShareBtn")
-    .addEventListener(
-      "click",
-      shareReferral
-    );
-
-
-  $("earnShareBtn")
-    .addEventListener(
-      "click",
-      shareReferral
-    );
-
-
-  $("profileShareBtn")
-    .addEventListener(
-      "click",
-      shareReferral
-    );
-
-
-  $("logoutBtn")
-    .addEventListener(
-      "click",
-      () => logout(true)
-    );
-
-
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          switchScreen(
-            button.dataset.screen
-          );
-
+          throw error;
         }
+      }
+
+      throw lastError ||
+        new Error('The request could not be completed.');
+
+    }
+
+
+    /* ==========================================================
+       REFERRAL LINK
+       ========================================================== */
+
+    function captureReferral() {
+
+      const params = new URLSearchParams(
+        window.location.search
       );
 
-    });
+      const ref =
+        params.get('ref') ||
+        params.get('referral') ||
+        '';
+
+      if (ref) {
+
+        const cleaned =
+          ref.trim().toUpperCase();
+
+        state.referralCode = cleaned;
+
+        localStorage.setItem(
+          'sb_referral',
+          cleaned
+        );
+
+      } else {
+
+        state.referralCode =
+          localStorage.getItem('sb_referral') || '';
+
+      }
+
+      if (state.referralCode) {
+
+        $('registerReferral').value =
+          state.referralCode;
+
+        show($('refNotice'));
+
+      }
+
+    }
 
 
-  document
-    .querySelectorAll("[data-earn]")
-    .forEach(button => {
+    function referralLink(code) {
 
-      button.addEventListener(
-        "click",
-        () =>
-          switchScreen(
-            "earnScreen"
-          )
+      if (!code) return APP_URL;
+
+      return (
+        APP_URL +
+        '?ref=' +
+        encodeURIComponent(code)
       );
 
-    });
+    }
 
 
-  document
-    .querySelectorAll("[data-earn-action]")
-    .forEach(button => {
+    /* ==========================================================
+       INSTALLATION
+       ========================================================== */
 
-      button.addEventListener(
-        "click",
-        () => {
-
-          showToast(
-            "Earning provider coming soon.",
-            "success"
-          );
-
-        }
-      );
-
-    });
-
-
-  $("withdrawModal")
-    .addEventListener(
-      "click",
+    window.addEventListener(
+      'beforeinstallprompt',
       event => {
 
-        if (
-          event.target ===
-          $("withdrawModal")
-        ) {
+        event.preventDefault();
 
-          closeWithdraw();
+        state.deferredInstallPrompt = event;
 
-        }
+        showInstallOverlay();
 
       }
     );
 
-}
 
+    window.addEventListener(
+      'appinstalled',
+      () => {
 
-/* ================================================================
-   AUTH UI
-================================================================ */
+        state.deferredInstallPrompt = null;
 
-function showLogin() {
+        hide($('installOverlay'));
 
-  $("loginTab")
-    .classList.add("active");
-
-  $("registerTab")
-    .classList.remove("active");
-
-  show($("loginForm"));
-  hide($("registerForm"));
-
-}
-
-
-function showRegister() {
-
-  $("registerTab")
-    .classList.add("active");
-
-  $("loginTab")
-    .classList.remove("active");
-
-  show($("registerForm"));
-  hide($("loginForm"));
-
-
-  const ref =
-    localStorage.getItem(
-      STORAGE_REF
-    );
-
-
-  if (ref) {
-
-    $("registerReferral")
-      .value = ref;
-
-    $("refBanner")
-      .classList.add("show");
-
-  }
-
-}
-
-
-function showAuth() {
-
-  show($("authScreen"));
-  hide($("mainApp"));
-
-}
-
-
-function showMainApp() {
-
-  hide($("authScreen"));
-  show($("mainApp"));
-
-}
-
-
-/* ================================================================
-   API REQUEST
-
-   Apps Script is called using application/x-www-form-urlencoded
-   so the browser does not have to send a CORS preflight request.
-
-   This also allows the backend to receive:
-   payload = JSON
-================================================================ */
-
-async function api(
-  action,
-  data = {},
-  options = {}
-) {
-
-  if (!API_URL) {
-
-    throw new Error(
-      "Apps Script API URL is empty."
-    );
-
-  }
-
-
-  const payload = {
-    action,
-    ...data
-  };
-
-
-  if (state.token) {
-
-    payload.token =
-      state.token;
-
-  }
-
-
-  const maxRetries =
-    options.retries === undefined
-      ? 3
-      : options.retries;
-
-
-  let lastError;
-
-
-  for (
-    let attempt = 0;
-    attempt <= maxRetries;
-    attempt++
-  ) {
-
-    try {
-
-      const response =
-        await fetch(
-          API_URL,
-          {
-            method:"POST",
-
-            headers:{
-              "Content-Type":
-                "application/x-www-form-urlencoded;charset=UTF-8"
-            },
-
-            body:
-              "payload=" +
-              encodeURIComponent(
-                JSON.stringify(
-                  payload
-                )
-              ),
-
-            cache:"no-store",
-
-            redirect:"follow"
-          }
+        localStorage.setItem(
+          'sb_installed',
+          '1'
         );
 
-
-      const text =
-        await response.text();
-
-
-      let result;
-
-
-      try {
-
-        result =
-          JSON.parse(
-            text
-          );
-
-      } catch (error) {
-
-        console.error(
-          "Apps Script response:",
-          text
-        );
-
-        throw new Error(
-          "The server returned an invalid response."
+        toast(
+          'SCHOOL BUCKS has been installed.',
+          'success'
         );
 
       }
+    );
 
+
+    function isStandalone() {
+
+      return (
+        window.matchMedia(
+          '(display-mode: standalone)'
+        ).matches
+        ||
+        window.navigator.standalone === true
+      );
+
+    }
+
+
+    function isIOS() {
+
+      return /iphone|ipad|ipod/i.test(
+        navigator.userAgent
+      );
+
+    }
+
+
+    function isAndroid() {
+
+      return /android/i.test(
+        navigator.userAgent
+      );
+
+    }
+
+
+    function showInstallOverlay() {
+
+      if (isStandalone()) {
+        hide($('installOverlay'));
+        return;
+      }
+
+      show($('installOverlay'));
+
+      const manual =
+        $('manualInstallText');
+
+      hide(manual);
 
       if (
-        result &&
-        result.ok === false
+        !state.deferredInstallPrompt &&
+        isIOS()
       ) {
 
-        if (
-          result.code === "BUSY" &&
-          attempt < maxRetries
-        ) {
+        manual.innerHTML =
+          'On iPhone or iPad: tap the <strong>Share</strong> button in Safari, then choose <strong>Add to Home Screen</strong>.';
 
-          await sleep(
-            700 *
-            Math.pow(
-              2,
-              attempt
-            )
-          );
+        show(manual);
 
-          continue;
+      } else if (
+        !state.deferredInstallPrompt &&
+        isAndroid()
+      ) {
 
-        }
+        manual.innerHTML =
+          'If the Install button is unavailable, open your browser menu and choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.';
 
-
-        throw new Error(
-          result.message ||
-          "Request failed."
-        );
+        show(manual);
 
       }
 
-
-      return result;
-
-    } catch (error) {
-
-      lastError =
-        error;
-
-
-      const message =
-        String(
-          error.message ||
-          ""
-        ).toLowerCase();
-
-
-      const retryable =
-        message.includes(
-          "failed to fetch"
-        ) ||
-        message.includes(
-          "network"
-        ) ||
-        message.includes(
-          "timeout"
-        );
-
-
-      if (
-        retryable &&
-        attempt < maxRetries
-      ) {
-
-        await sleep(
-          700 *
-          Math.pow(
-            2,
-            attempt
-          )
-        );
-
-        continue;
-
-      }
-
-
-      break;
-
-    }
-
-  }
-
-
-  throw (
-    lastError ||
-    new Error(
-      "Unable to contact SCHOOL BUCKS server."
-    )
-  );
-
-}
-
-
-function sleep(ms) {
-
-  return new Promise(
-    resolve =>
-      setTimeout(
-        resolve,
-        ms
-      )
-  );
-
-}
-
-
-/* ================================================================
-   PROCESSING
-================================================================ */
-
-function startProcessing(
-  title,
-  text
-) {
-
-  state.busy = true;
-
-
-  $("processingTitle")
-    .textContent =
-    title ||
-    "Please wait…";
-
-
-  $("processingText")
-    .textContent =
-    text ||
-    "Your request is being securely processed.";
-
-
-  show(
-    $("processingOverlay")
-  );
-
-}
-
-
-function stopProcessing() {
-
-  state.busy = false;
-
-  hide(
-    $("processingOverlay")
-  );
-
-}
-
-
-/* ================================================================
-   LOGIN
-================================================================ */
-
-async function handleLogin(
-  event
-) {
-
-  event.preventDefault();
-
-
-  if (state.busy) return;
-
-
-  const phone =
-    $("loginPhone")
-      .value
-      .trim();
-
-
-  const password =
-    $("loginPassword")
-      .value;
-
-
-  if (
-    !phone ||
-    !password
-  ) {
-
-    showToast(
-      "Please enter your phone and password.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  startProcessing(
-    "Signing you in…",
-    "Securely checking your account."
-  );
-
-
-  try {
-
-    const result =
-      await api(
-        "login",
-        {
-          phone,
-          password
-        }
-      );
-
-
-    if (
-      !result ||
-      !result.token
-    ) {
-
-      throw new Error(
-        "Login was unsuccessful."
-      );
-
     }
 
 
-    state.token =
-      result.token;
+    async function installApplication() {
 
-    state.user =
-      result.user ||
-      null;
+      if (isStandalone()) {
 
-
-    localStorage.setItem(
-      STORAGE_TOKEN,
-      state.token
-    );
-
-
-    showMainApp();
-
-
-    await refreshData(
-      false
-    );
-
-
-    showToast(
-      "Welcome back! 👋",
-      "success"
-    );
-
-  } catch (error) {
-
-    console.error(
-      "Login error:",
-      error
-    );
-
-
-    showToast(
-      error.message ||
-      "Unable to log in.",
-      "error"
-    );
-
-  } finally {
-
-    stopProcessing();
-
-  }
-
-}
-
-
-/* ================================================================
-   REGISTER
-================================================================ */
-
-async function handleRegister(
-  event
-) {
-
-  event.preventDefault();
-
-
-  if (state.busy) return;
-
-
-  const name =
-    $("registerName")
-      .value
-      .trim();
-
-
-  const phone =
-    $("registerPhone")
-      .value
-      .trim();
-
-
-  const email =
-    $("registerEmail")
-      .value
-      .trim();
-
-
-  const password =
-    $("registerPassword")
-      .value;
-
-
-  const referralCode =
-    $("registerReferral")
-      .value
-      .trim()
-      .toUpperCase();
-
-
-  if (!name) {
-
-    showToast(
-      "Please enter your full name.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if (!phone) {
-
-    showToast(
-      "Please enter your phone number.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if (
-    password.length < 6
-  ) {
-
-    showToast(
-      "Password must be at least 6 characters.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  startProcessing(
-    "Creating your account…",
-    "Securing your account and wallet."
-  );
-
-
-  try {
-
-    const result =
-      await api(
-        "register",
-        {
-          name,
-          phone,
-          email,
-          password,
-          referral_code:
-            referralCode
-        }
-      );
-
-
-    if (
-      !result ||
-      !result.token
-    ) {
-
-      throw new Error(
-        "Account creation failed."
-      );
-
-    }
-
-
-    state.token =
-      result.token;
-
-    state.user =
-      result.user ||
-      null;
-
-
-    localStorage.setItem(
-      STORAGE_TOKEN,
-      state.token
-    );
-
-
-    localStorage.removeItem(
-      STORAGE_REF
-    );
-
-
-    showMainApp();
-
-
-    await refreshData(
-      false
-    );
-
-
-    showToast(
-      "Account created successfully! 🎉",
-      "success"
-    );
-
-  } catch (error) {
-
-    console.error(
-      "Registration error:",
-      error
-    );
-
-
-    showToast(
-      error.message ||
-      "Unable to create your account.",
-      "error"
-    );
-
-  } finally {
-
-    stopProcessing();
-
-  }
-
-}
-
-
-/* ================================================================
-   LOAD APP
-================================================================ */
-
-async function bootAuthenticatedApp() {
-
-  showMainApp();
-
-
-  startProcessing(
-    "Loading SCHOOL BUCKS…",
-    "Getting your latest account information."
-  );
-
-
-  try {
-
-    await refreshData(
-      false
-    );
-
-  } catch (error) {
-
-    console.error(
-      "Boot error:",
-      error
-    );
-
-
-    /*
-     * If the stored session is invalid,
-     * return to login.
-     */
-
-    const message =
-      String(
-        error.message ||
-        ""
-      ).toLowerCase();
-
-
-    if (
-      message.includes(
-        "token"
-      ) ||
-      message.includes(
-        "session"
-      ) ||
-      message.includes(
-        "unauthorized"
-      ) ||
-      message.includes(
-        "login"
-      )
-    ) {
-
-      logout(false);
-
-    } else {
-
-      showToast(
-        "Unable to load your account.",
-        "error"
-      );
-
-    }
-
-  } finally {
-
-    stopProcessing();
-
-  }
-
-}
-
-
-/* ================================================================
-   REFRESH DATA
-================================================================ */
-
-async function refreshData(
-  showLoading = true
-) {
-
-  if (!state.token) {
-    return;
-  }
-
-
-  if (showLoading) {
-
-    startProcessing(
-      "Refreshing…",
-      "Getting your latest balance and activity."
-    );
-
-  }
-
-
-  try {
-
-    const result =
-      await api(
-        "dashboard"
-      );
-
-
-    state.dashboard =
-      result;
-
-
-    state.user =
-      result.user ||
-      state.user;
-
-
-    renderDashboard(
-      result
-    );
-
-
-    try {
-
-      const wallet =
-        await api(
-          "wallet"
-        );
-
-
-      state.wallet =
-        wallet;
-
-
-      renderWallet(
-        wallet
-      );
-
-    } catch (error) {
-
-      console.warn(
-        "Wallet refresh failed:",
-        error
-      );
-
-    }
-
-
-    try {
-
-      const referrals =
-        await api(
-          "referrals"
-        );
-
-
-      state.referrals =
-        referrals;
-
-
-      renderReferrals(
-        referrals
-      );
-
-    } catch (error) {
-
-      console.warn(
-        "Referral refresh failed:",
-        error
-      );
-
-    }
-
-  } finally {
-
-    if (showLoading) {
-
-      stopProcessing();
-
-    }
-
-  }
-
-}
-
-
-/* ================================================================
-   RENDER DASHBOARD
-================================================================ */
-
-function renderDashboard(
-  data
-) {
-
-  const user =
-    data.user ||
-    state.user ||
-    {};
-
-
-  const wallet =
-    data.wallet ||
-    {};
-
-
-  const available =
-    numberValue(
-      wallet.available
-    );
-
-
-  const pending =
-    numberValue(
-      wallet.pending
-    );
-
-
-  const lifetime =
-    numberValue(
-      wallet.lifetime_earned
-    );
-
-
-  const withdrawn =
-    numberValue(
-      wallet.lifetime_withdrawn
-    );
-
-
-  $("homeName")
-    .textContent =
-    firstName(
-      user.name
-    ) ||
-    "Welcome";
-
-
-  $("homeBalance")
-    .textContent =
-    money(
-      available
-    );
-
-
-  $("homeLifetime")
-    .textContent =
-    money(
-      lifetime
-    );
-
-
-  $("statAvailable")
-    .textContent =
-    money(
-      available
-    );
-
-
-  $("statPending")
-    .textContent =
-    money(
-      pending
-    );
-
-
-  $("statWithdrawn")
-    .textContent =
-    money(
-      withdrawn
-    );
-
-
-  $("profileName")
-    .textContent =
-    user.name ||
-    "—";
-
-
-  $("profilePhone")
-    .textContent =
-    user.phone ||
-    "—";
-
-
-  $("profileEmail")
-    .textContent =
-    user.email ||
-    "Not provided";
-
-
-  $("profileReferral")
-    .textContent =
-    user.referral_code ||
-    "—";
-
-
-  $("profileStatus")
-    .textContent =
-    user.status ||
-    "Active";
-
-
-  $("profileAvatar")
-    .textContent =
-    initials(
-      user.name
-    );
-
-
-  $("homeReferralCode")
-    .textContent =
-    user.referral_code ||
-    "—";
-
-
-  renderActivity(
-    $("homeActivity"),
-    data.transactions ||
-    data.activity ||
-    []
-  );
-
-}
-
-
-/* ================================================================
-   WALLET
-================================================================ */
-
-function renderWallet(
-  data
-) {
-
-  const wallet =
-    data.wallet ||
-    data ||
-    {};
-
-
-  $("walletBalance")
-    .textContent =
-    money(
-      wallet.available
-    );
-
-
-  $("walletPending")
-    .textContent =
-    money(
-      wallet.pending
-    );
-
-
-  $("walletLifetime")
-    .textContent =
-    money(
-      wallet.lifetime_earned
-    );
-
-
-  $("walletWithdrawn")
-    .textContent =
-    money(
-      wallet.lifetime_withdrawn
-    );
-
-
-  renderActivity(
-    $("walletActivity"),
-    data.transactions ||
-    data.ledger ||
-    []
-  );
-
-}
-
-
-/* ================================================================
-   REFERRALS
-================================================================ */
-
-function renderReferrals(
-  data
-) {
-
-  const user =
-    data.user ||
-    state.user ||
-    {};
-
-
-  if (
-    user.referral_code
-  ) {
-
-    $("homeReferralCode")
-      .textContent =
-      user.referral_code;
-
-  }
-
-}
-
-
-/* ================================================================
-   ACTIVITY
-================================================================ */
-
-function renderActivity(
-  container,
-  items
-) {
-
-  if (!container) {
-    return;
-  }
-
-
-  if (
-    !Array.isArray(items) ||
-    items.length === 0
-  ) {
-
-    container.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">💳</div>
-        No transactions yet.
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    items
-      .slice(0,20)
-      .map(
-        activityHTML
-      )
-      .join("");
-
-}
-
-
-function activityHTML(
-  item
-) {
-
-  const title =
-    item.description ||
-    item.type ||
-    item.provider ||
-    "Transaction";
-
-
-  const amount =
-    item.student_amount ??
-    item.amount ??
-    item.gross_amount ??
-    0;
-
-
-  const numericAmount =
-    numberValue(
-      amount
-    );
-
-
-  const status =
-    String(
-      item.status ||
-      ""
-    ).toUpperCase();
-
-
-  const pending =
-    status === "PENDING";
-
-
-  const date =
-    item.timestamp ||
-    item.created_at ||
-    item.requested_at ||
-    "";
-
-
-  const amountClass =
-    pending
-      ? "amount-pending"
-      : numericAmount >= 0
-        ? "amount-positive"
-        : "";
-
-
-  const prefix =
-    numericAmount >= 0
-      ? "+"
-      : "";
-
-
-  return `
-    <div class="activity-item">
-
-      <div class="activity-icon">
-        ${pending ? "⏳" : "💰"}
-      </div>
-
-      <div class="activity-main">
-
-        <div class="activity-title">
-          ${escapeHTML(title)}
-        </div>
-
-        <div class="activity-date">
-          ${escapeHTML(
-            formatDate(date)
-          )}
-        </div>
-
-      </div>
-
-      <div class="activity-amount ${amountClass}">
-        ${prefix}${money(numericAmount)}
-      </div>
-
-    </div>
-  `;
-
-}
-
-
-/* ================================================================
-   NAVIGATION
-================================================================ */
-
-function switchScreen(
-  screenId
-) {
-
-  document
-    .querySelectorAll(".screen")
-    .forEach(screen => {
-
-      screen.classList.toggle(
-        "active",
-        screen.id === screenId
-      );
-
-    });
-
-
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(button => {
-
-      button.classList.toggle(
-        "active",
-        button.dataset.screen ===
-        screenId
-      );
-
-    });
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* ================================================================
-   WITHDRAWAL
-================================================================ */
-
-function openWithdraw() {
-
-  if (!state.token) {
-    return;
-  }
-
-
-  const available =
-    numberValue(
-      state.dashboard?.wallet?.available ??
-      state.wallet?.wallet?.available ??
-      state.wallet?.available
-    );
-
-
-  if (
-    available < 2
-  ) {
-
-    showToast(
-      "You need at least $2.00 available to withdraw.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  $("withdrawAmount")
-    .value = "";
-
-
-  $("withdrawPhone")
-    .value =
-    state.user?.phone ||
-    "";
-
-
-  show(
-    $("withdrawModal")
-  );
-
-}
-
-
-function closeWithdraw() {
-
-  hide(
-    $("withdrawModal")
-  );
-
-}
-
-
-async function handleWithdrawal() {
-
-  if (state.busy) {
-    return;
-  }
-
-
-  const amount =
-    Number(
-      $("withdrawAmount")
-        .value
-    );
-
-
-  const paymentNumber =
-    $("withdrawPhone")
-      .value
-      .trim();
-
-
-  if (
-    !Number.isFinite(amount) ||
-    amount < 2
-  ) {
-
-    showToast(
-      "Minimum withdrawal is $2.00.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if (!paymentNumber) {
-
-    showToast(
-      "Enter your EcoCash number.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  startProcessing(
-    "Submitting withdrawal…",
-    "Your funds are being securely reserved."
-  );
-
-
-  try {
-
-    await api(
-      "withdraw",
-      {
-        amount,
-        payment_method:
-          "ECOCASH",
-        payment_number:
-          paymentNumber
-      }
-    );
-
-
-    closeWithdraw();
-
-
-    await refreshData(
-      false
-    );
-
-
-    showToast(
-      "Withdrawal request submitted.",
-      "success"
-    );
-
-  } catch (error) {
-
-    console.error(
-      "Withdrawal error:",
-      error
-    );
-
-
-    showToast(
-      error.message ||
-      "Withdrawal request failed.",
-      "error"
-    );
-
-  } finally {
-
-    stopProcessing();
-
-  }
-
-}
-
-
-/* ================================================================
-   REFERRAL SHARE
-================================================================ */
-
-async function shareReferral() {
-
-  const code =
-    state.user?.referral_code ||
-    state.dashboard?.user?.referral_code;
-
-
-  if (!code) {
-
-    showToast(
-      "Your referral code is not available yet.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const url =
-    PUBLIC_APP_URL +
-    "?ref=" +
-    encodeURIComponent(
-      code
-    );
-
-
-  const shareData = {
-
-    title:
-      "Join SCHOOL BUCKS",
-
-    text:
-      "Join SCHOOL BUCKS and start earning from surveys, offers and tasks.",
-
-    url
-
-  };
-
-
-  if (
-    navigator.share
-  ) {
-
-    try {
-
-      await navigator.share(
-        shareData
-      );
-
-      return;
-
-    } catch (error) {
-
-      if (
-        error.name ===
-        "AbortError"
-      ) {
+        hide($('installOverlay'));
 
         return;
 
       }
 
+
+      if (state.deferredInstallPrompt) {
+
+        try {
+
+          state.deferredInstallPrompt.prompt();
+
+          const result =
+            await state.deferredInstallPrompt.userChoice;
+
+          state.deferredInstallPrompt = null;
+
+          if (
+            result &&
+            result.outcome === 'accepted'
+          ) {
+
+            localStorage.setItem(
+              'sb_installed',
+              '1'
+            );
+
+          }
+
+          hide($('installOverlay'));
+
+        } catch (error) {
+
+          toast(
+            'Please use your browser menu to install SCHOOL BUCKS.',
+            'error'
+          );
+
+        }
+
+        return;
+      }
+
+
+      if (isIOS()) {
+
+        $('manualInstallText').innerHTML =
+          'Tap the <strong>Share</strong> button in Safari, then select <strong>Add to Home Screen</strong>.';
+
+        show($('manualInstallText'));
+
+        return;
+
+      }
+
+
+      $('manualInstallText').innerHTML =
+        'Your browser has not made the automatic install option available yet. Open your browser menu and choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.';
+
+      show($('manualInstallText'));
+
     }
 
-  }
 
-
-  try {
-
-    await copyText(
-      url
+    $('installBtn').addEventListener(
+      'click',
+      installApplication
     );
 
 
-    showToast(
-      "Referral link copied!",
-      "success"
-    );
+    $('installLaterBtn').addEventListener(
+      'click',
+      () => {
 
-  } catch (error) {
+        /*
+         * Referral visitors are encouraged to install,
+         * but browsers that do not expose the native
+         * installation prompt cannot be forced to install.
+         */
+        hide($('installOverlay'));
 
-    showToast(
-      url,
-      "success"
-    );
-
-  }
-
-}
-
-
-/* ================================================================
-   LOGOUT
-================================================================ */
-
-function logout(
-  showMessage = true
-) {
-
-  state.token = "";
-  state.user = null;
-  state.dashboard = null;
-  state.wallet = null;
-  state.referrals = null;
-
-
-  localStorage.removeItem(
-    STORAGE_TOKEN
-  );
-
-
-  showAuth();
-
-  showLogin();
-
-
-  if (showMessage) {
-
-    showToast(
-      "You have been logged out.",
-      "success"
-    );
-
-  }
-
-}
-
-
-/* ================================================================
-   UTILITIES
-================================================================ */
-
-function money(
-  value
-) {
-
-  const n =
-    numberValue(
-      value
-    );
-
-
-  return "$" +
-    n.toLocaleString(
-      "en-US",
-      {
-        minimumFractionDigits:2,
-        maximumFractionDigits:2
       }
     );
 
-}
 
+    /* ==========================================================
+       AUTH TABS
+       ========================================================== */
 
-function numberValue(
-  value
-) {
+    function showLogin() {
 
-  const n =
-    Number(
-      value
-    );
+      show($('loginForm'));
+      hide($('registerForm'));
 
+      $('loginTab').classList.add('active');
+      $('registerTab').classList.remove('active');
 
-  return Number.isFinite(n)
-    ? n
-    : 0;
-
-}
-
-
-function firstName(
-  name
-) {
-
-  if (!name) {
-    return "";
-  }
-
-
-  return String(name)
-    .trim()
-    .split(/\s+/)[0];
-
-}
-
-
-function initials(
-  name
-) {
-
-  if (!name) {
-    return "SB";
-  }
-
-
-  const parts =
-    String(name)
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean);
-
-
-  if (
-    parts.length === 1
-  ) {
-
-    return parts[0]
-      .slice(0,2)
-      .toUpperCase();
-
-  }
-
-
-  return (
-    parts[0][0] +
-    parts[parts.length - 1][0]
-  ).toUpperCase();
-
-}
-
-
-function formatDate(
-  value
-) {
-
-  if (!value) {
-    return "";
-  }
-
-
-  const date =
-    new Date(value);
-
-
-  if (
-    Number.isNaN(
-      date.getTime()
-    )
-  ) {
-
-    return String(value);
-
-  }
-
-
-  return date.toLocaleDateString(
-    "en-GB",
-    {
-      day:"2-digit",
-      month:"short",
-      year:"numeric"
     }
-  );
-
-}
 
 
-function escapeHTML(
-  value
-) {
+    function showRegister() {
 
-  return String(
-    value ?? ""
-  )
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+      hide($('loginForm'));
+      show($('registerForm'));
 
-}
+      $('loginTab').classList.remove('active');
+      $('registerTab').classList.add('active');
+
+      if (state.referralCode) {
+
+        $('registerReferral').value =
+          state.referralCode;
+
+        show($('refNotice'));
+
+      }
+
+    }
 
 
-async function copyText(
-  text
-) {
-
-  if (
-    navigator.clipboard &&
-    window.isSecureContext
-  ) {
-
-    await navigator.clipboard.writeText(
-      text
-    );
-
-    return;
-
-  }
-
-
-  const textarea =
-    document.createElement(
-      "textarea"
+    $('loginTab').addEventListener(
+      'click',
+      showLogin
     );
 
 
-  textarea.value =
-    text;
-
-
-  textarea.style.position =
-    "fixed";
-
-
-  textarea.style.left =
-    "-9999px";
-
-
-  document.body.appendChild(
-    textarea
-  );
-
-
-  textarea.select();
-
-
-  document.execCommand(
-    "copy"
-  );
-
-
-  textarea.remove();
-
-}
-
-
-/* ================================================================
-   TOAST
-================================================================ */
-
-let toastTimer = null;
-
-
-function showToast(
-  message,
-  type = ""
-) {
-
-  const container =
-    $("toastContainer");
-
-
-  container.innerHTML = "";
-
-
-  const toast =
-    document.createElement(
-      "div"
+    $('registerTab').addEventListener(
+      'click',
+      showRegister
     );
 
 
-  toast.className =
-    "toast " +
-    type;
+    /* ==========================================================
+       AUTH
+       ========================================================== */
+
+    async function login(event) {
+
+      event.preventDefault();
+
+      const phone =
+        $('loginPhone').value.trim();
+
+      const password =
+        $('loginPassword').value;
+
+      if (!phone || !password) {
+
+        toast(
+          'Please enter your phone number and password.',
+          'error'
+        );
+
+        return;
+
+      }
+
+      processing(true);
+
+      try {
+
+        const data = await api(
+          'login',
+          {
+            phone,
+            password
+          }
+        );
+
+        if (!data || !data.token) {
+          throw new Error(
+            'Login response was incomplete.'
+          );
+        }
+
+        state.token = data.token;
+        state.user = data.user || null;
+
+        localStorage.setItem(
+          'sb_token',
+          state.token
+        );
+
+        localStorage.removeItem(
+          'sb_referral'
+        );
+
+        await loadApplication();
+
+        toast(
+          'Welcome back.',
+          'success'
+        );
+
+      } catch (error) {
+
+        toast(
+          error.message ||
+          'Login failed.',
+          'error'
+        );
+
+      } finally {
+
+        processing(false);
+
+      }
+
+    }
 
 
-  toast.textContent =
-    message;
+    async function register(event) {
+
+      event.preventDefault();
+
+      const name =
+        $('registerName').value.trim();
+
+      const phone =
+        $('registerPhone').value.trim();
+
+      const email =
+        $('registerEmail').value.trim();
+
+      const password =
+        $('registerPassword').value;
+
+      const referral_code =
+        $('registerReferral').value
+          .trim()
+          .toUpperCase();
 
 
-  container.appendChild(
-    toast
-  );
+      if (name.length < 2) {
+
+        toast(
+          'Please enter your full name.',
+          'error'
+        );
+
+        return;
+
+      }
 
 
-  clearTimeout(
-    toastTimer
-  );
+      if (!phone) {
+
+        toast(
+          'Please enter your phone number.',
+          'error'
+        );
+
+        return;
+
+      }
 
 
-  toastTimer =
-    setTimeout(
-      () => {
-        toast.remove();
-      },
-      3200
+      if (password.length < 6) {
+
+        toast(
+          'Password must contain at least 6 characters.',
+          'error'
+        );
+
+        return;
+
+      }
+
+
+      processing(true);
+
+      try {
+
+        const data = await api(
+          'register',
+          {
+            name,
+            phone,
+            email,
+            password,
+            referral_code
+          }
+        );
+
+        if (!data || !data.token) {
+
+          throw new Error(
+            'Registration response was incomplete.'
+          );
+
+        }
+
+        state.token = data.token;
+        state.user = data.user || null;
+
+        localStorage.setItem(
+          'sb_token',
+          state.token
+        );
+
+        localStorage.removeItem(
+          'sb_referral'
+        );
+
+        await loadApplication();
+
+        toast(
+          'Account created successfully.',
+          'success'
+        );
+
+      } catch (error) {
+
+        toast(
+          error.message ||
+          'Registration failed.',
+          'error'
+        );
+
+      } finally {
+
+        processing(false);
+
+      }
+
+    }
+
+
+    $('loginForm').addEventListener(
+      'submit',
+      login
     );
 
-}
+
+    $('registerForm').addEventListener(
+      'submit',
+      register
+    );
 
 
-/* ================================================================
-   SERVICE WORKER
-================================================================ */
+    /* ==========================================================
+       APPLICATION LOADING
+       ========================================================== */
 
-function registerServiceWorker() {
+    async function loadApplication() {
 
-  if (
-    "serviceWorker" in
-    navigator
-  ) {
+      if (!state.token) {
 
-    window.addEventListener(
-      "load",
-      () => {
+        showAuth();
 
-        navigator.serviceWorker
-          .register(
-            "/sw.js?v=2"
-          )
-          .catch(
-            error => {
+        return;
 
-              console.warn(
-                "Service worker registration failed:",
-                error
-              );
+      }
 
+
+      processing(true);
+
+      try {
+
+        const results =
+          await Promise.all([
+            api('dashboard'),
+            api('wallet'),
+            api('referrals')
+          ]);
+
+        state.dashboard =
+          results[0] || {};
+
+        state.wallet =
+          results[1] || {};
+
+        state.referrals =
+          results[2] || {};
+
+
+        if (
+          state.dashboard.user
+        ) {
+
+          state.user =
+            state.dashboard.user;
+
+        }
+
+
+        if (
+          !state.user &&
+          state.wallet.user
+        ) {
+
+          state.user =
+            state.wallet.user;
+
+        }
+
+
+        showApp();
+
+        renderAll();
+
+      } catch (error) {
+
+        console.error(error);
+
+        /*
+         * Invalid/expired session.
+         */
+        if (
+          String(error.message || '')
+            .toLowerCase()
+            .includes('session')
+          ||
+          String(error.message || '')
+            .toLowerCase()
+            .includes('token')
+          ||
+          String(error.message || '')
+            .toLowerCase()
+            .includes('unauthorized')
+        ) {
+
+          logout(false);
+
+        } else {
+
+          showAuth();
+
+          toast(
+            error.message ||
+            'Could not load your account.',
+            'error'
+          );
+
+        }
+
+      } finally {
+
+        processing(false);
+
+      }
+
+    }
+
+
+    function showAuth() {
+
+      hide($('appScreen'));
+      show($('authScreen'));
+
+    }
+
+
+    function showApp() {
+
+      hide($('authScreen'));
+      show($('appScreen'));
+
+    }
+
+
+    /* ==========================================================
+       RENDER USER
+       ========================================================== */
+
+    function renderUser() {
+
+      const user =
+        state.user || {};
+
+      const name =
+        user.name || 'SCHOOL BUCKS User';
+
+      const avatar =
+        initials(name);
+
+
+      $('topAvatar').textContent =
+        avatar;
+
+      $('profileAvatar').textContent =
+        avatar;
+
+      $('profileName').textContent =
+        name;
+
+      $('profileEmail').textContent =
+        user.email ||
+        'No email added';
+
+      $('profilePhone').textContent =
+        user.phone ||
+        '—';
+
+      $('profileReferral').textContent =
+        user.referral_code ||
+        '—';
+
+      $('profileStatus').textContent =
+        user.status ||
+        'ACTIVE';
+
+
+      $('homeReferralCode').textContent =
+        user.referral_code ||
+        '—';
+
+    }
+
+
+    /* ==========================================================
+       BALANCES
+       ========================================================== */
+
+    function getAvailable() {
+
+      const w =
+        state.wallet || {};
+
+      return Number(
+        w.available ??
+        w.balance ??
+        state.dashboard?.available ??
+        0
+      );
+
+    }
+
+
+    function getPending() {
+
+      const w =
+        state.wallet || {};
+
+      return Number(
+        w.pending ??
+        state.dashboard?.pending ??
+        0
+      );
+
+    }
+
+
+    function getLifetime() {
+
+      const w =
+        state.wallet || {};
+
+      return Number(
+        w.lifetime_earned ??
+        state.dashboard?.lifetime_earned ??
+        0
+      );
+
+    }
+
+
+    function getWithdrawn() {
+
+      const w =
+        state.wallet || {};
+
+      return Number(
+        w.lifetime_withdrawn ??
+        state.dashboard?.lifetime_withdrawn ??
+        0
+      );
+
+    }
+
+
+    function renderBalances() {
+
+      $('homeBalance').textContent =
+        money(getAvailable());
+
+      $('homePending').textContent =
+        money(getPending());
+
+      $('weeklyValue').textContent =
+        money(
+          state.dashboard?.weekly_earned || 0
+        );
+
+      $('lifetimeValue').textContent =
+        money(getLifetime());
+
+      $('withdrawnValue').textContent =
+        money(getWithdrawn());
+
+
+      $('walletAvailable').textContent =
+        money(getAvailable());
+
+      $('walletPending').textContent =
+        money(getPending());
+
+      $('walletLifetime').textContent =
+        money(getLifetime());
+
+      $('walletWithdrawn').textContent =
+        money(getWithdrawn());
+
+    }
+
+
+    /* ==========================================================
+       TRANSACTIONS
+       ========================================================== */
+
+    function transactionList() {
+
+      const w =
+        state.wallet || {};
+
+      return (
+        w.transactions ||
+        w.ledger ||
+        state.dashboard?.recent_activity ||
+        state.dashboard?.transactions ||
+        []
+      );
+
+    }
+
+
+    function transactionTitle(item) {
+
+      return (
+        item.description ||
+        item.type ||
+        item.provider ||
+        'Wallet transaction'
+      );
+
+    }
+
+
+    function transactionAmount(item) {
+
+      return Number(
+        item.student_amount ??
+        item.amount ??
+        item.gross_amount ??
+        0
+      );
+
+    }
+
+
+    function transactionDate(item) {
+
+      return (
+        item.timestamp ||
+        item.created_at ||
+        item.requested_at ||
+        ''
+      );
+
+    }
+
+
+    function renderTransactions() {
+
+      const list =
+        transactionList();
+
+      const recent =
+        Array.isArray(list)
+          ? list.slice(0, 10)
+          : [];
+
+
+      const html =
+        recent.length
+          ? recent.map(item => {
+
+              const amount =
+                transactionAmount(item);
+
+              const title =
+                escapeHTML(
+                  transactionTitle(item)
+                );
+
+              const date =
+                escapeHTML(
+                  transactionDate(item)
+                );
+
+              const positive =
+                amount >= 0;
+
+              return `
+                <div class="activity">
+
+                  <div class="activity-icon">
+                    ${positive ? '+' : '−'}
+                  </div>
+
+                  <div class="activity-main">
+
+                    <div class="activity-title">
+                      ${title}
+                    </div>
+
+                    <div class="activity-date">
+                      ${date}
+                    </div>
+
+                  </div>
+
+                  <div class="activity-amount">
+                    ${positive ? '+' : '−'}${money(Math.abs(amount))}
+                  </div>
+
+                </div>
+              `;
+
+            }).join('')
+
+          : `
+            <div class="empty">
+              No transactions yet.
+            </div>
+          `;
+
+
+      $('recentActivity').innerHTML =
+        html;
+
+      $('walletTransactions').innerHTML =
+        html;
+
+    }
+
+
+    /* ==========================================================
+       REFERRALS
+       ========================================================== */
+
+    function renderReferrals() {
+
+      const code =
+        state.user?.referral_code ||
+        state.referrals?.referral_code ||
+        '';
+
+      $('homeReferralCode').textContent =
+        code || '—';
+
+    }
+
+
+    /* ==========================================================
+       RENDER EVERYTHING
+       ========================================================== */
+
+    function renderAll() {
+
+      renderUser();
+
+      renderBalances();
+
+      renderTransactions();
+
+      renderReferrals();
+
+    }
+
+
+    /* ==========================================================
+       NAVIGATION
+       ========================================================== */
+
+    function navigate(page) {
+
+      const pages = [
+        'home',
+        'wallet',
+        'earn',
+        'profile'
+      ];
+
+      pages.forEach(name => {
+
+        const section =
+          $(name + 'Page');
+
+        if (name === page) {
+          show(section);
+        } else {
+          hide(section);
+        }
+
+      });
+
+
+      document
+        .querySelectorAll('.nav-btn')
+        .forEach(btn => {
+
+          btn.classList.toggle(
+            'active',
+            btn.dataset.page === page
+          );
+
+        });
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+    }
+
+
+    document.addEventListener(
+      'click',
+      event => {
+
+        const button =
+          event.target.closest(
+            '[data-page]'
+          );
+
+        if (!button) return;
+
+        const page =
+          button.dataset.page;
+
+        if (page) {
+          navigate(page);
+        }
+
+      }
+    );
+
+
+    /* ==========================================================
+       WITHDRAWAL
+       ========================================================== */
+
+    function openWithdraw() {
+
+      const available =
+        getAvailable();
+
+      if (available < 2) {
+
+        toast(
+          'You need at least $2.00 available to withdraw.',
+          'error'
+        );
+
+        return;
+
+      }
+
+      $('withdrawAmount').value = '';
+
+      $('withdrawNumber').value =
+        state.user?.phone || '';
+
+      show($('withdrawModal'));
+
+    }
+
+
+    function closeWithdraw() {
+
+      hide($('withdrawModal'));
+
+    }
+
+
+    $('homeWithdrawBtn').addEventListener(
+      'click',
+      openWithdraw
+    );
+
+
+    $('closeWithdraw').addEventListener(
+      'click',
+      closeWithdraw
+    );
+
+
+    $('withdrawModal').addEventListener(
+      'click',
+      event => {
+
+        if (
+          event.target ===
+          $('withdrawModal')
+        ) {
+          closeWithdraw();
+        }
+
+      }
+    );
+
+
+    $('withdrawForm').addEventListener(
+      'submit',
+      async event => {
+
+        event.preventDefault();
+
+        const amount =
+          Number(
+            $('withdrawAmount').value
+          );
+
+        const payment_number =
+          $('withdrawNumber')
+            .value
+            .trim();
+
+
+        if (!Number.isFinite(amount) || amount < 2) {
+
+          toast(
+            'Minimum withdrawal is $2.00.',
+            'error'
+          );
+
+          return;
+
+        }
+
+
+        if (amount > getAvailable()) {
+
+          toast(
+            'You cannot withdraw more than your available balance.',
+            'error'
+          );
+
+          return;
+
+        }
+
+
+        if (!payment_number) {
+
+          toast(
+            'Please enter your EcoCash number.',
+            'error'
+          );
+
+          return;
+
+        }
+
+
+        closeWithdraw();
+
+        processing(true);
+
+        try {
+
+          await api(
+            'withdraw',
+            {
+              amount,
+              payment_method: 'EcoCash',
+              payment_number
             }
           );
 
+          toast(
+            'Withdrawal request submitted.',
+            'success'
+          );
+
+          await loadApplication();
+
+        } catch (error) {
+
+          toast(
+            error.message ||
+            'Withdrawal request failed.',
+            'error'
+          );
+
+        } finally {
+
+          processing(false);
+
+        }
+
       }
     );
 
-  }
 
-}
-</script>
+    /* ==========================================================
+       SHARE REFERRAL
+       ========================================================== */
+
+    async function shareReferral() {
+
+      const code =
+        state.user?.referral_code ||
+        state.referrals?.referral_code ||
+        '';
+
+      if (!code) {
+
+        toast(
+          'Your referral code is not available yet.',
+          'error'
+        );
+
+        return;
+
+      }
+
+
+      let link =
+        referralLink(code);
+
+
+      /*
+       * Ask backend for its official referral URL first.
+       * If that endpoint is unavailable, the Vercel URL
+       * above is used as the fallback.
+       */
+
+      try {
+
+        const result =
+          await api('share');
+
+        if (
+          result &&
+          result.link
+        ) {
+
+          link =
+            result.link;
+
+        }
+
+      } catch (error) {
+
+        /*
+         * Local fallback is intentionally silent.
+         */
+
+      }
+
+
+      const shareData = {
+
+        title:
+          'Join SCHOOL BUCKS',
+
+        text:
+          'Join SCHOOL BUCKS and earn from surveys, offers and tasks.',
+
+        url:
+          link
+
+      };
+
+
+      if (
+        navigator.share &&
+        typeof navigator.share === 'function'
+      ) {
+
+        try {
+
+          await navigator.share(
+            shareData
+          );
+
+          return;
+
+        } catch (error) {
+
+          if (
+            error &&
+            error.name === 'AbortError'
+          ) {
+            return;
+          }
+
+        }
+
+      }
+
+
+      try {
+
+        await navigator.clipboard.writeText(
+          link
+        );
+
+        toast(
+          'Referral link copied.',
+          'success'
+        );
+
+      } catch (error) {
+
+        window.prompt(
+          'Copy your referral link:',
+          link
+        );
+
+      }
+
+    }
+
+
+    $('homeShareBtn').addEventListener(
+      'click',
+      shareReferral
+    );
+
+
+    $('profileShareBtn').addEventListener(
+      'click',
+      shareReferral
+    );
+
+
+    /* ==========================================================
+       LOGOUT
+       ========================================================== */
+
+    function logout(showMessage = true) {
+
+      state.token = '';
+      state.user = null;
+      state.dashboard = null;
+      state.wallet = null;
+      state.referrals = null;
+
+      localStorage.removeItem(
+        'sb_token'
+      );
+
+      showAuth();
+
+      showLogin();
+
+      if (showMessage) {
+
+        toast(
+          'You have been logged out.',
+          'success'
+        );
+
+      }
+
+    }
+
+
+    $('logoutBtn').addEventListener(
+      'click',
+      () => logout(true)
+    );
+
+
+    /* ==========================================================
+       SERVICE WORKER
+       ========================================================== */
+
+    /*
+     * We keep PWA functionality, but ask the browser to
+     * update the service worker whenever possible.
+     */
+
+    if (
+      'serviceWorker' in navigator
+    ) {
+
+      window.addEventListener(
+        'load',
+        () => {
+
+          navigator.serviceWorker
+            .register('/sw.js')
+            .then(registration => {
+
+              registration.update();
+
+            })
+            .catch(() => {
+              /*
+               * App still works without service worker.
+               */
+            });
+
+        }
+      );
+
+    }
+
+
+    /* ==========================================================
+       START APPLICATION
+       ========================================================== */
+
+    async function startApplication() {
+
+      captureReferral();
+
+
+      /*
+       * Hide boot screen quickly so the interface becomes
+       * responsive even on slower phones.
+       */
+
+      setTimeout(() => {
+
+        $('bootScreen')
+          .classList
+          .add('hide');
+
+      }, 250);
+
+
+      /*
+       * If arriving through a referral link, show the install
+       * screen first when the PWA can be installed.
+       *
+       * This is especially useful for first-time referral
+       * visitors.
+       */
+
+      if (
+        state.referralCode &&
+        !isStandalone() &&
+        !localStorage.getItem('sb_installed')
+      ) {
+
+        setTimeout(() => {
+
+          showInstallOverlay();
+
+        }, 500);
+
+      }
+
+
+      /*
+       * Existing logged-in session.
+       */
+
+      if (state.token) {
+
+        await loadApplication();
+
+        return;
+
+      }
+
+
+      /*
+       * New visitor.
+       */
+
+      showAuth();
+
+
+      /*
+       * Referral visitors are taken to registration after
+       * the install overlay is shown.
+       */
+
+      if (state.referralCode) {
+
+        showRegister();
+
+      } else {
+
+        showLogin();
+
+      }
+
+    }
+
+
+    /*
+     * Start only after DOM is ready.
+     */
+
+    if (
+      document.readyState ===
+      'loading'
+    ) {
+
+      document.addEventListener(
+        'DOMContentLoaded',
+        startApplication
+      );
+
+    } else {
+
+      startApplication();
+
+    }
+
+  </script>
 
 </body>
 </html>

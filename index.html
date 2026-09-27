@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
-  <base target="_top">
 
   <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
+    content="width=device-width, initial-scale=1.0"
   >
 
   <meta
@@ -18,1321 +16,331 @@
   >
 
   <meta
-    name="mobile-web-app-capable"
-    content="yes"
+    name="description"
+    content="SCHOOL BUCKS - Earn from surveys, offers and tasks."
   >
 
-  <meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
+  <link
+    rel="manifest"
+    href="/manifest.json"
   >
 
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="default"
+  <link
+    rel="stylesheet"
+    href="/styles.css"
+  >
+
+  <link
+    rel="icon"
+    href="/icons/icon-192.png"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    href="/icons/icon-192.png"
   >
 
   <title>SCHOOL BUCKS</title>
-
-
-  <style>
-
-    :root {
-      --blue: #0B63F6;
-      --blue-dark: #0645B8;
-      --blue-light: #EAF2FF;
-
-      --green: #16A34A;
-      --green-light: #EAF8EF;
-
-      --orange: #F59E0B;
-      --orange-light: #FFF7E6;
-
-      --red: #DC2626;
-      --red-light: #FEECEC;
-
-      --text: #111827;
-      --muted: #6B7280;
-      --border: #E5E7EB;
-
-      --background: #F6F8FC;
-      --white: #FFFFFF;
-
-      --radius: 18px;
-    }
-
-
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100%;
-      font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
-      background: var(--background);
-      color: var(--text);
-    }
-
-
-    body {
-      min-height: 100vh;
-    }
-
-
-    button,
-    input {
-      font: inherit;
-    }
-
-
-    button {
-      cursor: pointer;
-    }
-
-
-    .hidden {
-      display: none !important;
-    }
-
-
-    /* ============================================================
-       AUTH
-       ============================================================ */
-
-    #authScreen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-
-    .auth-box {
-      width: 100%;
-      max-width: 430px;
-    }
-
-
-    .brand {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
-
-    .brand-logo {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 12px;
-
-      border-radius: 20px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background: var(--blue);
-      color: white;
-
-      font-size: 22px;
-      font-weight: 900;
-
-      box-shadow:
-        0 12px 30px
-        rgba(11, 99, 246, .25);
-    }
-
-
-    .brand-name {
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: -.8px;
-    }
-
-
-    .brand-subtitle {
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 5px;
-    }
-
-
-    .auth-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 24px;
-
-      box-shadow:
-        0 12px 40px
-        rgba(0, 0, 0, .05);
-    }
-
-
-    .auth-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: #F3F4F6;
-      padding: 4px;
-      border-radius: 12px;
-      margin-bottom: 22px;
-    }
-
-
-    .auth-tab {
-      border: 0;
-      background: transparent;
-      padding: 11px;
-      border-radius: 9px;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-
-    .auth-tab.active {
-      background: white;
-      color: var(--blue);
-      box-shadow: 0 2px 7px rgba(0,0,0,.07);
-    }
-
-
-    .field {
-      margin-bottom: 15px;
-    }
-
-
-    .field label {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-
-    .field input {
-      width: 100%;
-      padding: 13px 14px;
-
-      border: 1px solid var(--border);
-      border-radius: 12px;
-
-      outline: none;
-      background: #fff;
-
-      transition:
-        border .15s,
-        box-shadow .15s;
-    }
-
-
-    .field input:focus {
-      border-color: var(--blue);
-      box-shadow:
-        0 0 0 3px
-        rgba(11, 99, 246, .10);
-    }
-
-
-    .primary-btn {
-      width: 100%;
-      border: 0;
-      background: var(--blue);
-      color: white;
-      padding: 14px;
-      border-radius: 13px;
-      font-weight: 800;
-      margin-top: 5px;
-    }
-
-
-    .primary-btn:active {
-      transform: scale(.99);
-    }
-
-
-    .secondary-btn {
-      width: 100%;
-      border: 1px solid var(--border);
-      background: white;
-      color: var(--text);
-      padding: 13px;
-      border-radius: 13px;
-      font-weight: 750;
-    }
-
-
-    .small-note {
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-      margin-top: 16px;
-    }
-
-
-    /* ============================================================
-       APP
-       ============================================================ */
-
-    #appScreen {
-      min-height: 100vh;
-      padding-bottom: 82px;
-    }
-
-
-    .topbar {
-      height: 66px;
-      background: white;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      padding:
-        0 18px;
-
-      border-bottom:
-        1px solid var(--border);
-
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-
-    .topbar-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 900;
-    }
-
-
-    .mini-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-
-      background: var(--blue);
-      color: white;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 13px;
-      font-weight: 900;
-    }
-
-
-    .icon-btn {
-      width: 40px;
-      height: 40px;
-      border: 0;
-      background: #F3F4F6;
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 17px;
-    }
-
-
-    .content {
-      max-width: 650px;
-      margin: 0 auto;
-      padding: 20px 16px;
-    }
-
-
-    .page {
-      display: none;
-    }
-
-
-    .page.active {
-      display: block;
-    }
-
-
-    .greeting {
-      margin-bottom: 18px;
-    }
-
-
-    .greeting-small {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-
-    .greeting-name {
-      font-size: 25px;
-      font-weight: 900;
-      margin-top: 3px;
-    }
-
-
-    /* ============================================================
-       BALANCE CARD
-       ============================================================ */
-
-    .balance-card {
-      background:
-        linear-gradient(
-          135deg,
-          #0B63F6,
-          #0645B8
-        );
-
-      color: white;
-
-      border-radius: 24px;
-      padding: 22px;
-
-      box-shadow:
-        0 18px 40px
-        rgba(11, 99, 246, .22);
-
-      margin-bottom: 16px;
-    }
-
-
-    .balance-label {
-      opacity: .85;
-      font-size: 13px;
-    }
-
-
-    .balance-value {
-      font-size: 38px;
-      font-weight: 900;
-      letter-spacing: -1px;
-      margin: 4px 0 18px;
-    }
-
-
-    .balance-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-
-    .balance-info {
-      font-size: 12px;
-      opacity: .85;
-    }
-
-
-    .white-btn {
-      border: 0;
-      background: white;
-      color: var(--blue);
-      padding: 10px 15px;
-      border-radius: 11px;
-      font-weight: 800;
-    }
-
-
-    /* ============================================================
-       STATS
-       ============================================================ */
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-
-
-    .stat-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 13px;
-    }
-
-
-    .stat-label {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-
-    .stat-value {
-      margin-top: 5px;
-      font-size: 16px;
-      font-weight: 850;
-    }
-
-
-    /* ============================================================
-       SECTION
-       ============================================================ */
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 900;
-      margin: 20px 0 12px;
-    }
-
-
-    /* ============================================================
-       EARN CARDS
-       ============================================================ */
-
-    .earn-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 16px;
-
-      display: flex;
-      align-items: center;
-      gap: 13px;
-
-      margin-bottom: 10px;
-
-      transition:
-        transform .15s,
-        box-shadow .15s;
-    }
-
-
-    .earn-card:active {
-      transform: scale(.985);
-    }
-
-
-    .earn-icon {
-      width: 46px;
-      height: 46px;
-
-      flex-shrink: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 14px;
-
-      font-size: 20px;
-    }
-
-
-    .earn-icon.blue {
-      background: var(--blue-light);
-    }
-
-
-    .earn-icon.green {
-      background: var(--green-light);
-    }
-
-
-    .earn-icon.orange {
-      background: var(--orange-light);
-    }
-
-
-    .earn-info {
-      flex: 1;
-    }
-
-
-    .earn-title {
-      font-weight: 850;
-      font-size: 15px;
-    }
-
-
-    .earn-description {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 3px;
-    }
-
-
-    .earn-arrow {
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-
-    /* ============================================================
-       ACTIVITY
-       ============================================================ */
-
-    .activity {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      overflow: hidden;
-    }
-
-
-    .activity-item {
-      padding: 14px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-
-      border-bottom:
-        1px solid #F0F1F3;
-    }
-
-
-    .activity-item:last-child {
-      border-bottom: 0;
-    }
-
-
-    .activity-title {
-      font-weight: 750;
-      font-size: 13px;
-    }
-
-
-    .activity-date {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 3px;
-    }
-
-
-    .activity-amount {
-      font-weight: 850;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-
-    .positive {
-      color: var(--green);
-    }
-
-
-    .negative {
-      color: var(--red);
-    }
-
-
-    .empty {
-      padding: 25px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-
-    /* ============================================================
-       WALLET
-       ============================================================ */
-
-    .wallet-big {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 22px;
-      margin-bottom: 15px;
-    }
-
-
-    .wallet-big-label {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-
-    .wallet-big-value {
-      font-size: 34px;
-      font-weight: 900;
-      margin-top: 3px;
-    }
-
-
-    /* ============================================================
-       REFERRAL
-       ============================================================ */
-
-    .referral-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 18px;
-      margin-top: 15px;
-    }
-
-
-    .referral-code {
-      background: var(--blue-light);
-      border: 1px dashed #9ABCFB;
-      border-radius: 13px;
-
-      padding: 14px;
-
-      text-align: center;
-
-      font-size: 21px;
-      font-weight: 900;
-      letter-spacing: 1px;
-
-      color: var(--blue-dark);
-      margin: 12px 0;
-    }
-
-
-    .share-btn {
-      width: 100%;
-      border: 0;
-      background: var(--blue);
-      color: white;
-      border-radius: 12px;
-      padding: 13px;
-      font-weight: 800;
-    }
-
-
-    /* ============================================================
-       PROFILE
-       ============================================================ */
-
-    .profile-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 18px;
-    }
-
-
-    .profile-avatar {
-      width: 70px;
-      height: 70px;
-      background: var(--blue-light);
-      color: var(--blue);
-
-      border-radius: 50%;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 25px;
-      font-weight: 900;
-
-      margin-bottom: 14px;
-    }
-
-
-    .profile-name {
-      font-size: 21px;
-      font-weight: 900;
-    }
-
-
-    .profile-line {
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 5px;
-    }
-
-
-    /* ============================================================
-       BOTTOM NAV
-       ============================================================ */
-
-    .bottom-nav {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      height: 72px;
-
-      background: rgba(255,255,255,.96);
-
-      backdrop-filter:
-        blur(15px);
-
-      border-top:
-        1px solid var(--border);
-
-      display: grid;
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      z-index: 30;
-    }
-
-
-    .nav-btn {
-      border: 0;
-      background: transparent;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      gap: 3px;
-
-      color: var(--muted);
-
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-
-    .nav-icon {
-      font-size: 19px;
-    }
-
-
-    .nav-btn.active {
-      color: var(--blue);
-    }
-
-
-    /* ============================================================
-       MODAL
-       ============================================================ */
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-
-      background:
-        rgba(0,0,0,.48);
-
-      display: flex;
-      align-items: flex-end;
-
-      z-index: 100;
-    }
-
-
-    .modal {
-      width: 100%;
-      max-width: 650px;
-
-      margin: 0 auto;
-
-      background: white;
-
-      border-radius:
-        25px 25px 0 0;
-
-      padding: 22px;
-
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-
-    .modal-title {
-      font-size: 20px;
-      font-weight: 900;
-      margin-bottom: 18px;
-    }
-
-
-    .modal-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-
-    /* ============================================================
-       PROCESSING OVERLAY
-       ============================================================ */
-
-    #processingOverlay {
-      position: fixed;
-      inset: 0;
-
-      background:
-        rgba(255,255,255,.88);
-
-      backdrop-filter:
-        blur(6px);
-
-      z-index: 1000;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 25px;
-    }
-
-
-    .processing-box {
-      width: 100%;
-      max-width: 350px;
-
-      background: white;
-
-      border-radius: 22px;
-
-      padding: 24px;
-
-      text-align: center;
-
-      box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.15);
-    }
-
-
-    .spinner {
-      width: 45px;
-      height: 45px;
-
-      border-radius: 50%;
-
-      border:
-        4px solid #E5E7EB;
-
-      border-top-color:
-        var(--blue);
-
-      animation:
-        spin .8s linear infinite;
-
-      margin: 0 auto 15px;
-    }
-
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-
-    .processing-title {
-      font-weight: 900;
-      font-size: 17px;
-    }
-
-
-    .processing-message {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-      margin-top: 5px;
-    }
-
-
-    .progress-bar {
-      height: 7px;
-      background: #E5E7EB;
-      border-radius: 99px;
-      overflow: hidden;
-      margin-top: 18px;
-    }
-
-
-    .progress-fill {
-      height: 100%;
-      width: 15%;
-      background: var(--blue);
-      border-radius: 99px;
-
-      transition:
-        width .4s ease;
-    }
-
-
-    .progress-percent {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 8px;
-    }
-
-
-    /* ============================================================
-       TOAST
-       ============================================================ */
-
-    #toast {
-      position: fixed;
-
-      left: 50%;
-      bottom: 88px;
-
-      transform:
-        translateX(-50%)
-        translateY(20px);
-
-      background:
-        #111827;
-
-      color: white;
-
-      padding: 11px 16px;
-
-      border-radius: 12px;
-
-      font-size: 13px;
-      font-weight: 650;
-
-      opacity: 0;
-
-      pointer-events: none;
-
-      transition:
-        opacity .2s,
-        transform .2s;
-
-      z-index: 2000;
-
-      max-width: calc(100% - 30px);
-      text-align: center;
-    }
-
-
-    #toast.show {
-      opacity: 1;
-      transform:
-        translateX(-50%)
-        translateY(0);
-    }
-
-
-    #toast.error {
-      background: var(--red);
-    }
-
-
-    #toast.success {
-      background: var(--green);
-    }
-
-
-    @media (min-width: 700px) {
-
-      .bottom-nav {
-        max-width: 650px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-left: 1px solid var(--border);
-        border-right: 1px solid var(--border);
-      }
-
-      .modal-overlay {
-        align-items: center;
-      }
-
-      .modal {
-        border-radius: 24px;
-      }
-    }
-
-  </style>
 
 </head>
 
 
 <body>
 
+  <!-- =========================================================
+       LOADING
+       ========================================================= -->
 
-<!-- ============================================================
-     AUTH SCREEN
-     ============================================================ -->
+  <div
+    id="loadingScreen"
+    class="loading-screen"
+  >
 
-<div id="authScreen">
-
-  <div class="auth-box">
-
-    <div class="brand">
-
-      <div class="brand-logo">
-        SB
-      </div>
-
-      <div class="brand-name">
-        SCHOOL BUCKS
-      </div>
-
-      <div class="brand-subtitle">
-        Earn from your phone
-      </div>
-
+    <div class="logo-circle">
+      SB
     </div>
 
+    <div class="loading-title">
+      SCHOOL BUCKS
+    </div>
 
-    <div class="auth-card">
+    <div class="loading-spinner"></div>
 
-      <div class="auth-tabs">
-
-        <button
-          class="auth-tab active"
-          id="loginTab"
-          onclick="showAuth('login')"
-        >
-          Login
-        </button>
-
-        <button
-          class="auth-tab"
-          id="registerTab"
-          onclick="showAuth('register')"
-        >
-          Create Account
-        </button>
-
-      </div>
+  </div>
 
 
-      <!-- LOGIN -->
+  <!-- =========================================================
+       PROCESSING MODAL
+       ========================================================= -->
 
-      <form
-        id="loginForm"
-        onsubmit="login(event)"
-      >
+  <div
+    id="processingModal"
+    class="modal hidden"
+  >
 
-        <div class="field">
+    <div class="modal-card processing-card">
 
-          <label>
-            Phone Number
-          </label>
+      <div class="loading-spinner"></div>
 
-          <input
-            id="loginPhone"
-            type="tel"
-            placeholder="0771234567"
-            required
-          >
+      <h3 id="processingTitle">
+        Please wait...
+      </h3>
 
-        </div>
+      <p id="processingText">
+        Your request is being securely processed.
+      </p>
 
-
-        <div class="field">
-
-          <label>
-            Password
-          </label>
-
-          <input
-            id="loginPassword"
-            type="password"
-            placeholder="Your password"
-            required
-          >
-
-        </div>
-
-
-        <button
-          class="primary-btn"
-          type="submit"
-        >
-          Login
-        </button>
-
-      </form>
-
-
-      <!-- REGISTER -->
-
-      <form
-        id="registerForm"
-        class="hidden"
-        onsubmit="register(event)"
-      >
-
-        <div class="field">
-
-          <label>
-            Full Name
-          </label>
-
-          <input
-            id="registerName"
-            type="text"
-            placeholder="Your name"
-            required
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Phone Number
-          </label>
-
-          <input
-            id="registerPhone"
-            type="tel"
-            placeholder="0771234567"
-            required
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Email
-            <span style="font-weight:400;color:#9CA3AF">
-              optional
-            </span>
-          </label>
-
-          <input
-            id="registerEmail"
-            type="email"
-            placeholder="you@example.com"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Password
-          </label>
-
-          <input
-            id="registerPassword"
-            type="password"
-            placeholder="At least 6 characters"
-            minlength="6"
-            required
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Referral Code
-            <span style="font-weight:400;color:#9CA3AF">
-              optional
-            </span>
-          </label>
-
-          <input
-            id="registerReferral"
-            type="text"
-            placeholder="e.g. MARK12345"
-          >
-
-        </div>
-
-
-        <button
-          class="primary-btn"
-          type="submit"
-        >
-          Create Account
-        </button>
-
-      </form>
-
-
-      <div class="small-note">
-
-        Your account and wallet are protected
-        by the SCHOOL BUCKS backend.
-
+      <div class="indeterminate-bar">
+        <div></div>
       </div>
 
     </div>
 
   </div>
 
-</div>
 
+  <!-- =========================================================
+       AUTH
+       ========================================================= -->
 
+  <main
+    id="authScreen"
+    class="auth-screen hidden"
+  >
 
-<!-- ============================================================
-     APP SCREEN
-     ============================================================ -->
+    <div class="auth-logo">
 
-<div
-  id="appScreen"
-  class="hidden"
->
-
-
-  <div class="topbar">
-
-    <div class="topbar-brand">
-
-      <div class="mini-logo">
+      <div class="logo-circle large">
         SB
       </div>
 
-      <span>
+      <h1>
         SCHOOL BUCKS
-      </span>
+      </h1>
+
+      <p>
+        Earn. Save. Grow.
+      </p>
 
     </div>
 
 
-    <button
-      class="icon-btn"
-      onclick="logout()"
-      title="Logout"
-    >
-      ↪
-    </button>
-
-  </div>
-
-
-
-  <main class="content">
-
-
-    <!-- ========================================================
-         HOME
-         ======================================================== -->
+    <!-- LOGIN -->
 
     <section
-      id="pageHome"
-      class="page active"
+      id="loginPanel"
+      class="auth-panel"
     >
 
-      <div class="greeting">
+      <h2>
+        Welcome back
+      </h2>
 
-        <div class="greeting-small">
-          Welcome back
-        </div>
+      <p class="muted">
+        Log in to your account.
+      </p>
 
-        <div
-          class="greeting-name"
-          id="homeName"
+
+      <form id="loginForm">
+
+        <label>
+          Phone number
+        </label>
+
+        <input
+          id="loginPhone"
+          type="tel"
+          placeholder="0771234567"
+          autocomplete="tel"
+          required
         >
-          Student
+
+
+        <label>
+          Password
+        </label>
+
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Password"
+          autocomplete="current-password"
+          required
+        >
+
+
+        <button
+          class="primary-btn"
+          type="submit"
+        >
+          Log In
+        </button>
+
+      </form>
+
+
+      <button
+        id="showRegister"
+        class="text-btn"
+      >
+        Create an account
+      </button>
+
+    </section>
+
+
+    <!-- REGISTER -->
+
+    <section
+      id="registerPanel"
+      class="auth-panel hidden"
+    >
+
+      <h2>
+        Create account
+      </h2>
+
+      <p class="muted">
+        Join SCHOOL BUCKS.
+      </p>
+
+
+      <form id="registerForm">
+
+        <label>
+          Full name
+        </label>
+
+        <input
+          id="registerName"
+          type="text"
+          placeholder="Your name"
+          autocomplete="name"
+          required
+        >
+
+
+        <label>
+          Phone number
+        </label>
+
+        <input
+          id="registerPhone"
+          type="tel"
+          placeholder="0771234567"
+          autocomplete="tel"
+          required
+        >
+
+
+        <label>
+          Email
+          <span class="optional">
+            optional
+          </span>
+        </label>
+
+        <input
+          id="registerEmail"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+        >
+
+
+        <label>
+          Password
+        </label>
+
+        <input
+          id="registerPassword"
+          type="password"
+          placeholder="Minimum 6 characters"
+          autocomplete="new-password"
+          minlength="6"
+          required
+        >
+
+
+        <label>
+          Referral code
+          <span class="optional">
+            optional
+          </span>
+        </label>
+
+        <input
+          id="registerReferral"
+          type="text"
+          placeholder="Referral code"
+          autocomplete="off"
+        >
+
+
+        <button
+          class="primary-btn"
+          type="submit"
+        >
+          Create Account
+        </button>
+
+      </form>
+
+
+      <button
+        id="showLogin"
+        class="text-btn"
+      >
+        Already have an account? Log in
+      </button>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================================
+       APP
+       ========================================================= -->
+
+  <main
+    id="appScreen"
+    class="app-screen hidden"
+  >
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+      <div>
+
+        <div class="small-label">
+          SCHOOL BUCKS
         </div>
+
+        <h2 id="welcomeName">
+          Hello
+        </h2>
 
       </div>
 
+      <button
+        id="logoutBtn"
+        class="icon-btn"
+        title="Logout"
+      >
+        ↪
+      </button>
+
+    </header>
+
+
+    <!-- HOME -->
+
+    <section
+      id="homePage"
+      class="page"
+    >
 
       <div class="balance-card">
 
@@ -1341,223 +349,15 @@
         </div>
 
         <div
-          class="balance-value"
           id="homeBalance"
+          class="balance"
         >
           $0.00
         </div>
-
-
-        <div class="balance-bottom">
-
-          <div class="balance-info">
-            Ready to withdraw
-          </div>
-
-          <button
-            class="white-btn"
-            onclick="openWithdrawal()"
-          >
-            Withdraw
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="stats-grid">
-
-        <div class="stat-card">
-
-          <div class="stat-label">
-            This week
-          </div>
-
-          <div
-            class="stat-value"
-            id="weekEarned"
-          >
-            $0.00
-          </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-label">
-            Lifetime
-          </div>
-
-          <div
-            class="stat-value"
-            id="lifetimeEarned"
-          >
-            $0.00
-          </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-label">
-            Withdrawn
-          </div>
-
-          <div
-            class="stat-value"
-            id="lifetimeWithdrawn"
-          >
-            $0.00
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <div class="section-title">
-        Earn
-      </div>
-
-
-      <div
-        class="earn-card"
-        onclick="showPage('earn')"
-      >
-
-        <div class="earn-icon blue">
-          📋
-        </div>
-
-        <div class="earn-info">
-
-          <div class="earn-title">
-            Surveys
-          </div>
-
-          <div class="earn-description">
-            Answer surveys and earn
-          </div>
-
-        </div>
-
-        <div class="earn-arrow">
-          ›
-        </div>
-
-      </div>
-
-
-      <div
-        class="earn-card"
-        onclick="showPage('earn')"
-      >
-
-        <div class="earn-icon green">
-          🎁
-        </div>
-
-        <div class="earn-info">
-
-          <div class="earn-title">
-            Offers
-          </div>
-
-          <div class="earn-description">
-            Complete offers and tasks
-          </div>
-
-        </div>
-
-        <div class="earn-arrow">
-          ›
-        </div>
-
-      </div>
-
-
-      <div
-        class="earn-card"
-        onclick="showPage('earn')"
-      >
-
-        <div class="earn-icon orange">
-          ⚡
-        </div>
-
-        <div class="earn-info">
-
-          <div class="earn-title">
-            Quick Tasks
-          </div>
-
-          <div class="earn-description">
-            Short tasks for extra earnings
-          </div>
-
-        </div>
-
-        <div class="earn-arrow">
-          ›
-        </div>
-
-      </div>
-
-
-
-      <div class="section-title">
-        Recent activity
-      </div>
-
-
-      <div
-        class="activity"
-        id="homeActivity"
-      >
-        <div class="empty">
-          No activity yet.
-        </div>
-      </div>
-
-    </section>
-
-
-
-    <!-- ========================================================
-         WALLET
-         ======================================================== -->
-
-    <section
-      id="pageWallet"
-      class="page"
-    >
-
-      <div class="section-title">
-        Wallet
-      </div>
-
-
-      <div class="wallet-big">
-
-        <div class="wallet-big-label">
-          Available balance
-        </div>
-
-        <div
-          class="wallet-big-value"
-          id="walletBalance"
-        >
-          $0.00
-        </div>
-
 
         <button
-          class="primary-btn"
-          onclick="openWithdrawal()"
+          id="homeWithdrawBtn"
+          class="light-btn"
         >
           Withdraw
         </button>
@@ -1569,1954 +369,495 @@
 
         <div class="stat-card">
 
-          <div class="stat-label">
+          <span>
+            Lifetime earned
+          </span>
+
+          <strong id="homeLifetime">
+            $0.00
+          </strong>
+
+        </div>
+
+        <div class="stat-card">
+
+          <span>
             Pending
-          </div>
+          </span>
 
-          <div
-            class="stat-value"
-            id="walletPending"
-          >
+          <strong id="homePending">
             $0.00
-          </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-label">
-            Earned
-          </div>
-
-          <div
-            class="stat-value"
-            id="walletLifetime"
-          >
-            $0.00
-          </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-label">
-            Withdrawn
-          </div>
-
-          <div
-            class="stat-value"
-            id="walletWithdrawn"
-          >
-            $0.00
-          </div>
+          </strong>
 
         </div>
 
       </div>
 
 
-      <div class="section-title">
-        Transactions
-      </div>
+      <div class="section-heading">
 
+        <h3>
+          Earn money
+        </h3>
 
-      <div
-        class="activity"
-        id="walletActivity"
-      >
-
-        <div class="empty">
-          No transactions yet.
-        </div>
+        <span>
+          More coming
+        </span>
 
       </div>
 
-    </section>
 
+      <div class="earn-grid">
 
+        <button class="earn-card">
 
-    <!-- ========================================================
-         EARN
-         ======================================================== -->
+          <div class="earn-icon">
+            ?
+          </div>
 
-    <section
-      id="pageEarn"
-      class="page"
-    >
-
-      <div class="section-title">
-        Earn
-      </div>
-
-
-      <div class="earn-card">
-
-        <div class="earn-icon blue">
-          📋
-        </div>
-
-        <div class="earn-info">
-
-          <div class="earn-title">
+          <strong>
             Surveys
+          </strong>
+
+          <span>
+            Available soon
+          </span>
+
+        </button>
+
+
+        <button class="earn-card">
+
+          <div class="earn-icon">
+            +
           </div>
 
-          <div class="earn-description">
-            Survey provider integration coming next.
+          <strong>
+            Offers
+          </strong>
+
+          <span>
+            Available soon
+          </span>
+
+        </button>
+
+
+        <button class="earn-card">
+
+          <div class="earn-icon">
+            ✓
           </div>
 
-        </div>
+          <strong>
+            Tasks
+          </strong>
 
-      </div>
+          <span>
+            Available soon
+          </span>
 
-
-      <div class="earn-card">
-
-        <div class="earn-icon green">
-          🎁
-        </div>
-
-        <div class="earn-info">
-
-          <div class="earn-title">
-            Offerwall
-          </div>
-
-          <div class="earn-description">
-            Offer provider integration coming next.
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="earn-card">
-
-        <div class="earn-icon orange">
-          ⚡
-        </div>
-
-        <div class="earn-info">
-
-          <div class="earn-title">
-            Quick Tasks
-          </div>
-
-          <div class="earn-description">
-            More earning options will appear here.
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ========================================================
-         PROFILE
-         ======================================================== -->
-
-    <section
-      id="pageMe"
-      class="page"
-    >
-
-      <div class="section-title">
-        My Account
-      </div>
-
-
-      <div class="profile-card">
-
-        <div
-          class="profile-avatar"
-          id="profileAvatar"
-        >
-          S
-        </div>
-
-
-        <div
-          class="profile-name"
-          id="profileName"
-        >
-          Student
-        </div>
-
-
-        <div
-          class="profile-line"
-          id="profilePhone"
-        >
-          —
-        </div>
-
-
-        <div
-          class="profile-line"
-          id="profileEmail"
-        >
-          —
-        </div>
-
-      </div>
-
-
-
-      <div class="referral-card">
-
-        <div
-          style="
-            font-size:17px;
-            font-weight:900;
-          "
-        >
-          Invite friends
-        </div>
-
-
-        <div
-          style="
-            color:#6B7280;
-            font-size:13px;
-            line-height:1.5;
-            margin-top:5px;
-          "
-        >
-          Share your referral link with friends.
-          Referral rewards will be credited only
-          after the referred user completes the
-          required qualifying activity.
-        </div>
-
-
-        <div
-          class="referral-code"
-          id="referralCode"
-        >
-          —
-        </div>
-
-
-        <button
-          class="share-btn"
-          onclick="shareReferral()"
-        >
-          🔗 Share SCHOOL BUCKS
         </button>
 
       </div>
 
 
+      <div class="section-heading">
 
-      <button
-        class="secondary-btn"
-        style="margin-top:15px"
-        onclick="logout()"
-      >
-        Logout
-      </button>
+        <h3>
+          Recent activity
+        </h3>
+
+      </div>
+
+      <div
+        id="recentActivity"
+        class="activity-list"
+      ></div>
 
     </section>
 
 
+    <!-- WALLET -->
+
+    <section
+      id="walletPage"
+      class="page hidden"
+    >
+
+      <div class="wallet-total">
+
+        <span>
+          Available
+        </span>
+
+        <strong id="walletBalance">
+          $0.00
+        </strong>
+
+        <button
+          id="walletWithdrawBtn"
+          class="primary-btn"
+        >
+          Withdraw
+        </button>
+
+      </div>
+
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+
+          <span>
+            Pending
+          </span>
+
+          <strong id="walletPending">
+            $0.00
+          </strong>
+
+        </div>
+
+        <div class="stat-card">
+
+          <span>
+            Withdrawn
+          </span>
+
+          <strong id="walletWithdrawn">
+            $0.00
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="section-heading">
+
+        <h3>
+          Transactions
+        </h3>
+
+      </div>
+
+
+      <div
+        id="transactions"
+        class="activity-list"
+      ></div>
+
+    </section>
+
+
+    <!-- EARN -->
+
+    <section
+      id="earnPage"
+      class="page hidden"
+    >
+
+      <div class="page-title">
+
+        <h2>
+          Earn
+        </h2>
+
+        <p>
+          Choose an earning method.
+        </p>
+
+      </div>
+
+
+      <div class="big-earn-card">
+
+        <div class="big-earn-icon">
+          ?
+        </div>
+
+        <h3>
+          Surveys
+        </h3>
+
+        <p>
+          Complete paid surveys from our verified partners.
+        </p>
+
+        <button class="secondary-btn">
+          Coming soon
+        </button>
+
+      </div>
+
+
+      <div class="big-earn-card">
+
+        <div class="big-earn-icon">
+          +
+        </div>
+
+        <h3>
+          Offerwalls
+        </h3>
+
+        <p>
+          Complete offers and tasks for rewards.
+        </p>
+
+        <button class="secondary-btn">
+          Coming soon
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+
+    <section
+      id="profilePage"
+      class="page hidden"
+    >
+
+      <div class="profile-header">
+
+        <div class="profile-avatar">
+          <span id="profileInitial">
+            S
+          </span>
+        </div>
+
+        <h2 id="profileName">
+          Student
+        </h2>
+
+        <p id="profilePhone">
+          -
+        </p>
+
+      </div>
+
+
+      <div class="profile-card">
+
+        <div class="profile-row">
+
+          <span>
+            Email
+          </span>
+
+          <strong id="profileEmail">
+            -
+          </strong>
+
+        </div>
+
+
+        <div class="profile-row">
+
+          <span>
+            Referral code
+          </span>
+
+          <strong id="profileReferral">
+            -
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="referral-card">
+
+        <h3>
+          Invite friends
+        </h3>
+
+        <p>
+          Share SCHOOL BUCKS with your friends.
+        </p>
+
+        <button
+          id="shareBtn"
+          class="primary-btn"
+        >
+          Share SCHOOL BUCKS
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- BOTTOM NAV -->
+
+    <nav class="bottom-nav">
+
+      <button
+        class="nav-item active"
+        data-page="homePage"
+      >
+
+        <span>
+          ⌂
+        </span>
+
+        <small>
+          Home
+        </small>
+
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-page="walletPage"
+      >
+
+        <span>
+          $
+        </span>
+
+        <small>
+          Wallet
+        </small>
+
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-page="earnPage"
+      >
+
+        <span>
+          +
+        </span>
+
+        <small>
+          Earn
+        </small>
+
+      </button>
+
+
+      <button
+        class="nav-item"
+        data-page="profilePage"
+      >
+
+        <span>
+          ●
+        </span>
+
+        <small>
+          Me
+        </small>
+
+      </button>
+
+    </nav>
+
   </main>
 
 
+  <!-- =========================================================
+       WITHDRAWAL MODAL
+       ========================================================= -->
 
-  <!-- ==========================================================
-       BOTTOM NAV
-       ========================================================== -->
+  <div
+    id="withdrawModal"
+    class="modal hidden"
+  >
 
-  <nav class="bottom-nav">
-
-    <button
-      class="nav-btn active"
-      data-page="home"
-      onclick="showPage('home')"
-    >
-
-      <span class="nav-icon">
-        🏠
-      </span>
-
-      Home
-
-    </button>
-
-
-    <button
-      class="nav-btn"
-      data-page="wallet"
-      onclick="showPage('wallet')"
-    >
-
-      <span class="nav-icon">
-        💰
-      </span>
-
-      Wallet
-
-    </button>
-
-
-    <button
-      class="nav-btn"
-      data-page="earn"
-      onclick="showPage('earn')"
-    >
-
-      <span class="nav-icon">
-        ⚡
-      </span>
-
-      Earn
-
-    </button>
-
-
-    <button
-      class="nav-btn"
-      data-page="me"
-      onclick="showPage('me')"
-    >
-
-      <span class="nav-icon">
-        👤
-      </span>
-
-      Me
-
-    </button>
-
-  </nav>
-
-</div>
-
-
-
-<!-- ============================================================
-     WITHDRAWAL MODAL
-     ============================================================ -->
-
-<div
-  id="withdrawalModal"
-  class="modal-overlay hidden"
-  onclick="closeModalIfBackground(event)"
->
-
-  <div class="modal">
-
-    <div class="modal-title">
-      Withdraw
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        Amount
-      </label>
-
-      <input
-        id="withdrawAmount"
-        type="number"
-        min="2"
-        step="0.01"
-        placeholder="2.00"
-      >
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        Payment method
-      </label>
-
-      <input
-        type="text"
-        value="EcoCash"
-        readonly
-      >
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        EcoCash Number
-      </label>
-
-      <input
-        id="withdrawPhone"
-        type="tel"
-        placeholder="0771234567"
-      >
-
-    </div>
-
-
-    <div class="modal-actions">
+    <div class="modal-card">
 
       <button
-        class="secondary-btn"
-        onclick="closeWithdrawal()"
+        id="closeWithdraw"
+        class="modal-close"
       >
-        Cancel
+        ×
       </button>
 
-      <button
-        class="primary-btn"
-        onclick="submitWithdrawal()"
-      >
-        Request
-      </button>
+      <h2>
+        Withdraw
+      </h2>
+
+      <p class="muted">
+        Withdraw your available balance.
+      </p>
+
+
+      <form id="withdrawForm">
+
+        <label>
+          Amount
+        </label>
+
+        <input
+          id="withdrawAmount"
+          type="number"
+          min="2"
+          step="0.01"
+          placeholder="2.00"
+          required
+        >
+
+
+        <label>
+          Payment method
+        </label>
+
+        <select id="withdrawMethod">
+
+          <option value="EcoCash">
+            EcoCash
+          </option>
+
+        </select>
+
+
+        <label>
+          EcoCash number
+        </label>
+
+        <input
+          id="withdrawNumber"
+          type="tel"
+          placeholder="0771234567"
+          required
+        >
+
+
+        <button
+          class="primary-btn"
+          type="submit"
+        >
+          Request Withdrawal
+        </button>
+
+      </form>
 
     </div>
 
   </div>
 
-</div>
 
+  <!-- =========================================================
+       TOAST
+       ========================================================= -->
 
+  <div
+    id="toast"
+    class="toast"
+  ></div>
 
-<!-- ============================================================
-     PROCESSING OVERLAY
-     ============================================================ -->
 
-<div
-  id="processingOverlay"
-  class="hidden"
->
-
-  <div class="processing-box">
-
-    <div class="spinner"></div>
-
-    <div
-      class="processing-title"
-      id="processingTitle"
-    >
-      Processing safely…
-    </div>
-
-    <div
-      class="processing-message"
-      id="processingMessage"
-    >
-      Your request is being processed.
-      Please don't close the app.
-    </div>
-
-
-    <div class="progress-bar">
-
-      <div
-        class="progress-fill"
-        id="progressFill"
-      ></div>
-
-    </div>
-
-
-    <div
-      class="progress-percent"
-      id="progressPercent"
-    >
-      15%
-    </div>
-
-  </div>
-
-</div>
-
-
-
-<!-- ============================================================
-     TOAST
-     ============================================================ -->
-
-<div id="toast"></div>
-
-
-
-<script>
-
-// ================================================================
-// SCHOOL BUCKS FRONTEND
-// ================================================================
-
-let currentUser = null;
-let currentWallet = null;
-
-let progressTimer = null;
-
-
-// ================================================================
-// INIT
-// ================================================================
-
-document.addEventListener(
-  'DOMContentLoaded',
-  function() {
-
-    // Automatically capture referral link:
-    //
-    // https://script.google.com/.../exec?ref=MARK12345
-
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
-
-    const referral =
-      params.get('ref');
-
-    if (referral) {
-
-      document.getElementById(
-        'registerReferral'
-      ).value = referral;
-
-      showAuth('register');
-    }
-
-
-    // Restore login.
-
-    try {
-
-      const saved =
-        localStorage.getItem(
-          'school_bucks_user'
-        );
-
-      if (saved) {
-
-        currentUser =
-          JSON.parse(saved);
-
-        openApp();
-
-      }
-
-    } catch (e) {
-
-      localStorage.removeItem(
-        'school_bucks_user'
-      );
-
-    }
-
-  }
-);
-
-
-// ================================================================
-// AUTH TABS
-// ================================================================
-
-function showAuth(type) {
-
-  const login =
-    document.getElementById(
-      'loginForm'
-    );
-
-  const register =
-    document.getElementById(
-      'registerForm'
-    );
-
-  const loginTab =
-    document.getElementById(
-      'loginTab'
-    );
-
-  const registerTab =
-    document.getElementById(
-      'registerTab'
-    );
-
-
-  if (type === 'login') {
-
-    login.classList.remove('hidden');
-    register.classList.add('hidden');
-
-    loginTab.classList.add('active');
-    registerTab.classList.remove('active');
-
-  } else {
-
-    login.classList.add('hidden');
-    register.classList.remove('hidden');
-
-    loginTab.classList.remove('active');
-    registerTab.classList.add('active');
-
-  }
-}
-
-
-// ================================================================
-// GOOGLE SCRIPT CALL
-// ================================================================
-//
-// All backend calls are made here.
-//
-// For write operations we automatically retry if the backend
-// reports that another request currently owns the write lock.
-//
-// ================================================================
-
-function serverCall(
-  functionName,
-  args,
-  options
-) {
-
-  options =
-    options || {};
-
-  const isWrite =
-    options.write === true;
-
-  const maxRetries =
-    isWrite
-      ? 8
-      : 2;
-
-
-  return new Promise(
-    function(resolve, reject) {
-
-      let attempt = 0;
-
-
-      function call() {
-
-        attempt++;
-
-
-        if (
-          typeof google === 'undefined' ||
-          !google.script ||
-          !google.script.run
-        ) {
-
-          reject(
-            new Error(
-              'The SCHOOL BUCKS backend is not available.'
-            )
-          );
-
-          return;
-        }
-
-
-        let runner =
-          google.script.run
-            .withSuccessHandler(
-              function(result) {
-
-                stopProcessing();
-
-                resolve(result);
-              }
-            )
-            .withFailureHandler(
-              function(error) {
-
-                const message =
-                  error &&
-                  error.message
-                    ? error.message
-                    : String(error);
-
-
-                const busy =
-                  message.indexOf(
-                    'SERVER_BUSY'
-                  ) >= 0;
-
-
-                if (
-                  isWrite &&
-                  busy &&
-                  attempt < maxRetries
-                ) {
-
-                  showProcessing(
-                    'Waiting for a safe write…',
-                    'Another request is being processed. Your request is still being kept and will retry automatically.',
-                    Math.min(
-                      90,
-                      20 + attempt * 8
-                    )
-                  );
-
-
-                  // Exponential-ish retry delay.
-
-                  const delay =
-                    Math.min(
-                      7000,
-                      700 * Math.pow(
-                        1.45,
-                        attempt - 1
-                      )
-                    );
-
-
-                  setTimeout(
-                    call,
-                    delay
-                  );
-
-                  return;
-                }
-
-
-                stopProcessing();
-
-                reject(
-                  new Error(message)
-                );
-              }
-            );
-
-
-        // Invoke dynamically.
-
-        try {
-
-          runner[functionName](
-            args
-          );
-
-        } catch (error) {
-
-          stopProcessing();
-
-          reject(error);
-        }
-
-      }
-
-
-      call();
-
-    }
-  );
-}
-
-
-// ================================================================
-// PROCESSING UI
-// ================================================================
-
-function showProcessing(
-  title,
-  message,
-  percentage
-) {
-
-  const overlay =
-    document.getElementById(
-      'processingOverlay'
-    );
-
-  const titleEl =
-    document.getElementById(
-      'processingTitle'
-    );
-
-  const messageEl =
-    document.getElementById(
-      'processingMessage'
-    );
-
-  const fill =
-    document.getElementById(
-      'progressFill'
-    );
-
-  const percent =
-    document.getElementById(
-      'progressPercent'
-    );
-
-
-  overlay.classList.remove(
-    'hidden'
-  );
-
-  titleEl.textContent =
-    title ||
-    'Processing safely…';
-
-  messageEl.textContent =
-    message ||
-    'Please wait while we safely process your request.';
-
-
-  const value =
-    Math.max(
-      5,
-      Math.min(
-        95,
-        Number(percentage) || 15
-      )
-    );
-
-
-  fill.style.width =
-    value + '%';
-
-  percent.textContent =
-    value + '%';
-
-
-  clearInterval(
-    progressTimer
-  );
-
-
-  // This is intentionally a UI progress indicator,
-  // not a claim about the exact server queue position.
-
-  let visualProgress =
-    value;
-
-
-  progressTimer =
-    setInterval(
-      function() {
-
-        if (
-          visualProgress >= 88
-        ) {
-          return;
-        }
-
-        visualProgress +=
-          Math.random() * 3;
-
-        visualProgress =
-          Math.min(
-            88,
-            visualProgress
-          );
-
-        fill.style.width =
-          visualProgress + '%';
-
-        percent.textContent =
-          Math.round(
-            visualProgress
-          ) + '%';
-
-      },
-      700
-    );
-}
-
-
-function stopProcessing() {
-
-  clearInterval(
-    progressTimer
-  );
-
-  progressTimer = null;
-
-
-  const fill =
-    document.getElementById(
-      'progressFill'
-    );
-
-  const percent =
-    document.getElementById(
-      'progressPercent'
-    );
-
-
-  fill.style.width =
-    '100%';
-
-  percent.textContent =
-    '100%';
-
-
-  setTimeout(
-    function() {
-
-      document
-        .getElementById(
-          'processingOverlay'
-        )
-        .classList.add(
-          'hidden'
-        );
-
-    },
-    250
-  );
-}
-
-
-// ================================================================
-// REGISTER
-// ================================================================
-
-async function register(event) {
-
-  event.preventDefault();
-
-
-  const data = {
-
-    name:
-      document.getElementById(
-        'registerName'
-      ).value.trim(),
-
-    phone:
-      document.getElementById(
-        'registerPhone'
-      ).value.trim(),
-
-    email:
-      document.getElementById(
-        'registerEmail'
-      ).value.trim(),
-
-    password:
-      document.getElementById(
-        'registerPassword'
-      ).value,
-
-    referral_code:
-      document.getElementById(
-        'registerReferral'
-      ).value.trim()
-
-  };
-
-
-  showProcessing(
-    'Creating your account…',
-    'Checking your details and safely creating your account.',
-    15
-  );
-
-
-  try {
-
-    const result =
-      await serverCall(
-        'registerUser',
-        data,
-        { write: true }
-      );
-
-
-    if (!result || !result.success) {
-
-      throw new Error(
-        'Account creation failed.'
-      );
-    }
-
-
-    currentUser =
-      result.user;
-
-
-    localStorage.setItem(
-      'school_bucks_user',
-      JSON.stringify(
-        currentUser
-      )
-    );
-
-
-    toast(
-      'Account created successfully.',
-      'success'
-    );
-
-
-    openApp();
-
-
-  } catch (error) {
-
-    handleError(error);
-  }
-}
-
-
-// ================================================================
-// LOGIN
-// ================================================================
-
-async function login(event) {
-
-  event.preventDefault();
-
-
-  const data = {
-
-    phone:
-      document.getElementById(
-        'loginPhone'
-      ).value.trim(),
-
-    password:
-      document.getElementById(
-        'loginPassword'
-      ).value
-
-  };
-
-
-  showProcessing(
-    'Signing you in…',
-    'Checking your account securely.',
-    20
-  );
-
-
-  try {
-
-    const result =
-      await serverCall(
-        'loginUser',
-        data,
-        { write: true }
-      );
-
-
-    if (!result || !result.success) {
-
-      throw new Error(
-        'Login failed.'
-      );
-    }
-
-
-    currentUser =
-      result.user;
-
-
-    localStorage.setItem(
-      'school_bucks_user',
-      JSON.stringify(
-        currentUser
-      )
-    );
-
-
-    openApp();
-
-
-  } catch (error) {
-
-    handleError(error);
-  }
-}
-
-
-// ================================================================
-// OPEN APP
-// ================================================================
-
-function openApp() {
-
-  document
-    .getElementById(
-      'authScreen'
-    )
-    .classList.add(
-      'hidden'
-    );
-
-
-  document
-    .getElementById(
-      'appScreen'
-    )
-    .classList.remove(
-      'hidden'
-    );
-
-
-  updateProfileUI();
-
-  loadDashboard();
-}
-
-
-// ================================================================
-// LOGOUT
-// ================================================================
-
-function logout() {
-
-  currentUser = null;
-  currentWallet = null;
-
-  localStorage.removeItem(
-    'school_bucks_user'
-  );
-
-
-  document
-    .getElementById(
-      'appScreen'
-    )
-    .classList.add(
-      'hidden'
-    );
-
-
-  document
-    .getElementById(
-      'authScreen'
-    )
-    .classList.remove(
-      'hidden'
-    );
-
-
-  showAuth('login');
-}
-
-
-// ================================================================
-// DASHBOARD
-// ================================================================
-
-async function loadDashboard() {
-
-  if (!currentUser) {
-    return;
-  }
-
-
-  try {
-
-    const result =
-      await serverCall(
-        'getDashboard',
-        currentUser.user_id
-      );
-
-
-    if (!result || !result.success) {
-
-      throw new Error(
-        'Could not load dashboard.'
-      );
-    }
-
-
-    currentUser =
-      result.user;
-
-    currentWallet =
-      result.wallet;
-
-
-    localStorage.setItem(
-      'school_bucks_user',
-      JSON.stringify(
-        currentUser
-      )
-    );
-
-
-    updateDashboardUI(
-      result
-    );
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    toast(
-      error.message ||
-      'Could not load your dashboard.',
-      'error'
-    );
-  }
-}
-
-
-// ================================================================
-// DASHBOARD UI
-// ================================================================
-
-function updateDashboardUI(result) {
-
-  const wallet =
-    result.wallet;
-
-
-  document.getElementById(
-    'homeName'
-  ).textContent =
-    firstName(
-      result.user.name
-    );
-
-
-  document.getElementById(
-    'homeBalance'
-  ).textContent =
-    money(wallet.available);
-
-
-  document.getElementById(
-    'weekEarned'
-  ).textContent =
-    '$0.00';
-
-
-  document.getElementById(
-    'lifetimeEarned'
-  ).textContent =
-    money(wallet.lifetime_earned);
-
-
-  document.getElementById(
-    'lifetimeWithdrawn'
-  ).textContent =
-    money(wallet.lifetime_withdrawn);
-
-
-  document.getElementById(
-    'walletBalance'
-  ).textContent =
-    money(wallet.available);
-
-
-  document.getElementById(
-    'walletPending'
-  ).textContent =
-    money(wallet.pending);
-
-
-  document.getElementById(
-    'walletLifetime'
-  ).textContent =
-    money(wallet.lifetime_earned);
-
-
-  document.getElementById(
-    'walletWithdrawn'
-  ).textContent =
-    money(wallet.lifetime_withdrawn);
-
-
-  renderActivity(
-    result.ledger,
-    'homeActivity'
-  );
-
-
-  renderActivity(
-    result.ledger,
-    'walletActivity'
-  );
-
-
-  document.getElementById(
-    'referralCode'
-  ).textContent =
-    result.user.referral_code ||
-    '—';
-
-
-  updateProfileUI();
-}
-
-
-// ================================================================
-// PROFILE UI
-// ================================================================
-
-function updateProfileUI() {
-
-  if (!currentUser) {
-    return;
-  }
-
-
-  document.getElementById(
-    'profileName'
-  ).textContent =
-    currentUser.name || 'Student';
-
-
-  document.getElementById(
-    'profilePhone'
-  ).textContent =
-    currentUser.phone || '';
-
-
-  document.getElementById(
-    'profileEmail'
-  ).textContent =
-    currentUser.email ||
-    'No email added';
-
-
-  document.getElementById(
-    'profileAvatar'
-  ).textContent =
-    (
-      currentUser.name ||
-      'S'
-    )
-      .charAt(0)
-      .toUpperCase();
-
-
-  document.getElementById(
-    'referralCode'
-  ).textContent =
-    currentUser.referral_code ||
-    '—';
-}
-
-
-// ================================================================
-// ACTIVITY
-// ================================================================
-
-function renderActivity(
-  ledger,
-  elementId
-) {
-
-  const element =
-    document.getElementById(
-      elementId
-    );
-
-
-  if (
-    !ledger ||
-    !ledger.length
-  ) {
-
-    element.innerHTML =
-      '<div class="empty">' +
-      'No transactions yet.' +
-      '</div>';
-
-    return;
-  }
-
-
-  element.innerHTML =
-    ledger
-      .map(function(item) {
-
-        const amount =
-          Number(
-            item.student_amount || 0
-          );
-
-
-        const positive =
-          amount >= 0;
-
-
-        return `
-          <div class="activity-item">
-
-            <div>
-
-              <div class="activity-title">
-                ${escapeHtml(
-                  item.description ||
-                  item.type ||
-                  'Transaction'
-                )}
-              </div>
-
-              <div class="activity-date">
-                ${formatDate(
-                  item.timestamp
-                )}
-              </div>
-
-            </div>
-
-            <div
-              class="
-                activity-amount
-                ${positive ? 'positive' : 'negative'}
-              "
-            >
-              ${positive ? '+' : ''}
-              ${money(amount)}
-            </div>
-
-          </div>
-        `;
-
-      })
-      .join('');
-}
-
-
-// ================================================================
-// NAVIGATION
-// ================================================================
-
-function showPage(page) {
-
-  const pages = [
-    'home',
-    'wallet',
-    'earn',
-    'me'
-  ];
-
-
-  pages.forEach(function(name) {
-
-    const element =
-      document.getElementById(
-        'page' +
-        capitalize(name)
-      );
-
-
-    if (element) {
-
-      element.classList.toggle(
-        'active',
-        name === page
-      );
-    }
-
-  });
-
-
-  document
-    .querySelectorAll(
-      '.nav-btn'
-    )
-    .forEach(function(button) {
-
-      button.classList.toggle(
-        'active',
-        button.dataset.page === page
-      );
-
-    });
-
-
-  window.scrollTo(
-    0,
-    0
-  );
-}
-
-
-// ================================================================
-// WITHDRAWAL
-// ================================================================
-
-function openWithdrawal() {
-
-  if (!currentWallet) {
-    loadDashboard();
-  }
-
-
-  document
-    .getElementById(
-      'withdrawalModal'
-    )
-    .classList.remove(
-      'hidden'
-    );
-
-
-  document.getElementById(
-    'withdrawPhone'
-  ).value =
-    currentUser &&
-    currentUser.phone
-      ? currentUser.phone
-      : '';
-}
-
-
-function closeWithdrawal() {
-
-  document
-    .getElementById(
-      'withdrawalModal'
-    )
-    .classList.add(
-      'hidden'
-    );
-}
-
-
-function closeModalIfBackground(event) {
-
-  if (
-    event.target.id ===
-    'withdrawalModal'
-  ) {
-
-    closeWithdrawal();
-  }
-}
-
-
-async function submitWithdrawal() {
-
-  const amount =
-    Number(
-      document.getElementById(
-        'withdrawAmount'
-      ).value
-    );
-
-
-  const paymentNumber =
-    document.getElementById(
-      'withdrawPhone'
-    ).value.trim();
-
-
-  if (
-    !isFinite(amount) ||
-    amount <= 0
-  ) {
-
-    toast(
-      'Enter a valid withdrawal amount.',
-      'error'
-    );
-
-    return;
-  }
-
-
-  if (
-    amount >
-    Number(
-      currentWallet &&
-      currentWallet.available || 0
-    )
-  ) {
-
-    toast(
-      'You do not have enough available balance.',
-      'error'
-    );
-
-    return;
-  }
-
-
-  closeWithdrawal();
-
-
-  showProcessing(
-    'Submitting withdrawal…',
-    'Your balance is being safely reserved. Please wait.',
-    25
-  );
-
-
-  try {
-
-    const result =
-      await serverCall(
-        'requestWithdrawal',
-        {
-          user_id:
-            currentUser.user_id,
-
-          amount:
-            amount,
-
-          payment_method:
-            'EcoCash',
-
-          payment_number:
-            paymentNumber
-        },
-        { write: true }
-      );
-
-
-    if (
-      !result ||
-      !result.success
-    ) {
-
-      throw new Error(
-        'Withdrawal request failed.'
-      );
-    }
-
-
-    toast(
-      'Withdrawal request submitted.',
-      'success'
-    );
-
-
-    await loadDashboard();
-
-
-  } catch (error) {
-
-    handleError(error);
-  }
-}
-
-
-// ================================================================
-// REFERRAL SHARING
-// ================================================================
-
-async function shareReferral() {
-
-  if (!currentUser) {
-    return;
-  }
-
-
-  showProcessing(
-    'Preparing your referral link…',
-    'Generating your personal SCHOOL BUCKS invite link.',
-    20
-  );
-
-
-  try {
-
-    const result =
-      await serverCall(
-        'getReferralLink',
-        currentUser.user_id
-      );
-
-
-    if (
-      !result ||
-      !result.success
-    ) {
-
-      throw new Error(
-        'Could not create referral link.'
-      );
-    }
-
-
-    stopProcessing();
-
-
-    const link =
-      result.referral_link;
-
-
-    const shareText =
-      'Join me on SCHOOL BUCKS and earn from your phone!';
-
-
-    // Native Android / browser share.
-
-    if (
-      navigator.share
-    ) {
-
-      try {
-
-        await navigator.share({
-
-          title:
-            'SCHOOL BUCKS',
-
-          text:
-            shareText,
-
-          url:
-            link
-
-        });
-
-        return;
-
-      } catch (shareError) {
-
-        // User cancelled sharing.
-        if (
-          shareError &&
-          shareError.name ===
-          'AbortError'
-        ) {
-          return;
-        }
-      }
-    }
-
-
-    // Clipboard fallback.
-
-    if (
-      navigator.clipboard
-    ) {
-
-      await navigator.clipboard.writeText(
-        link
-      );
-
-      toast(
-        'Referral link copied.',
-        'success'
-      );
-
-      return;
-    }
-
-
-    // Final fallback.
-
-    window.prompt(
-      'Copy your SCHOOL BUCKS referral link:',
-      link
-    );
-
-
-  } catch (error) {
-
-    handleError(error);
-  }
-}
-
-
-// ================================================================
-// TOAST
-// ================================================================
-
-let toastTimer = null;
-
-
-function toast(
-  message,
-  type
-) {
-
-  const element =
-    document.getElementById(
-      'toast'
-    );
-
-
-  element.textContent =
-    message;
-
-
-  element.className =
-    'show ' +
-    (type || '');
-
-
-  clearTimeout(
-    toastTimer
-  );
-
-
-  toastTimer =
-    setTimeout(
-      function() {
-
-        element.className = '';
-
-      },
-      3500
-    );
-}
-
-
-// ================================================================
-// ERROR HANDLING
-// ================================================================
-
-function handleError(error) {
-
-  stopProcessing();
-
-
-  let message =
-    error &&
-    error.message
-      ? error.message
-      : String(error);
-
-
-  if (
-    message.indexOf(
-      'ACCOUNT_EXISTS:'
-    ) === 0
-  ) {
-
-    message =
-      'An account already exists for this phone number. Please login instead.';
-  }
-
-
-  if (
-    message.indexOf(
-      'DUPLICATE_CONVERSION:'
-    ) === 0
-  ) {
-
-    message =
-      'This earning has already been processed.';
-  }
-
-
-  if (
-    message.indexOf(
-      'SERVER_BUSY:'
-    ) === 0
-  ) {
-
-    message =
-      'The system is busy processing other requests. Please try again in a moment.';
-  }
-
-
-  toast(
-    message,
-    'error'
-  );
-
-
-  console.error(
-    error
-  );
-}
-
-
-// ================================================================
-// HELPERS
-// ================================================================
-
-function money(value) {
-
-  return '$' +
-    Number(
-      value || 0
-    ).toFixed(2);
-}
-
-
-function firstName(name) {
-
-  return String(
-    name || 'Student'
-  )
-    .trim()
-    .split(/\s+/)[0];
-}
-
-
-function capitalize(value) {
-
-  return String(
-    value
-  )
-    .charAt(0)
-    .toUpperCase() +
-    String(
-      value
-    ).slice(1);
-}
-
-
-function formatDate(value) {
-
-  if (!value) {
-    return '';
-  }
-
-
-  try {
-
-    return new Date(value)
-      .toLocaleString(
-        undefined,
-        {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric'
-        }
-      );
-
-  } catch (e) {
-
-    return '';
-  }
-}
-
-
-function escapeHtml(value) {
-
-  return String(
-    value == null
-      ? ''
-      : value
-  )
-    .replace(
-      /&/g,
-      '&amp;'
-    )
-    .replace(
-      /</g,
-      '&lt;'
-    )
-    .replace(
-      />/g,
-      '&gt;'
-    )
-    .replace(
-      /"/g,
-      '&quot;'
-    )
-    .replace(
-      /'/g,
-      '&#039;'
-    );
-}
-
-</script>
+  <script src="/app.js"></script>
 
 </body>
 

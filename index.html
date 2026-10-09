@@ -33,7 +33,7 @@ button{cursor:pointer}
 .primary{width:100%;border:0;background:var(--blue);color:#fff;border-radius:11px;padding:13px;font-weight:800}
 .primary:disabled{opacity:.6;cursor:not-allowed}
 .secondary{border:1px solid #d8e2ed;background:#fff;color:var(--ink);border-radius:10px;padding:10px 13px;font-weight:700}
-.notice{font-size:11px;line-height:1.5;color:var(--muted);background:#f7f9fc;border-radius:10px;padding:10px;margin:12px 0}
+.notice{font-size:11px;line-height:1.5;color:var(--muted);background:#f7f9fc;border-radius:10px;padding:10px;margin:12px 0}.terms-check{display:flex;align-items:flex-start;gap:9px;font-size:12px;line-height:1.55;color:#4b5b70;margin:14px 0}.terms-check input{margin-top:3px;accent-color:var(--blue);width:16px;height:16px;flex:0 0 auto}.terms-link{color:var(--blue);font-weight:800;text-decoration:underline;text-underline-offset:2px;background:none;border:0;padding:0;cursor:pointer}.terms-content{white-space:pre-wrap;font-size:13px;line-height:1.7;color:#3c4b60}.terms-updated{font-size:11px;color:var(--muted);margin-top:12px}
 .error{color:#b52e2e;background:#fff0f0;border:1px solid #ffd8d8;padding:10px;border-radius:10px;font-size:12px;margin-bottom:12px}
 .success{color:#126a3d;background:#effbf4;border:1px solid #ccefdc;padding:10px;border-radius:10px;font-size:12px;margin-bottom:12px}
 #appScreen{padding-bottom:86px}
@@ -98,6 +98,8 @@ button{cursor:pointer}
         <div class="field"><label>Date of birth</label><input id="regDob" type="date" autocomplete="bday" required><div style="font-size:10px;color:#718096;margin-top:5px">You must be 18 years or older to create a SCHOOL BUCKS account and use RevU.</div></div>
         <div class="field"><label>Password</label><input id="regPassword" type="password" autocomplete="new-password" minlength="6" required></div>
         <div class="field"><label>Referral code <span style="font-weight:400;color:#9aa7b6">(optional)</span></label><input id="regReferral" maxlength="12"></div>
+        <label class="terms-check"><input id="termsAccepted" type="checkbox" required><span>I have read and agree to the <button type="button" class="terms-link" onclick="openTerms()">Terms and Conditions</button>.</span></label>
+        <div id="termsMessage"></div>
         <button class="primary" id="registerBtn">Create account</button>
         <div class="notice">SCHOOL BUCKS is strictly for users who are 18 years or older. Your date of birth is required for age verification. You must also meet the requirements of our reward providers and applicable laws. Offer availability varies by country, device and advertiser. Rewards are subject to provider verification and may be reversed.</div>
       </form>
@@ -231,6 +233,16 @@ button{cursor:pointer}
   </div>
 </div>
 
+<div class="modal" id="termsModal" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
+  <div class="modal-box">
+    <div class="modal-head"><h3 id="termsTitle">Terms and Conditions</h3><button class="close" type="button" onclick="closeModal('termsModal')" aria-label="Close terms">×</button></div>
+    <div id="termsLoadMessage" class="notice">Loading current Terms and Conditions…</div>
+    <div id="termsContent" class="terms-content"></div>
+    <div id="termsUpdated" class="terms-updated"></div>
+    <button class="primary" type="button" style="margin-top:16px" onclick="acceptTermsFromModal()">I have read these terms</button>
+  </div>
+</div>
+
 <div class="install" id="installPrompt">
   <div class="install-box">
     <h3>Install SCHOOL BUCKS</h3>
@@ -250,7 +262,8 @@ let authToken=localStorage.getItem(TOKEN_KEY)||"";
 let currentUser=JSON.parse(localStorage.getItem(USER_KEY)||"null");
 let currentWallet=null;
 let deferredPrompt=null;
-let referralFromURL=new URLSearchParams(location.search).get("ref")||"";
+let referralFromURL=(new URLSearchParams(location.search).get("ref")||"").trim().toUpperCase();
+let activeTermsVersion="";
 
 (function setDobLimit(){
   const dob=$("regDob");
@@ -333,11 +346,18 @@ async function submitRegister(e){
   const btn=$("registerBtn");btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Creating account';
   clearMessage("authMessage");
   try{
+    if(!$('termsAccepted').checked){showAuthMessage("Please read and agree to the Terms and Conditions before creating your account.");return}
+    if(!activeTermsVersion){
+      const termsResult=await api("get_terms");
+      if(!termsResult.success)throw new Error("Unable to verify the current Terms and Conditions. Please open the Terms and Conditions link and try again.");
+      activeTermsVersion=String(termsResult.version||"1.0");
+    }
     const referral=$("regReferral").value.trim()||referralFromURL;
     const result=await api("register",{
       name:$("regName").value.trim(),phone:$("regPhone").value.trim(),
       email:$("regEmail").value.trim(),date_of_birth:$("regDob").value,
-      password:$("regPassword").value,referral_code:referral
+      password:$("regPassword").value,referral_code:referral,
+      terms_accepted:$('termsAccepted').checked,terms_version:activeTermsVersion,user_agent:navigator.userAgent
     });
     if(!result.success){showAuthMessage(result.error||"Registration failed.");return}
     authToken=result.token;currentUser=result.user;
@@ -345,6 +365,30 @@ async function submitRegister(e){
     await openApp();
   }catch(err){showAuthMessage(err.message||"Unable to connect to SCHOOL BUCKS.")}
   finally{btn.disabled=false;btn.textContent="Create account"}
+}
+
+async function openTerms(){
+  $("termsModal").classList.add("show");
+  $("termsLoadMessage").textContent="Loading current Terms and Conditions…";
+  $("termsLoadMessage").classList.remove("hidden");
+  $("termsContent").textContent="";
+  $("termsUpdated").textContent="";
+  try{
+    const result=await api("get_terms");
+    if(!result.success)throw new Error(result.error||"Unable to load Terms and Conditions.");
+    activeTermsVersion=String(result.version||"1.0");
+    $("termsTitle").textContent=result.title||"Terms and Conditions";
+    $("termsContent").textContent=result.content||"Terms and Conditions are not available right now.";
+    $("termsUpdated").textContent="Version "+activeTermsVersion+(result.updated_at?" · Updated "+formatDate(result.updated_at):"");
+    $("termsLoadMessage").classList.add("hidden");
+  }catch(err){
+    $("termsLoadMessage").textContent=err.message||"Unable to load Terms and Conditions. Please try again.";
+  }
+}
+function acceptTermsFromModal(){
+  if(!activeTermsVersion){showAuthMessage("Please wait for the Terms and Conditions to load before agreeing.");return}
+  $("termsAccepted").checked=true;
+  closeModal("termsModal");
 }
 
 async function openApp(){
@@ -527,6 +571,12 @@ function closeInstall(){$("installPrompt").classList.remove("show")}
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
 
 (async function startup(){
+  if(referralFromURL){
+    $("authScreen").classList.remove("hidden");$("appScreen").classList.add("hidden");
+    switchAuth("register");
+    $("regReferral").value=referralFromURL;
+    return;
+  }
   if(authToken){
     await openApp();
   }else{

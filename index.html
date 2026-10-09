@@ -30,42 +30,75 @@ button{cursor:pointer}
 .field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:#4b5b70}
 .field input{width:100%;border:1px solid #dbe4ee;background:#fff;border-radius:11px;padding:12px 13px;outline:none}
 .field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(11,99,206,.08)}
+.field input:disabled{background:#f4f7fb;color:#8794a6}
 .primary{width:100%;border:0;background:var(--blue);color:#fff;border-radius:11px;padding:13px;font-weight:800}
 .primary:disabled{opacity:.6;cursor:not-allowed}
 .secondary{border:1px solid #d8e2ed;background:#fff;color:var(--ink);border-radius:10px;padding:10px 13px;font-weight:700}
-.notice{font-size:11px;line-height:1.5;color:var(--muted);background:#f7f9fc;border-radius:10px;padding:10px;margin:12px 0}.terms-check{display:flex;align-items:flex-start;gap:9px;font-size:12px;line-height:1.55;color:#4b5b70;margin:14px 0}.terms-check input{margin-top:3px;accent-color:var(--blue);width:16px;height:16px;flex:0 0 auto}.terms-link{color:var(--blue);font-weight:800;text-decoration:underline;text-underline-offset:2px;background:none;border:0;padding:0;cursor:pointer}.terms-content{white-space:pre-wrap;font-size:13px;line-height:1.7;color:#3c4b60}.terms-updated{font-size:11px;color:var(--muted);margin-top:12px}
+.notice{font-size:11px;line-height:1.5;color:var(--muted);background:#f7f9fc;border-radius:10px;padding:10px;margin:12px 0}
+.terms-check{display:flex;align-items:flex-start;gap:9px;font-size:12px;line-height:1.55;color:#4b5b70;margin:14px 0}
+.terms-check input{margin-top:3px;accent-color:var(--blue);width:16px;height:16px;flex:0 0 auto}
+.terms-link{color:var(--blue);font-weight:800;text-decoration:underline;text-underline-offset:2px;background:none;border:0;padding:0;cursor:pointer}
+.terms-content{white-space:pre-wrap;font-size:13px;line-height:1.7;color:#3c4b60}
+.terms-updated{font-size:11px;color:var(--muted);margin-top:12px}
 .error{color:#b52e2e;background:#fff0f0;border:1px solid #ffd8d8;padding:10px;border-radius:10px;font-size:12px;margin-bottom:12px}
 .success{color:#126a3d;background:#effbf4;border:1px solid #ccefdc;padding:10px;border-radius:10px;font-size:12px;margin-bottom:12px}
+.info{color:#0a4c8a;background:#eef5ff;border:1px solid #cfe0f7;padding:10px;border-radius:10px;font-size:12px;margin-bottom:12px}
 #appScreen{padding-bottom:86px}
 .topbar{position:sticky;top:0;z-index:20;background:rgba(245,248,252,.94);backdrop-filter:blur(12px);padding:14px 16px;border-bottom:1px solid rgba(220,228,238,.75)}
 .topbar-inner{max-width:760px;margin:auto;display:flex;align-items:center;justify-content:space-between}
 .brand{font-weight:900;letter-spacing:-.4px}.brand span{color:var(--blue)}
-.avatar{width:40px;height:40px;border-radius:50%;background:#e5efff;color:var(--blue);display:grid;place-items:center;font-weight:900}
+.avatar{width:40px;height:40px;border-radius:50%;background:#e5efff;color:var(--blue);display:grid;place-items:center;font-weight:900;border:0}
 .main{max-width:760px;margin:auto;padding:18px 16px}
 .greeting{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
-.greeting h2{font-size:21px;margin:0 0 3px;letter-spacing:-.4px}.greeting p{margin:0;color:var(--muted);font-size:13px}
+.greeting h2{font-size:21px;margin:0 0 3px;letter-spacing:-.4px}
+.greeting p{margin:0;color:var(--muted);font-size:13px}
 .balance{padding:20px;background:linear-gradient(135deg,#0b63ce,#0a55b5);color:#fff;border-radius:20px;box-shadow:0 14px 34px rgba(11,99,206,.2)}
-.balance .small{font-size:12px;opacity:.8}.balance .amount{font-size:35px;font-weight:900;margin:5px 0 15px;letter-spacing:-1px}
-.balance-row{display:flex;gap:10px}.balance-row button{flex:1;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:10px;font-weight:700}
-.section-head{display:flex;justify-content:space-between;align-items:center;margin:24px 0 11px}.section-head h3{font-size:15px;margin:0}.section-head span{font-size:11px;color:var(--muted)}
+.balance .small{font-size:12px;opacity:.8}
+.balance .amount{font-size:35px;font-weight:900;margin:5px 0 15px;letter-spacing:-1px}
+.balance-row{display:flex;gap:10px}
+.balance-row button{flex:1;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:10px;font-weight:700}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:24px 0 11px}
+.section-head h3{font-size:15px;margin:0}
+.section-head span{font-size:11px;color:var(--muted)}
 .quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .quick{border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px 8px;text-align:center;font-weight:800;color:var(--ink);box-shadow:var(--shadow)}
-.quick .icon{font-size:21px;margin-bottom:6px}.quick small{display:block;color:var(--muted);font-size:10px;font-weight:600}
-.offer-card{display:flex;gap:13px;align-items:center;padding:15px;margin-bottom:10px}
-.offer-icon{width:44px;height:44px;flex:none;border-radius:13px;background:#edf4ff;color:var(--blue);display:grid;place-items:center;font-size:20px}
-.offer-card h4{margin:0 0 4px;font-size:14px}.offer-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.4}
-.offer-card .arrow{margin-left:auto;color:#9aa8b8;font-size:20px}
-.badge{font-size:9px;padding:4px 7px;border-radius:99px;background:#eef2f7;color:#6d7c8e;font-weight:800}
-.revu-card{padding:17px;border:1px solid #d8e7fa;background:#f8fbff}.revu-card h4{margin:0 0 5px}.revu-card p{font-size:12px;line-height:1.5;color:var(--muted);margin:0 0 13px}
-.list-card{overflow:hidden}.list-row{display:flex;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid var(--line)}.list-row:last-child{border-bottom:0}.list-row b{font-size:12px}.list-row small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.positive{color:var(--green)}.negative{color:var(--red)}
+.quick .icon{font-size:21px;margin-bottom:6px}
+.quick small{display:block;color:var(--muted);font-size:10px;font-weight:600}
+.revu-card{padding:17px;border:1px solid #d8e7fa;background:#f8fbff}
+.revu-card h4{margin:0 0 5px}
+.revu-card p{font-size:12px;line-height:1.5;color:var(--muted);margin:0 0 13px}
+.list-card{overflow:hidden}
+.list-row{display:flex;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid var(--line)}
+.list-row:last-child{border-bottom:0}
+.list-row b{font-size:12px}
+.list-row small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.positive{color:var(--green)}.negative{color:var(--red)}
 .empty{padding:25px 15px;text-align:center;color:var(--muted);font-size:12px}
-.profile{display:flex;align-items:center;gap:13px;padding:17px}.profile-avatar{width:52px;height:52px;border-radius:50%;background:#e7f0ff;color:var(--blue);display:grid;place-items:center;font-size:18px;font-weight:900}.profile h3{margin:0 0 3px;font-size:15px}.profile p{margin:0;color:var(--muted);font-size:11px}
-.ref-card{padding:17px}.ref-code{display:flex;align-items:center;justify-content:space-between;background:#f6f9fd;padding:12px;border-radius:11px;margin-top:12px}.ref-code b{letter-spacing:1px}
+.profile{display:flex;align-items:center;gap:13px;padding:17px}
+.profile-avatar{width:52px;height:52px;border-radius:50%;background:#e7f0ff;color:var(--blue);display:grid;place-items:center;font-size:18px;font-weight:900}
+.profile h3{margin:0 0 3px;font-size:15px}
+.profile p{margin:0;color:var(--muted);font-size:11px}
+.ref-card{padding:17px}
+.ref-code{display:flex;align-items:center;justify-content:space-between;background:#f6f9fd;padding:12px;border-radius:11px;margin-top:12px}
+.ref-code b{letter-spacing:1px}
 .bottom{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
-.nav{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.nav button{border:0;background:transparent;color:#8492a3;padding:7px 2px;border-radius:10px;font-size:10px;font-weight:700}.nav button.active{color:var(--blue);background:#edf4ff}.nav i{display:block;font-style:normal;font-size:18px;margin-bottom:3px}
-.modal{position:fixed;inset:0;background:rgba(11,25,42,.48);z-index:60;display:none;align-items:flex-end;justify-content:center;padding:12px}.modal.show{display:flex}.modal-box{width:min(500px,100%);background:#fff;border-radius:20px;padding:19px;max-height:90vh;overflow:auto}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.modal-head h3{margin:0;font-size:16px}.close{border:0;background:#f1f4f8;width:32px;height:32px;border-radius:50%;font-size:18px}
-.install{position:fixed;inset:0;background:rgba(11,25,42,.52);z-index:80;display:none;align-items:center;justify-content:center;padding:20px}.install.show{display:flex}.install-box{width:min(420px,100%);background:#fff;border-radius:20px;padding:22px}.install-box h3{margin:0 0 7px}.install-box p{font-size:12px;line-height:1.5;color:var(--muted)}
-.spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-3px;margin-right:6px}@keyframes spin{to{transform:rotate(360deg)}}
+.nav{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.nav button{border:0;background:transparent;color:#8492a3;padding:7px 2px;border-radius:10px;font-size:10px;font-weight:700}
+.nav button.active{color:var(--blue);background:#edf4ff}
+.nav i{display:block;font-style:normal;font-size:18px;margin-bottom:3px}
+.modal{position:fixed;inset:0;background:rgba(11,25,42,.48);z-index:60;display:none;align-items:flex-end;justify-content:center;padding:12px}
+.modal.show{display:flex}
+.modal-box{width:min(500px,100%);background:#fff;border-radius:20px;padding:19px;max-height:90vh;overflow:auto}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.modal-head h3{margin:0;font-size:16px}
+.close{border:0;background:#f1f4f8;width:32px;height:32px;border-radius:50%;font-size:18px}
+.install{position:fixed;inset:0;background:rgba(11,25,42,.52);z-index:80;display:none;align-items:center;justify-content:center;padding:20px}
+.install.show{display:flex}
+.install-box{width:min(420px,100%);background:#fff;border-radius:20px;padding:22px}
+.install-box h3{margin:0 0 7px}
+.install-box p{font-size:12px;line-height:1.5;color:var(--muted)}
+.spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-3px;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
 @media(min-width:700px){.modal{align-items:center}.main{padding-top:24px}}
 </style>
 </head>
@@ -85,24 +118,74 @@ button{cursor:pointer}
       </div>
       <div id="authMessage"></div>
 
+      <!-- LOGIN -->
       <form id="loginForm" onsubmit="submitLogin(event)">
-        <div class="field"><label>Phone number</label><input id="loginPhone" autocomplete="tel" placeholder="07..." required></div>
-        <div class="field"><label>Password</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Your password" required></div>
+        <div class="field">
+          <label>Username or email</label>
+          <input id="loginIdentifier" autocomplete="username" placeholder="username or you@example.com" required>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Your password" required>
+        </div>
         <button class="primary" id="loginBtn">Login</button>
       </form>
 
-      <form id="registerForm" class="hidden" onsubmit="submitRegister(event)">
-        <div class="field"><label>Full name</label><input id="regName" autocomplete="name" required></div>
-        <div class="field"><label>Phone number</label><input id="regPhone" autocomplete="tel" placeholder="07..." required></div>
-        <div class="field"><label>Email <span style="font-weight:400;color:#9aa7b6">(optional)</span></label><input id="regEmail" type="email" autocomplete="email"></div>
-        <div class="field"><label>Date of birth</label><input id="regDob" type="date" autocomplete="bday" required><div style="font-size:10px;color:#718096;margin-top:5px">You must be 18 years or older to create a SCHOOL BUCKS account and use RevU.</div></div>
-        <div class="field"><label>Password</label><input id="regPassword" type="password" autocomplete="new-password" minlength="6" required></div>
-        <div class="field"><label>Referral code <span style="font-weight:400;color:#9aa7b6">(optional)</span></label><input id="regReferral" maxlength="12"></div>
-        <label class="terms-check"><input id="termsAccepted" type="checkbox" required><span>I have read and agree to the <button type="button" class="terms-link" onclick="openTerms()">Terms and Conditions</button>.</span></label>
-        <div id="termsMessage"></div>
-        <button class="primary" id="registerBtn">Create account</button>
-        <div class="notice">SCHOOL BUCKS is strictly for users who are 18 years or older. Your date of birth is required for age verification. You must also meet the requirements of our reward providers and applicable laws. Offer availability varies by country, device and advertiser. Rewards are subject to provider verification and may be reversed.</div>
-      </form>
+      <!-- REGISTER (two-step: request OTP, then verify + register) -->
+      <div id="registerForm" class="hidden">
+
+        <!-- STEP 1 -->
+        <div id="regStep1">
+          <div class="field">
+            <label>Full name</label>
+            <input id="regName" autocomplete="name" placeholder="Your full name">
+          </div>
+          <div class="field">
+            <label>Username</label>
+            <input id="regUsername" autocomplete="username" placeholder="letters, numbers, dot, underscore">
+            <div style="font-size:10px;color:#718096;margin-top:5px">3–20 characters. Letters, numbers, dot and underscore only.</div>
+          </div>
+          <div class="field">
+            <label>Email address</label>
+            <input id="regEmail" type="email" autocomplete="email" placeholder="you@example.com">
+            <div style="font-size:10px;color:#718096;margin-top:5px">We'll send a 6-digit verification code to this address.</div>
+          </div>
+          <div class="field">
+            <label>Date of birth</label>
+            <input id="regDob" type="date" autocomplete="bday">
+            <div style="font-size:10px;color:#718096;margin-top:5px">You must be 18 years or older to create a SCHOOL BUCKS account and use RevU.</div>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input id="regPassword" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters">
+          </div>
+          <div class="field">
+            <label>Referral code <span style="font-weight:400;color:#9aa7b6">(optional)</span></label>
+            <input id="regReferral" maxlength="12">
+          </div>
+          <label class="terms-check">
+            <input id="termsAccepted" type="checkbox">
+            <span>I have read and agree to the <button type="button" class="terms-link" onclick="openTerms()">Terms and Conditions</button>.</span>
+          </label>
+          <button class="primary" id="sendOtpBtn" type="button" onclick="submitRequestOtp()">Send verification code</button>
+          <div class="notice">SCHOOL BUCKS is strictly for users who are 18 years or older. Your date of birth is required for age verification. You must also meet the requirements of our reward providers and applicable laws. Offer availability varies by country, device and advertiser. Rewards are subject to provider verification and may be reversed.</div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div id="regStep2" class="hidden">
+          <div class="info" id="otpSentInfo"></div>
+          <div class="field">
+            <label>6-digit verification code</label>
+            <input id="regOtp" inputmode="numeric" maxlength="6" placeholder="000000" style="letter-spacing:6px;text-align:center;font-weight:800;font-size:20px">
+          </div>
+          <button class="primary" id="verifyOtpBtn" type="button" onclick="submitVerifyOtp()">Verify &amp; create account</button>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="secondary" type="button" style="flex:1" onclick="backToRegStep1()">Edit details</button>
+            <button class="secondary" type="button" style="flex:1" id="resendOtpBtn" onclick="submitRequestOtp(true)">Resend code</button>
+          </div>
+          <div class="notice">Check your inbox and spam folder. The code expires in 10 minutes.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -125,6 +208,8 @@ button{cursor:pointer}
         <div class="balance-row"><button onclick="showPage('wallet')">View wallet</button><button onclick="openWithdraw()">Withdraw</button></div>
       </div>
 
+      <div id="balanceNote" class="hidden notice" style="margin-top:12px"></div>
+
       <div class="section-head"><h3>Quick actions</h3></div>
       <div class="quick-grid">
         <button class="quick" onclick="showPage('earn')"><div class="icon">🎯</div>Earn<small>Find offers</small></button>
@@ -141,11 +226,6 @@ button{cursor:pointer}
 
       <div class="section-head"><h3>Recent activity</h3></div>
       <div class="card list-card" id="homeActivity"><div class="empty">No activity yet.</div></div>
-
-      <div id="homeLeaderboard" class="hidden">
-        <div class="section-head"><h3>Top earners</h3><span>Verified activity</span></div>
-        <div class="card list-card" id="leaderboard"></div>
-      </div>
     </section>
 
     <section id="page-wallet" class="hidden">
@@ -187,7 +267,7 @@ button{cursor:pointer}
       <div class="greeting"><div><h2>Profile</h2><p>Your SCHOOL BUCKS account.</p></div></div>
       <div class="card profile">
         <div class="profile-avatar" id="profileAvatar">SB</div>
-        <div><h3 id="profileName">—</h3><p id="profilePhone">—</p><p id="profileEmail">—</p></div>
+        <div><h3 id="profileName">—</h3><p id="profileUsername">—</p><p id="profileEmail">—</p></div>
       </div>
       <div class="section-head"><h3>Referral</h3></div>
       <div class="card ref-card">
@@ -248,12 +328,15 @@ button{cursor:pointer}
     <h3>Install SCHOOL BUCKS</h3>
     <p>Add SCHOOL BUCKS to your home screen for quicker access.</p>
     <p id="installInstructions">On supported browsers, use the browser's install option. On iPhone/iPad, use Share → Add to Home Screen.</p>
-    <div style="display:flex;gap:8px;margin-top:16px"><button class="primary" onclick="installPWA()">Install</button><button class="secondary" onclick="closeInstall()">Not now</button></div>
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <button class="primary" onclick="installPWA()">Install</button>
+      <button class="secondary" onclick="closeInstall()">Not now</button>
+    </div>
   </div>
 </div>
 
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbyzqTjgUhd1ZjDPeu47pxiVLM5YVMsIduUvhAeElxjG9CYf5YVCvs-T7CRBkEBO_Tw/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbx6DcCn0DYn_zxs3nOgZOAuYBVWyjBPKwbaGv-XL8oANx7UcYIW1vmUqrxgSuaAnlSyqw/exec";
 const APP_URL="https://schoolbucks.vercel.app/";
 const TOKEN_KEY="schoolbucks_token";
 const USER_KEY="schoolbucks_user";
@@ -264,12 +347,12 @@ let currentWallet=null;
 let deferredPrompt=null;
 let referralFromURL=(new URLSearchParams(location.search).get("ref")||"").trim().toUpperCase();
 let activeTermsVersion="";
+let pendingRegistration=null;
 
 (function setDobLimit(){
-  const dob=$("regDob");
+  const dob=document.getElementById("regDob");
   if(!dob)return;
-  const d=new Date();
-  d.setFullYear(d.getFullYear()-18);
+  const d=new Date();d.setFullYear(d.getFullYear()-18);
   dob.max=d.toISOString().slice(0,10);
 })();
 
@@ -299,23 +382,16 @@ async function api(action,data={}){
 }
 
 function handleInvalidSession(){
-  authToken="";
-  currentUser=null;
-  currentWallet=null;
-  localStorage.removeItem(TOKEN_KEY);
-  localStorage.removeItem(USER_KEY);
+  authToken="";currentUser=null;currentWallet=null;
+  localStorage.removeItem(TOKEN_KEY);localStorage.removeItem(USER_KEY);
   $("appScreen").classList.add("hidden");
   $("authScreen").classList.remove("hidden");
   switchAuth("login");
   showAuthMessage("Your session has expired. Please log in again.","error");
 }
 
-function showAuthMessage(message,type="error"){
-  $("authMessage").innerHTML='<div class="'+type+'">'+escapeHtml(message)+'</div>';
-}
-function showMessage(id,message,type="error"){
-  $(id).innerHTML='<div class="'+type+'">'+escapeHtml(message)+'</div>';
-}
+function showAuthMessage(message,type="error"){$("authMessage").innerHTML='<div class="'+type+'">'+escapeHtml(message)+'</div>'}
+function showMessage(id,message,type="error"){$(id).innerHTML='<div class="'+type+'">'+escapeHtml(message)+'</div>'}
 function clearMessage(id){if($(id))$(id).innerHTML=""}
 
 function switchAuth(mode){
@@ -325,6 +401,7 @@ function switchAuth(mode){
   $("loginTab").classList.toggle("active",login);
   $("registerTab").classList.toggle("active",!login);
   clearMessage("authMessage");
+  if(!login) backToRegStep1();
 }
 
 async function submitLogin(e){
@@ -332,7 +409,10 @@ async function submitLogin(e){
   const btn=$("loginBtn");btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Logging in';
   clearMessage("authMessage");
   try{
-    const result=await api("login",{phone:$("loginPhone").value,password:$("loginPassword").value});
+    const result=await api("login",{
+      identifier:$("loginIdentifier").value.trim(),
+      password:$("loginPassword").value
+    });
     if(!result.success){showAuthMessage(result.error||"Login failed.");return}
     authToken=result.token;currentUser=result.user;
     localStorage.setItem(TOKEN_KEY,authToken);localStorage.setItem(USER_KEY,JSON.stringify(currentUser));
@@ -341,30 +421,97 @@ async function submitLogin(e){
   finally{btn.disabled=false;btn.textContent="Login"}
 }
 
-async function submitRegister(e){
-  e.preventDefault();
-  const btn=$("registerBtn");btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Creating account';
+function backToRegStep1(){
+  $("regStep1").classList.remove("hidden");
+  $("regStep2").classList.add("hidden");
+}
+
+async function submitRequestOtp(isResend){
   clearMessage("authMessage");
+  const name=$("regName").value.trim();
+  const username=$("regUsername").value.trim();
+  const email=$("regEmail").value.trim();
+  const dob=$("regDob").value;
+  const password=$("regPassword").value;
+  const referral=$("regReferral").value.trim()||referralFromURL;
+  const termsOk=$("termsAccepted").checked;
+
+  if(!name){showAuthMessage("Please enter your full name.");return}
+  if(!/^[a-zA-Z0-9_.]{3,20}$/.test(username)){showAuthMessage("Username must be 3–20 characters using letters, numbers, dot or underscore.");return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showAuthMessage("Please enter a valid email address.");return}
+  if(!dob){showAuthMessage("Please enter your date of birth.");return}
+  if(password.length<6){showAuthMessage("Password must be at least 6 characters.");return}
+  if(!termsOk){showAuthMessage("Please read and agree to the Terms and Conditions first.");return}
+  if(!activeTermsVersion){
+    try{
+      const t=await api("get_terms");
+      if(t.success)activeTermsVersion=String(t.version||"1.0");
+    }catch(e){}
+  }
+
+  const btn=$("sendOtpBtn");const rbtn=$("resendOtpBtn");
+  if(!isResend){btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Sending code'}
+  if(rbtn){rbtn.disabled=true}
+
   try{
-    if(!$('termsAccepted').checked){showAuthMessage("Please read and agree to the Terms and Conditions before creating your account.");return}
-    if(!activeTermsVersion){
-      const termsResult=await api("get_terms");
-      if(!termsResult.success)throw new Error("Unable to verify the current Terms and Conditions. Please open the Terms and Conditions link and try again.");
-      activeTermsVersion=String(termsResult.version||"1.0");
-    }
-    const referral=$("regReferral").value.trim()||referralFromURL;
-    const result=await api("register",{
-      name:$("regName").value.trim(),phone:$("regPhone").value.trim(),
-      email:$("regEmail").value.trim(),date_of_birth:$("regDob").value,
-      password:$("regPassword").value,referral_code:referral,
-      terms_accepted:$('termsAccepted').checked,terms_version:activeTermsVersion,user_agent:navigator.userAgent
+    const result=await api("request_otp",{
+      name:name,username:username,email:email,ip_address:"",user_agent:navigator.userAgent
     });
-    if(!result.success){showAuthMessage(result.error||"Registration failed.");return}
+    if(!result.success){
+      showAuthMessage(result.error||"Could not send verification code.");
+      return;
+    }
+    pendingRegistration={name,username,email,dob,password,referral,terms_version:activeTermsVersion};
+    $("otpSentInfo").textContent="We sent a 6-digit code to "+email+". It expires in "+result.expires_in_minutes+" minutes. Check your spam folder if you don't see it.";
+    $("regStep1").classList.add("hidden");
+    $("regStep2").classList.remove("hidden");
+    $("regOtp").value="";
+    $("regOtp").focus();
+    clearMessage("authMessage");
+  }catch(err){
+    showAuthMessage(err.message||"Could not send verification code.");
+  }finally{
+    if(!isResend){btn.disabled=false;btn.textContent="Send verification code"}
+    if(rbtn)rbtn.disabled=false;
+  }
+}
+
+async function submitVerifyOtp(){
+  clearMessage("authMessage");
+  if(!pendingRegistration){showAuthMessage("Please fill in your details and request a code first.");return}
+  const otp=$("regOtp").value.trim();
+  if(!/^\d{6}$/.test(otp)){showAuthMessage("Enter the 6-digit code from your email.");return}
+
+  const btn=$("verifyOtpBtn");btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Verifying';
+  try{
+    const result=await api("verify_otp_and_register",{
+      name:pendingRegistration.name,
+      username:pendingRegistration.username,
+      email:pendingRegistration.email,
+      otp:otp,
+      password:pendingRegistration.password,
+      date_of_birth:pendingRegistration.dob,
+      referral_code:pendingRegistration.referral,
+      terms_accepted:true,
+      terms_version:pendingRegistration.terms_version,
+      user_agent:navigator.userAgent
+    });
+    if(!result.success){
+      showAuthMessage(result.error||"Verification failed.");
+      if(result.code==="OTP_INVALID"||result.code==="OTP_EXPIRED"||result.code==="OTP_ATTEMPTS"){
+        $("regOtp").value="";
+      }
+      return;
+    }
     authToken=result.token;currentUser=result.user;
     localStorage.setItem(TOKEN_KEY,authToken);localStorage.setItem(USER_KEY,JSON.stringify(currentUser));
+    pendingRegistration=null;
     await openApp();
-  }catch(err){showAuthMessage(err.message||"Unable to connect to SCHOOL BUCKS.")}
-  finally{btn.disabled=false;btn.textContent="Create account"}
+  }catch(err){
+    showAuthMessage(err.message||"Verification failed.");
+  }finally{
+    btn.disabled=false;btn.textContent="Verify & create account";
+  }
 }
 
 async function openTerms(){
@@ -407,9 +554,7 @@ async function loadDashboard(initial=false){
     const result=await api("dashboard");
     if(!result.success){
       if(result.code==="SESSION_INVALID"){handleInvalidSession();return false}
-      if(initial){
-        showMessage("homeMessage",result.error||"We could not load your account.");
-      }
+      if(initial){showMessage("homeMessage",result.error||"We could not load your account.")}
       return false;
     }
     currentUser=result.user;currentWallet=result.wallet;
@@ -417,7 +562,6 @@ async function loadDashboard(initial=false){
     renderUser();renderWallet();renderActivity(result.recent_activity||[]);
     return true;
   }catch(err){
-    // Network/server outages must NOT log the user out.
     if(initial)showMessage("homeMessage",err.message||"Unable to load your account right now.");
     return false;
   }
@@ -437,11 +581,21 @@ function renderUser(){
   const name=currentUser.name||"Member";
   $("greeting").textContent="Good day, "+name.split(" ")[0];
   $("profileName").textContent=name;
-  $("profilePhone").textContent=currentUser.phone||"";
-  $("profileEmail").textContent=currentUser.email||"No email added";
+  $("profileUsername").textContent="@"+(currentUser.username||"");
+  $("profileEmail").textContent=currentUser.email||"";
   $("refCode").textContent=currentUser.referral_code||"—";
   $("shareCode").value=currentUser.referral_code||"";
   const init=initials(name);$("avatarBtn").textContent=init;$("profileAvatar").textContent=init;
+
+  const note=$("balanceNote");
+  if(currentUser.balance_note){
+    note.textContent=currentUser.balance_note;
+    note.classList.remove("hidden");
+    note.classList.remove("notice");
+    note.classList.add("error");
+  }else{
+    note.classList.add("hidden");
+  }
 }
 
 function renderWallet(){
@@ -510,7 +664,7 @@ function openRevU(){
 function openWithdraw(){
   clearMessage("withdrawMessage");
   $("withdrawAmount").value="";
-  $("withdrawNumber").value=currentUser?.phone||"";
+  $("withdrawNumber").value="";
   $("withdrawModal").classList.add("show");
 }
 function openReferral(){
@@ -548,7 +702,8 @@ async function copyReferral(){
   }
 }
 
-function logout(){
+async function logout(){
+  try{ if(authToken) await api("logout"); }catch(e){}
   authToken="";currentUser=null;currentWallet=null;
   localStorage.removeItem(TOKEN_KEY);localStorage.removeItem(USER_KEY);
   $("appScreen").classList.add("hidden");$("authScreen").classList.remove("hidden");
@@ -558,7 +713,8 @@ function logout(){
 
 window.addEventListener("beforeinstallprompt",e=>{
   e.preventDefault();deferredPrompt=e;
-  if(!window.matchMedia("(display-mode: standalone)").matches)setTimeout(()=>$("installPrompt").classList.add("show"),1200);
+  if(!window.matchMedia("(display-mode: standalone)").matches)
+    setTimeout(()=>$("installPrompt").classList.add("show"),1200);
 });
 function installPWA(){
   if(deferredPrompt){
@@ -568,7 +724,8 @@ function installPWA(){
 }
 function closeInstall(){$("installPrompt").classList.remove("show")}
 
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
+if("serviceWorker" in navigator)
+  window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
 
 (async function startup(){
   if(referralFromURL){
@@ -577,9 +734,8 @@ if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.ser
     $("regReferral").value=referralFromURL;
     return;
   }
-  if(authToken){
-    await openApp();
-  }else{
+  if(authToken){ await openApp(); }
+  else{
     $("authScreen").classList.remove("hidden");$("appScreen").classList.add("hidden");
   }
 })();
